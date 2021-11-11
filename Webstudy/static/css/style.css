@@ -1,0 +1,31 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+.page-background {
+    background-color: #E6EDF2;
+}
+
+.card-header {
+    background: #004B8B;
+}
+
+.btn-accept-terms {
+    color: white !important;
+    background-color: #004B8B;
+}
+
+.index-header {
+    color: #004B8B;
+}
+
+footer {
+    margin-top: 5%;
+    color: black;
+}

@@ -3,35 +3,112 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <meta content="" name="description">
-  <meta content="" name="author">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>WebSurvey</title>
 
-  {% load static %}
-  <title>WebStudy</title>
+    {% load static %}
 
-  <!-- Bootstrap core CSS -->
-  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/clipboard_survey_icon.ico' %}"/>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
-  <!-- Custom fonts for this template-->
-  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body class="page-background">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+    <a class="navbar-brand" href="#">
+        <img src="{% static 'img/clipboard_survey_icon_huge.png' %}" width="30" height="30" class="d-inline-block align-top"
+             alt="">
+        WebSurvey
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <!-- Navigation -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-  <!-- Page Content -->
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 class="mt-5 index-header">Welcome to WebSurvey</h1>
+        </div>
+    </div>
+</div>
+<br>
 
-  <p>Hello World!</p>
+<div class="container">
+    <div class="card">
+        <div class="card-header text-white">
+            Participation information
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <b>Participation information</b><br>
+                Welcome to our survey!
 
+                Your data will be stored and processed anonymously only. More information on data protection can be
+                found in the data protection notes. This study is conducted by Julia Schulz as part of her master thesis
+                at DFKI (German Research Center for Artificial Intelligence) and UdS (Saarland University). For
+                questions or comments, contact us at:<br>
+                <b>s8juschu@stud.uni-saarland.de</b>.<br><br>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="{% static '/vendor/jquery/jquery.slim.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+                <b>Notes on data protection and participation information:</b><br>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="checkbox" autocomplete="off"> I have read and understood the information on data protection and the participation information and agree
+                that my data may be used anonymously for scientific research purposes. <br>
+                </div>
 
+            </p>
+        </div>
+        <div class="modal-footer" id="accept" style="display: none;">
+            <a class="btn btn-accept-terms" style="">Continue</a>
+        </div>
+    </div>
+</div>
+
+{##}
+{#{% if messages %}#}
+{#{% for message in messages %}#}
+{#<script>alert("{{ message }}");</script>#}
+{#{% endfor %}#}
+{##}
+{#{% endif %}#}
+
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">
+        <a href="legalnotice"> <b>Legal Notice</b> </a>
+    </div>
+    <!-- Copyright -->
+
+</footer>
+
+<script src="{% static 'js/script.js' %}"></script>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'vendor/jquery/jquery.slim.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 
 </html>
