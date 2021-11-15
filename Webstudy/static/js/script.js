@@ -1,10 +1,9 @@
 document.getElementById('checkbox').onclick = function () {
-    console.log("here");
     toggleSub(this, 'accept');
 };
 
 function toggleSub(box, id) {
-    var el = document.getElementById(id);
+    let el = document.getElementById(id);
 
     if (box.checked) {
         el.style.display = 'block';
@@ -12,3 +11,15 @@ function toggleSub(box, id) {
         el.style.display = 'none';
     }
 }
+
+$('input').on('click', function(){
+  let valeur = 0;
+  $('input:checked').each(function(){
+       if ( $(this).attr('value') > valeur )
+       {
+           valeur =  $(this).attr('value');
+       }
+  });
+  $('.progress-bar').css('width', valeur+'%').attr('aria-valuenow', valeur);
+  $('.progress-text').text(valeur+"%");
+});
