@@ -5,7 +5,6 @@
     <div class="row">
         <div class="col-lg-12 text-center">
             <h1 class="mt-5 page-header">Welcome to WebSurvey</h1>
-{#            <p>You have visited this page {{ page_nr }} time</p>#}
         </div>
     </div>
 </div>
@@ -59,6 +58,10 @@
                 {{ card.image }}
             </p>
             <br>
+            <div class="form-group">
+                <label for="textarea{{ card.id }}">Answer:</label>
+                <textarea class="form-control" id="textarea{{ card.id }}" rows="3" placeholder="Enter your answer"></textarea>
+            </div>
         </div>
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
@@ -83,9 +86,6 @@
             </p>
             <br>
         </div>
-{#        <div class="modal-footer" id="btn-next">#}
-{#            <a class="btn btn-next"> Continue</a>#}
-{#        </div>#}
     </div>
 </div>
 {% endblock %}

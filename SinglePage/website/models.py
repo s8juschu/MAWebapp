@@ -9,9 +9,17 @@ class Study(models.Model):
         return self.name
 
 
+class Answer(models.Model):
+    answer = models.CharField(max_length=128)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    study = models.ForeignKey(Study, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.answer
+
+
 class Questionnaire(models.Model):
     name = models.CharField(max_length=128)
-    session = models.ForeignKey(Session, on_delete=models.SET_NULL, blank=True, null=True)
     study = models.ForeignKey(Study, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -21,6 +29,7 @@ class Questionnaire(models.Model):
 class Question(models.Model):
     answer = models.CharField(max_length=128)
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.answer

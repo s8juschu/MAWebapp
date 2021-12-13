@@ -1,6 +1,6 @@
 let maxValue = "5";
-// let progressCounter = 0;
 
+// On page load, display correct page & progress
 $(document).ready(function() {
     // executes when HTML-Document is loaded and DOM is ready
     for (let i = 0; i < cardCounter; i++) {
@@ -12,7 +12,7 @@ $(document).ready(function() {
     }
 });
 
-// Display Continue only if check on first card
+// Display Continue btn only if check on first card
 document.getElementById('checkbox').onclick = function () {
     toggleSub(this, 'accept');
 };
@@ -27,9 +27,8 @@ function toggleSub(box, id) {
     }
 }
 
-// //Fill progressbar
+//Fill progressbar
 function fillProgress(){
-    console.log(progressCounter);
     if(progressCounter < 100) {
         progressCounter += (100/maxValue);
         if(progressCounter > 100) {
@@ -70,11 +69,15 @@ function getCookie(name) {
 
 let csrfToken = getCookie('csrftoken');
 
+// Save current page & counter
+// Save answer
 function setSession() {
-    console.log(progressCounter);
     let parameters = {};
     parameters.page = cardCounter;
     parameters.progress = progressCounter;
+    if ( 0 < cardCounter < maxValue){
+        parameters.answer = $('#textarea' + (cardCounter-1)).val();
+    }
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/website/saveSession', true);
