@@ -1,50 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta content="" name="description">
-    <meta content="" name="author">
-    <title>WebSurvey</title>
-
-    {% load static %}
-
-    <link rel="icon" type="image/x-icon" href="{% static 'img/clipboard_survey_icon.ico' %}"/>
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-
-    <!-- Custom fonts for this template-->
-    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-</head>
-
-<body class="page-background">
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
-    <a class="navbar-brand" href="#">
-        <img src="{% static 'img/clipboard_survey_icon_huge.png' %}" width="30" height="30" class="d-inline-block align-top"
-             alt="">
-        WebSurvey
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
+{% extends "base.html" %}
+{% block content %}
 <!-- Page Content -->
 <div class="container">
     <div class="row">
@@ -54,11 +9,11 @@
     </div>
 </div>
 <br>
-
-<div class="container">
+{% for card in cards %}
+<div class="container" id="card0">
     <div class="card">
         <div class="card-header text-white">
-            Participation information
+            {{ card.title }}
         </div>
 {#        <progress value="70" max="100">70 %</progress>#}
         <div class="progress">
@@ -85,38 +40,15 @@
                 </div>
 
             </p>
+
+            {{ card.text }}
+            <br>
+            {{ card.image }}
         </div>
         <div class="modal-footer" id="accept" style="display: none;">
-            <a class="btn btn-accept-terms" style="">Continue</a>
+            <a class="btn btn-accept-terms" href="page1">Continue</a>
         </div>
     </div>
 </div>
-
-{##}
-{#{% if messages %}#}
-{#{% for message in messages %}#}
-{#<script>alert("{{ message }}");</script>#}
-{#{% endfor %}#}
-{##}
-{#{% endif %}#}
-
-<!-- Footer -->
-<footer class="page-footer font-small blue">
-
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">
-        <a href="legalnotice"> <b>Legal Notice</b> </a>
-    </div>
-    <!-- Copyright -->
-
-</footer>
-
-<!-- Bootstrap core JavaScript -->
-<script src="{% static 'vendor/jquery/jquery.slim.min.js' %}"></script>
-<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-<script src="{% static 'js/script.js' %}"></script>
-
-</body>
-
-</html>
+{% endfor %}
+{% endblock %}

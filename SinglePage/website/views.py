@@ -43,7 +43,7 @@ def index(request):
     progress = request.session.get('progress', '0')
     print(progress)
     print(page_nr)
-    if page_nr == 6:
+    if page_nr == card_count:
         request.session['page_nr'] = 0
         page_nr = request.session['page_nr']
         request.session['progress'] = 0
