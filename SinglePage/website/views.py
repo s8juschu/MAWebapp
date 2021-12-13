@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from .models import Study, Questionnaire, Question, Answer
 from django.contrib.sessions.models import Session
@@ -40,7 +41,7 @@ cards = [
     },
 ]
 
-
+@ensure_csrf_cookie
 def index(request):
     card_count = 6
     page_nr = request.session.get('page_nr', '0')
@@ -55,7 +56,7 @@ def index(request):
     return render(request, 'index.html',
                   context={"cards": cards, "page_nr": page_nr, "card_count": card_count, "progress": progress})
 
-
+@ensure_csrf_cookie
 def saveSession(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
@@ -73,6 +74,7 @@ def saveSession(request):
     if 'answer' in parameterinfo:
         study = Study.objects.get(pk=study_id)
         session = Session.objects.get(session_key=request.session.session_key)
+        print(session)
         answer = parameterinfo["answer"]
         print("Value:" + answer)
         answer_model = Answer()
@@ -81,4 +83,6 @@ def saveSession(request):
         answer_model.session = session
         answer_model.save()
 
+        print(Answer.objects.all())
+        print(Session.objects.all())
     return HttpResponse(200)
