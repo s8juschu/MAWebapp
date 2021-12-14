@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import messages
 import json
@@ -7,7 +7,6 @@ from .models import Study, Questionnaire, Question, Answer
 from django.contrib.sessions.models import Session
 
 study_id = 1  # TestStudy
-
 
 cards = [
     {
@@ -42,6 +41,7 @@ cards = [
     },
 ]
 
+
 @ensure_csrf_cookie
 def index(request):
     # Nr of Tasks
@@ -56,6 +56,7 @@ def index(request):
         progress = request.session['progress']
     return render(request, 'index.html',
                   context={"cards": cards, "page_nr": page_nr, "card_count": card_count, "progress": progress})
+
 
 @ensure_csrf_cookie
 def saveSession(request):
@@ -76,7 +77,7 @@ def saveSession(request):
         study = Study.objects.get(pk=study_id)
         session = Session.objects.get(session_key=request.session.session_key)
         print(session)
-        question_nr_exist = Answer.objects.filter(question_nr=current_page).exists()
+        question_nr_exist = Answer.objects.filter(question_nr=current_page, session=session).exists()
         if not question_nr_exist:
             answer = parameterinfo["answer"]
             answer_model = Answer()
@@ -91,3 +92,21 @@ def saveSession(request):
         else:
             print("Already done that task. Not saved.")
     return HttpResponse(200)
+
+
+def evaluation(request):
+    if request.user.is_superuser:
+        array = []
+        sessions = Session.objects.all()
+        print(sessions[1])
+        for r in request.session.items():
+            print(r)
+        # for session in sessions:
+        #     if Answer.objects.filter(session=session.session_key).exists():
+        #         answer = Answer.objects.get(session=id)
+        #         array.append(answer)
+        #         return render(request, 'eval.html', context={"array": array})
+        #     else:
+        return render(request, 'eval.html', context={"sessions": sessions})
+    else:
+        return HttpResponseRedirect(reverse('index'))
