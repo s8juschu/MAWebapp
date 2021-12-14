@@ -10,6 +10,7 @@ class Study(models.Model):
 
 
 class Answer(models.Model):
+    question_nr = models.IntegerField()
     answer = models.CharField(max_length=128)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     study = models.ForeignKey(Study, on_delete=models.CASCADE)
