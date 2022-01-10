@@ -6,5 +6,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('index', views.index, name='index'),
     path('eval', views.evaluation, name='eval'),
-    path('saveSession', views.saveSession, name='saveSession')
+    path('saveSession', views.saveSession, name='saveSession'),
+    path('saveIMI', views.saveIMI, name='saveIMI'),
+    path('savePXI', views.savePXI, name='savePXI')
 ]

@@ -16,10 +16,13 @@ def get_question(self):
 
 @ensure_csrf_cookie
 def index(request):
-    tasks = Task.objects.all()
-    # tasks = Task.objects.objects.filter(swimmer=swimmer)
-    task_count = tasks.count()
-    print("# tasks:" + str(task_count))
+    pre_tasks = Task.objects.filter(task_set__name__contains="Pre")
+    task_count = pre_tasks.count()
+    print("# pre tasks:" + str(task_count))
+
+    main_tasks = Task.objects.filter(task_set__name__contains="Main")
+    task_count = main_tasks.count()
+    print("#  main tasks:" + str(task_count))
 
     # question_count = 0
     # questionnaires = Questionnaire.objects.filter(study=study_id)
@@ -34,16 +37,16 @@ def index(request):
 
     page_nr = request.session.get('page_nr', '0')
     progress = request.session.get('progress', '0')
+
     # TODO delete whole IF
     print(page_nr)
-    print(task_count)
     if page_nr == overall_count or page_nr > overall_count:
         request.session['page_nr'] = 0
         page_nr = request.session['page_nr']
         request.session['progress'] = 0
         progress = request.session['progress']
     return render(request, 'index.html',
-                  context={"tasks": tasks, "task_count": task_count, "page_nr": page_nr, "overall_count": overall_count, "progress": progress})
+                  context={"pre_tasks": pre_tasks, "main_tasks": main_tasks, "page_nr": page_nr, "overall_count": overall_count, "progress": progress})
 
 
 @ensure_csrf_cookie
@@ -80,6 +83,18 @@ def saveSession(request):
         else:
             print("Already done that task. Not saved.")
     return HttpResponse(200)
+
+
+@ensure_csrf_cookie
+def saveIMI(request):
+    getparameterinfo = request.body.decode('utf-8')
+    parameterinfo = json.loads(getparameterinfo)
+
+
+@ensure_csrf_cookie
+def savePXI(request):
+    getparameterinfo = request.body.decode('utf-8')
+    parameterinfo = json.loads(getparameterinfo)
 
 
 def evaluation(request):

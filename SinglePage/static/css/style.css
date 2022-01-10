@@ -39,3 +39,65 @@ footer {
 .progress-bar{
     background-color: #006dcc;
 }
+
+/*Scales*/
+h1.likert-header {
+  padding-left:4.25%;
+  margin:20px 0 0;
+}
+.wrap .statement {
+  display:block;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 30px 0 0 4.25%;
+  margin-bottom:10px;
+}
+.wrap .likert {
+  list-style:none;
+  width:100%;
+  margin:0;
+  padding:0 0 35px;
+  display:block;
+  border-bottom:2px solid #efefef;
+}
+.wrap .likert:last-of-type {border-bottom:0;}
+.wrap .likert:before {
+  content: '';
+  position:relative;
+  top:11px;
+  left:9.5%;
+  display:block;
+  background-color:#efefef;
+  height:4px;
+  width:78%;
+}
+.wrap .likert li {
+  display:inline-block;
+  width:19%;
+  text-align:center;
+  vertical-align: top;
+}
+.wrap .likert li input[type=radio] {
+  display:block;
+  position:relative;
+  top:0;
+  left:50%;
+  margin-left:-6px;
+
+}
+.wrap .likert li label {width:100%;}
+.wrap .buttons {
+  margin:30px 0;
+  padding:0 4.25%;
+  text-align:right
+}
+.wrap .buttons button {
+  padding: 5px 10px;
+  background-color: #67ab49;
+  border: 0;
+  border-radius: 3px;
+}
+.wrap .buttons .clear {background-color: #e9e9e9;}
+.wrap .buttons .submit {background-color: #67ab49;}
+.wrap .buttons .clear:hover {background-color: #ccc;}
+.wrap .buttons .submit:hover {background-color: #14892c;}

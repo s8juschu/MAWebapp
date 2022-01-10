@@ -83,3 +83,27 @@ function setSession() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(parameters));
 }
+
+//Save values IMI
+function saveIMI(type) {
+    // let parameters = {};
+    // parameters.type = type;
+    // for (var i = 0; i < 5; i++) {
+    //    console.log($('input[name=scale'+i+']:checked').val());
+    // }
+    //
+    // var rep1 =
+    // let xhr = new XMLHttpRequest();
+    // xhr.open("POST", '/website/saveIMI', true);
+    // xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    // xhr.setRequestHeader('Content-Type', 'application/json');
+    // xhr.send(JSON.stringify(parameters));
+
+}
+
+//Save values PXI
+function savePXI(type) {
+        for (var i = 0; i < 5; i++) {
+       console.log($('input[name=scale'+i+']:checked').val());
+    }
+}

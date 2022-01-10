@@ -24,7 +24,7 @@ class TaskSet(models.Model):
 class Task(models.Model):
     task_text = models.CharField(max_length=200)
     task_set = models.ForeignKey(TaskSet, on_delete=models.CASCADE)
-    image_link = models.CharField(max_length=200,  default="")
+    image_link = models.CharField(max_length=200,  default="", blank=True)
 
     def __str__(self):
         return self.task_text
