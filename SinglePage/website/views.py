@@ -3,59 +3,47 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import messages
 import json
-from .models import Study, Questionnaire, Question, Answer
+from .models import Study, TaskSet, Task, Answer, Questionnaire, Question, Choice
 from django.contrib.sessions.models import Session
 
 study_id = 1  # TestStudy
+overall_count = 15 # Nr. of cards
 
-cards = [
-    {
-        "id": 1,
-        "title": "Question1",
-        "text": "INSERT TEXT",
-        "image": "INSERT IMG",
-    },
-    {
-        "id": 2,
-        "title": "Question2",
-        "text": "INSERT TEXT",
-        "image": "INSERT IMG",
-    },
-    {
-        "id": 3,
-        "title": "Question3",
-        "text": "INSERT TEXT",
-        "image": "INSERT IMG",
-    },
-    {
-        "id": 4,
-        "title": "Question4",
-        "text": "INSERT TEXT",
-        "image": "INSERT IMG",
-    },
-    {
-        "id": 5,
-        "title": "Question5",
-        "text": "INSERT TEXT",
-        "image": "INSERT IMG",
-    },
-]
+@property
+def get_question(self):
+    return Question.objects.filter(questionnaire=self.name)
 
 
 @ensure_csrf_cookie
 def index(request):
-    # Nr of Tasks
-    card_count = 6
+    tasks = Task.objects.all()
+    # tasks = Task.objects.objects.filter(swimmer=swimmer)
+    task_count = tasks.count()
+    print("# tasks:" + str(task_count))
+
+    # question_count = 0
+    # questionnaires = Questionnaire.objects.filter(study=study_id)
+    # for qs in questionnaires:
+    #     questions = Question.objects.filter(questionnaire=qs)
+    #     for q in questions:
+    #         question_count += 1
+    # print("# questions:" + str(question_count))
+
+    # questions = Question.objects.all()
+    # question_count = questions.count()
+
     page_nr = request.session.get('page_nr', '0')
     progress = request.session.get('progress', '0')
     # TODO delete whole IF
-    if page_nr == card_count:
+    print(page_nr)
+    print(task_count)
+    if page_nr == overall_count or page_nr > overall_count:
         request.session['page_nr'] = 0
         page_nr = request.session['page_nr']
         request.session['progress'] = 0
         progress = request.session['progress']
     return render(request, 'index.html',
-                  context={"cards": cards, "page_nr": page_nr, "card_count": card_count, "progress": progress})
+                  context={"tasks": tasks, "task_count": task_count, "page_nr": page_nr, "overall_count": overall_count, "progress": progress})
 
 
 @ensure_csrf_cookie
@@ -107,6 +95,7 @@ def evaluation(request):
         #         array.append(answer)
         #         return render(request, 'eval.html', context={"array": array})
         #     else:
-        return render(request, 'eval.html', context={"sessions": sessions})
+        #         return HttpResponseRedirect(reverse('index'))
+        # return render(request, 'eval.html', context={"sessions": sessions})
     else:
         return HttpResponseRedirect(reverse('index'))

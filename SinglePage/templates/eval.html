@@ -8,13 +8,20 @@
     </div>
 </div>
 <br>
-<div class="container">
-    <ul class="list-group">
-        {% for session in sessions %}
-            <li class="list-group-item">Participant {{ forloop.counter }}: {{ session }}</li>
+{#<div class="container">#}
+{#    <ul class="list-group">#}
+{#        {% for session in sessions %}#}
+{#            <li class="list-group-item">Participant {{ forloop.counter }}: {{ session }}</li>#}
 {#            <a href="{% url 'showdata' %}?data={{ forloop.counter }}" class="list-group-item list-group-item-action active">#}
 {#                Participant {{ forloop.counter }}: {{ session }}#}
 {#            </a>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#</div>#}
+<div class="container">
+    <ul class="list-group">
+        {% for arr in array %}
+            <li class="list-group-item">Participant {{ forloop.counter }}: {{ arr }}</li>
         {% endfor %}
     </ul>
 </div>

@@ -1,5 +1,3 @@
-let maxValue = "5";
-
 // On page load, display correct page & progress
 $(document).ready(function() {
     // executes when HTML-Document is loaded and DOM is ready
@@ -21,7 +19,7 @@ function toggleSub(box, id) {
     let el = document.getElementById(id);
 
     if (box.checked) {
-        el.style.display = 'block';
+        el.style.display = '';
     } else {
         el.style.display = 'none';
     }
