@@ -1,0 +1,38 @@
+{% load static %}
+{% for task in main_tasks %}
+<div class="container" id="card{{ forloop.counter|add:"7" }}" style="display: none;">
+    <div class="card">
+        <div class="card-header text-white">
+            {{ task.task_set.name }}
+        </div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                <div class="progress-text" style="margin-left: 4px">0%</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                {{ task.task_set.description }}
+                <br>
+                <br>
+                {{ task.task_text }}
+                <br>
+                {% if task.image_link %}
+                    {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
+                        <img src="{% static image_static %}" width="50" height="50" alt="">
+                    {% endwith %}
+                {% endif %}
+            </p>
+            <br>
+            <div class="form-group">
+                <label for="textarea{{ card.id }}">Answer:</label>
+                <textarea class="form-control" id="textarea{{ card.id }}" rows="3" placeholder="Enter your answer"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer" id="btn-next">
+            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+        </div>
+    </div>
+</div>
+{% endfor %}

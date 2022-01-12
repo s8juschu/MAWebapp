@@ -3,11 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib import messages
 import json
-from .models import Study, TaskSet, Task, Answer, Questionnaire, Question, Choice
+from .models import Study, TaskSet, Task, Answer, Questionnaire, Question
 from django.contrib.sessions.models import Session
 
 study_id = 1  # TestStudy
-overall_count = 15 # Nr. of cards
+overall_count = 15  # Nr. of cards
+
 
 @property
 def get_question(self):
@@ -24,17 +25,6 @@ def index(request):
     task_count = main_tasks.count()
     print("#  main tasks:" + str(task_count))
 
-    # question_count = 0
-    # questionnaires = Questionnaire.objects.filter(study=study_id)
-    # for qs in questionnaires:
-    #     questions = Question.objects.filter(questionnaire=qs)
-    #     for q in questions:
-    #         question_count += 1
-    # print("# questions:" + str(question_count))
-
-    # questions = Question.objects.all()
-    # question_count = questions.count()
-
     page_nr = request.session.get('page_nr', '0')
     progress = request.session.get('progress', '0')
 
@@ -46,7 +36,8 @@ def index(request):
         request.session['progress'] = 0
         progress = request.session['progress']
     return render(request, 'index.html',
-                  context={"pre_tasks": pre_tasks, "main_tasks": main_tasks, "page_nr": page_nr, "overall_count": overall_count, "progress": progress})
+                  context={"pre_tasks": pre_tasks, "main_tasks": main_tasks, "page_nr": page_nr,
+                           "overall_count": overall_count, "progress": progress})
 
 
 @ensure_csrf_cookie

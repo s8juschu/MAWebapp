@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% block content %}
-{% load static %}
 <!-- Page Content -->
 <div class="container">
     <div class="row">
@@ -12,76 +11,24 @@
 <br>
 <div class="container" id="card0">
     <div class="card">
-        <div class="card-header text-white">
-            Participation information
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                <b>Participation information</b><br>
-                Welcome to our survey!
-                <br>
-
-                It will take around 20 min.
-                <br>
-                <br>
-                Your data will be stored and processed anonymously only. More information on data protection can be
-                found in the data protection notes. This study is conducted by Julia Schulz as part of her master thesis
-                at DFKI (German Research Center for Artificial Intelligence) and UdS (Saarland University). For
-                questions or comments, contact us at:<br>
-                <b>s8juschu@stud.uni-saarland.de</b>.<br><br>
-
-                <b>Notes on data protection and participation information:</b><br>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="checkbox" autocomplete="off"> I have read and understood the information on data protection and the participation information and agree
-                that my data may be used anonymously for scientific research purposes. <br>
-                </div>
-
-            </p>
-            <br>
-        </div>
+        {% include 'cards/start.html' %}
         <div class="modal-footer" id="accept" style="display: none;">
             <a class="btn btn-accept-terms" onclick="displayCards()"> Continue</a>
         </div>
     </div>
 </div>
-{% for task in pre_tasks %}
-<div class="container" id="card{{ forloop.counter }}" style="display: none;">
+<div class="container" id="card1" style="display: none;">
     <div class="card">
-        <div class="card-header text-white">
-            {{ task.task_set.name }}
-        </div>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                <div class="progress-text" style="margin-left: 4px">0%</div>
-            </div>
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                {{ task.task_set.description }}
-                <br>
-                <br>
-                {{ task.task_text }}
-                <br>
-                {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
-                    <img src="{% static image_static %}" width="50" height="50" alt="">
-                {% endwith %}
-            </p>
-            <br>
-            <div class="form-group">
-                <label for="textarea{{ card.id }}">Answer:</label>
-                <textarea class="form-control" id="textarea{{ card.id }}" rows="3" placeholder="Enter your answer"></textarea>
-            </div>
-        </div>
+        {% include 'cards/personal_info.html' %}
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
         </div>
     </div>
 </div>
-{% endfor %}
+{% include 'cards/task_pre.html' %}
 <div class="container" id="card6" style="display: none;">
     <div class="card">
-        {% include 'imi.html' %}
+        {% include 'cards/imi.html' %}
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveIMI('pre');"> Continue</a>
         </div>
@@ -89,50 +36,16 @@
 </div>
 <div class="container" id="card7" style="display: none;">
     <div class="card">
-        {% include 'pxi.html' %}
+        {% include 'cards/pxi.html' %}
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress(); savePXI('pre');"> Continue</a>
         </div>
     </div>
 </div>
-{% for task in main_tasks %}
-<div class="container" id="card{{ forloop.counter|add:"7" }}" style="display: none;">
-    <div class="card">
-        <div class="card-header text-white">
-            {{ task.task_set.name }}
-        </div>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                <div class="progress-text" style="margin-left: 4px">0%</div>
-            </div>
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                {{ task.task_set.description }}
-                <br>
-                <br>
-                {{ task.task_text }}
-                <br>
-                {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
-                    <img src="{% static image_static %}" width="50" height="50" alt="">
-                {% endwith %}
-            </p>
-            <br>
-            <div class="form-group">
-                <label for="textarea{{ card.id }}">Answer:</label>
-                <textarea class="form-control" id="textarea{{ card.id }}" rows="3" placeholder="Enter your answer"></textarea>
-            </div>
-        </div>
-        <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
-        </div>
-    </div>
-</div>
-{% endfor %}
+{% include 'cards/task_main.html' %}
 <div class="container" id="card13" style="display: none;">
     <div class="card">
-        {% include 'imi.html' %}
+        {% include 'cards/imi.html' %}
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveIMI('main');"> Continue</a>
         </div>
@@ -140,7 +53,7 @@
 </div>
 <div class="container" id="card14" style="display: none;">
     <div class="card">
-        {% include 'pxi.html' %}
+        {% include 'cards/pxi.html' %}
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress(); savePXI('main');"> Continue</a>
         </div>
@@ -148,21 +61,7 @@
 </div>
 <div class="container" id="card15" style="display: none;">
     <div class="card">
-        <div class="card-header text-white">
-            End
-        </div>
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="0"
-                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
-                <div class="progress-text" style="margin-left: 4px">0%</div>
-            </div>
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                Thank you for your participation!
-            </p>
-            <br>
-        </div>
+         {% include 'cards/end.html' %}
     </div>
 </div>
 {% endblock %}
