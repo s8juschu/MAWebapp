@@ -101,3 +101,31 @@ h1.likert-header {
 .wrap .buttons .submit {background-color: #67ab49;}
 .wrap .buttons .clear:hover {background-color: #ccc;}
 .wrap .buttons .submit:hover {background-color: #14892c;}
+
+/*Radio Label*/
+.radiobtn {
+    position: relative;
+    display: block;
+    text-align:center;
+}
+.radiobtn label {
+    display: block;
+    background:none;
+    color:#01a7e1;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: 2px solid #01a7e1;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.radiobtn input[type="radio"] {
+    display: none;
+    position: absolute;
+    width: 100%;
+    appearance: none;
+}
+.radiobtn input[type="radio"]:checked + label {
+    background:#01a7e1;
+    color:#fff;
+}

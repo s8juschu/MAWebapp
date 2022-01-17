@@ -8,12 +8,10 @@ from django.contrib.sessions.models import Session
 
 study_id = 1  # TestStudy
 overall_count = 12  # Nr. of cards
-pre_tasks = []  # First set of tasks
-main_tasks = []  # Second set of tasks
-p1 = []
-p2 = []
-m1 = []
-m2 = []
+# p1 = []
+# p2 = []
+# m1 = []
+# m2 = []
 
 
 def split_list(a_list):
@@ -22,6 +20,8 @@ def split_list(a_list):
 
 
 def randomize_tasks():
+    pre_tasks = []  # First set of tasks
+    main_tasks = []  # Second set of tasks
     tasksets = TaskSet.objects.all()
     for taskset in tasksets:
         tasks = Task.objects.filter(task_set=taskset).order_by('?')
@@ -29,9 +29,9 @@ def randomize_tasks():
         for task in tasks:
             if iterate_count < 2:
                 iterate_count += 1
-                pre_tasks.append(task)
+                pre_tasks.append(task.id)
             elif iterate_count >= 2:
-                main_tasks.append(task)
+                main_tasks.append(task.id)
                 iterate_count += 1
 
     # Shuffle sets to randomize order
@@ -45,18 +45,80 @@ def randomize_tasks():
 
 @ensure_csrf_cookie
 def index(request):
+    list_p1 = []
+    list_p2 = []
+    list_m1 = []
+    list_m2 = []
+
     # Initialize to either old value or 0
     page_nr = request.session.get('page_nr', '0')
     progress = request.session.get('progress', '0')
+    init = request.session.get('init', 'false')
+    p1 = request.session.get('p1', '0')
+    p2 = request.session.get('p2', '0')
+    m1 = request.session.get('m1', '0')
+    m2 = request.session.get('m2', '0')
 
     # Distribute 2 of each task randomly into one task set
-    # if 'initialization' not in request.session:
-    #     print('true')
-    if len(pre_tasks) == 0 and len(main_tasks) == 0:
-        global p1, p2, m1, m2
+    # request.session['init'] = 'false'
+    if request.session.get('init') == 'false':
+        print("false")
+    # if len(pre_tasks) == 0 and len(main_tasks) == 0:
+    #     global p1, p2, m1, m2
         p1, p2, m1, m2 = randomize_tasks()
-        # request.session['initialization'] = 0
 
+        request.session['p1'] = p1
+        request.session['p2'] = p2
+        request.session['m1'] = m1
+        request.session['m2'] = m2
+
+        request.session['init'] = 'true'
+
+        name = request.session.session_key
+        p1 = request.session['p1']
+        p2 = request.session['p2']
+        m1 = request.session['m1']
+        m2 = request.session['m2']
+
+        print(name, p1, p2, m1, m2)
+
+        for p in p1:
+            task = Task.objects.get(pk=p)
+            list_p1.append(task)
+        for p in p2:
+            task = Task.objects.get(pk=p)
+            list_p2.append(task)
+        for p in m1:
+            task = Task.objects.get(pk=p)
+            list_m1.append(task)
+        for p in m2:
+            task = Task.objects.get(pk=p)
+            list_m2.append(task)
+
+    elif request.session.get('init') == 'true':
+        print("true")
+        name = request.session.session_key
+        p1 = request.session['p1']
+        p2 = request.session['p2']
+        m1 = request.session['m1']
+        m2 = request.session['m2']
+
+        print(name, p1, p2, m1, m2)
+
+        for p in p1:
+            task = Task.objects.get(pk=p)
+            list_p1.append(task)
+        for p in p2:
+            task = Task.objects.get(pk=p)
+            list_p2.append(task)
+        for p in m1:
+            task = Task.objects.get(pk=p)
+            list_m1.append(task)
+        for p in m2:
+            task = Task.objects.get(pk=p)
+            list_m2.append(task)
+    else:
+        print("error")
 
     # TODO delete whole IF
     print(page_nr)
@@ -66,8 +128,9 @@ def index(request):
         page_nr = request.session['page_nr']
         request.session['progress'] = 0
         progress = request.session['progress']
+        request.session['init'] = 'false'
     return render(request, 'index.html',
-                  context={"m1": m1, "m2": m2, "p1": p1, "p2": p2, "page_nr": page_nr,
+                  context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2, "page_nr": page_nr,
                            "overall_count": overall_count, "progress": progress})
 
 
