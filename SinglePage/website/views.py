@@ -8,10 +8,6 @@ from django.contrib.sessions.models import Session
 
 study_id = 1  # TestStudy
 overall_count = 12  # Nr. of cards
-# p1 = []
-# p2 = []
-# m1 = []
-# m2 = []
 
 
 def split_list(a_list):
@@ -51,20 +47,18 @@ def index(request):
     list_m2 = []
 
     # Initialize to either old value or 0
-    page_nr = request.session.get('page_nr', '0')
+    page_nr = request.session.get('page_nr', 'false')
     progress = request.session.get('progress', '0')
-    init = request.session.get('init', 'false')
+
     p1 = request.session.get('p1', '0')
     p2 = request.session.get('p2', '0')
     m1 = request.session.get('m1', '0')
     m2 = request.session.get('m2', '0')
 
     # Distribute 2 of each task randomly into one task set
-    # request.session['init'] = 'false'
-    if request.session.get('init') == 'false':
-        print("false")
-    # if len(pre_tasks) == 0 and len(main_tasks) == 0:
-    #     global p1, p2, m1, m2
+    if 'init' not in request.session:
+        request.session['init'] = 'true'
+
         p1, p2, m1, m2 = randomize_tasks()
 
         request.session['p1'] = p1
@@ -72,15 +66,10 @@ def index(request):
         request.session['m1'] = m1
         request.session['m2'] = m2
 
-        request.session['init'] = 'true'
-
-        name = request.session.session_key
         p1 = request.session['p1']
         p2 = request.session['p2']
         m1 = request.session['m1']
         m2 = request.session['m2']
-
-        print(name, p1, p2, m1, m2)
 
         for p in p1:
             task = Task.objects.get(pk=p)
@@ -96,14 +85,11 @@ def index(request):
             list_m2.append(task)
 
     elif request.session.get('init') == 'true':
-        print("true")
         name = request.session.session_key
         p1 = request.session['p1']
         p2 = request.session['p2']
         m1 = request.session['m1']
         m2 = request.session['m2']
-
-        print(name, p1, p2, m1, m2)
 
         for p in p1:
             task = Task.objects.get(pk=p)
@@ -123,12 +109,12 @@ def index(request):
     # TODO delete whole IF
     print(page_nr)
     if (int(page_nr) == overall_count) or (int(page_nr) > overall_count):
-        # del(request.session['initialization'])
         request.session['page_nr'] = 0
         page_nr = request.session['page_nr']
         request.session['progress'] = 0
         progress = request.session['progress']
-        request.session['init'] = 'false'
+        del(request.session['init'])
+
     return render(request, 'index.html',
                   context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2, "page_nr": page_nr,
                            "overall_count": overall_count, "progress": progress})
