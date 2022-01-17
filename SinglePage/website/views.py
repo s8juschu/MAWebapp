@@ -1,42 +1,73 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.contrib import messages
+from random import shuffle
 import json
 from .models import Study, TaskSet, Task, Answer, Questionnaire, Question
 from django.contrib.sessions.models import Session
 
 study_id = 1  # TestStudy
-overall_count = 15  # Nr. of cards
+overall_count = 12  # Nr. of cards
+pre_tasks = []  # First set of tasks
+main_tasks = []  # Second set of tasks
+p1 = []
+p2 = []
+m1 = []
+m2 = []
 
 
-@property
-def get_question(self):
-    return Question.objects.filter(questionnaire=self.name)
+def split_list(a_list):
+    half = len(a_list)//2
+    return a_list[:half], a_list[half:]
+
+
+def randomize_tasks():
+    tasksets = TaskSet.objects.all()
+    for taskset in tasksets:
+        tasks = Task.objects.filter(task_set=taskset).order_by('?')
+        iterate_count = 0
+        for task in tasks:
+            if iterate_count < 2:
+                iterate_count += 1
+                pre_tasks.append(task)
+            elif iterate_count >= 2:
+                main_tasks.append(task)
+                iterate_count += 1
+
+    # Shuffle sets to randomize order
+    shuffle(pre_tasks)
+    pre1, pre2 = split_list(pre_tasks)
+    shuffle(main_tasks)
+    main1, main2 = split_list(main_tasks)
+
+    return pre1, pre2, main1, main2
 
 
 @ensure_csrf_cookie
 def index(request):
-    pre_tasks = Task.objects.filter(task_set__name__contains="Pre")
-    task_count = pre_tasks.count()
-    print("# pre tasks:" + str(task_count))
-
-    main_tasks = Task.objects.filter(task_set__name__contains="Main")
-    task_count = main_tasks.count()
-    print("#  main tasks:" + str(task_count))
-
+    # Initialize to either old value or 0
     page_nr = request.session.get('page_nr', '0')
     progress = request.session.get('progress', '0')
 
+    # Distribute 2 of each task randomly into one task set
+    # if 'initialization' not in request.session:
+    #     print('true')
+    if len(pre_tasks) == 0 and len(main_tasks) == 0:
+        global p1, p2, m1, m2
+        p1, p2, m1, m2 = randomize_tasks()
+        # request.session['initialization'] = 0
+
+
     # TODO delete whole IF
     print(page_nr)
-    if page_nr == overall_count or page_nr > overall_count:
+    if (int(page_nr) == overall_count) or (int(page_nr) > overall_count):
+        # del(request.session['initialization'])
         request.session['page_nr'] = 0
         page_nr = request.session['page_nr']
         request.session['progress'] = 0
         progress = request.session['progress']
     return render(request, 'index.html',
-                  context={"pre_tasks": pre_tasks, "main_tasks": main_tasks, "page_nr": page_nr,
+                  context={"m1": m1, "m2": m2, "p1": p1, "p2": p2, "page_nr": page_nr,
                            "overall_count": overall_count, "progress": progress})
 
 

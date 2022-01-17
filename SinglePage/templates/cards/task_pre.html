@@ -2,7 +2,7 @@
 <div class="container" id="card2" style="display: none;">
     <div class="card">
         <div class="card-header text-white">
-            {{ task.task_set.name }}
+            Cognitive Ability Tasks
         </div>
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -21,11 +21,10 @@
         </div>
     </div>
 </div>
-{% for task in pre_tasks %}
-<div class="container" id="card{{ forloop.counter|add:"2" }}" style="display: none;">
+<div class="container" id="card3" style="display: none;">
     <div class="card">
         <div class="card-header text-white">
-            {{ task.task_set.name }}
+            Cognitive Ability Tasks
         </div>
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -35,26 +34,64 @@
         </div>
         <div class="card-body">
             <p class="card-text">
-                {{ task.task_set.description }}
-                <br>
-                <br>
-                {{ task.task_text }}
-                <br>
+             {% for task in p1 %}
+                {{ task.description }}
                 {% if task.image_link|length > 0  %}
+                <br>
+                <br>
                     {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
-                        <img src="{% static image_static %}" width="50" height="50" alt="">
+                        <img src="{% static image_static %}" width="150" height="150" alt="">
                     {% endwith %}
                 {% endif %}
+                 <br>
+                 <br>
+                 <div class="form-group">
+                    <label for="textarea4">Answer:</label>
+                    <textarea class="form-control" id="textarea4" rows="3" placeholder="Enter your answer"></textarea>
+                 </div>
+                 <hr>
+            {% endfor %}
             </p>
-            <br>
-            <div class="form-group">
-                <label for="textarea{{ card.id }}">Answer:</label>
-                <textarea class="form-control" id="textarea{{ card.id }}" rows="3" placeholder="Enter your answer"></textarea>
-            </div>
         </div>
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
         </div>
     </div>
 </div>
-{% endfor %}
+<div class="container" id="card4" style="display: none;">
+    <div class="card">
+        <div class="card-header text-white">
+            Cognitive Ability Tasks
+        </div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                <div class="progress-text" style="margin-left: 4px">0%</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+            {% for task in p2 %}
+                {{ task.description }}
+                {% if task.image_link|length > 0  %}
+                <br>
+                <br>
+                    {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
+                        <img src="{% static image_static %}" width="150" height="150" alt="">
+                    {% endwith %}
+                {% endif %}
+                <br>
+                <br>
+                <div class="form-group">
+                    <label for="textarea4">Answer:</label>
+                    <textarea class="form-control" id="textarea4" rows="3" placeholder="Enter your answer"></textarea>
+                </div>
+                <hr>
+            {% endfor %}
+            </p>
+        </div>
+        <div class="modal-footer" id="btn-next">
+            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+        </div>
+    </div>
+</div>

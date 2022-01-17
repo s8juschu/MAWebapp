@@ -1,31 +1,27 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Study, TaskSet, Task, Answer, Questionnaire, Question, AnswerTypes, AnswerChoice
+from .models import Study, TaskSet, Task, Answer, Questionnaire, Question, AnswerChoice
 
 
 class TaskSetAdmin(admin.ModelAdmin):
-    list_display = ('name', 'study')
+    list_display = ('pk', 'name', 'study')
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('description', 'text', 'task_set', 'image_link')
-
-
-class AnswerTypesAdmin(admin.ModelAdmin):
-    list_display = ('description', 'task_set')
+    list_display = ('pk', 'description', 'text', 'task_set', 'image_link')
 
 
 class AnswerChoiceAdmin(admin.ModelAdmin):
-    list_display = ('text', 'answer_type')
+    list_display = ('pk', 'text', 'answer')
 
 
 class QuestionnaireAdmin(admin.ModelAdmin):
-    list_display = ('name', 'study')
+    list_display = ('pk', 'name', 'study')
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('text', 'questionnaire')
+    list_display = ('pk', 'text', 'questionnaire')
 
 
 # class ChoiceAdmin(admin.ModelAdmin):
@@ -33,14 +29,13 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ('answer', 'question_nr', 'session', 'task')
+    list_display = ('pk', 'answer', 'question_nr', 'session', 'task')
 
 
 admin.site.register(Study)
 admin.site.register(TaskSet, TaskSetAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(AnswerChoice, AnswerChoiceAdmin)
-admin.site.register(AnswerTypes, AnswerTypesAdmin)
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
 admin.site.register(Question, QuestionAdmin)

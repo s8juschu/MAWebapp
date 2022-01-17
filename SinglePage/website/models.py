@@ -26,23 +26,14 @@ class Task(models.Model):
     task_set = models.ForeignKey(TaskSet, on_delete=models.CASCADE)
     image_link = models.CharField(max_length=200,  default="", blank=True)
 
-    def __str__(self):
-        return self.description
+    def __int__(self):
+        return self.pk
 
 
-# Task Answer Types
-class AnswerTypes(models.Model):
-    description = models.CharField(max_length=200)
-    task_set = models.ForeignKey(TaskSet, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.description
-
-
-# Task Answer Types
+# Task Answer Choices
 class AnswerChoice(models.Model):
-    text = models.CharField(max_length=200)
-    answer_type = models.ForeignKey(AnswerTypes, on_delete=models.CASCADE)
+    text = models.CharField(max_length=200, default="", blank=True)
+    answer = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text

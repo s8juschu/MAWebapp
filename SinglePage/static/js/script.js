@@ -47,6 +47,8 @@ function displayCards() {
         cardCounter += 1;
     }
     setSession();
+    // Scroll to top of page
+    $('html,body').scrollTop(0);
 }
 
 function getCookie(name) {
@@ -74,7 +76,7 @@ function setSession() {
     parameters.page = cardCounter;
     parameters.progress = progressCounter;
     if ( 0 < cardCounter < maxValue){
-        parameters.answer = $('#textarea' + (cardCounter-1)).val();
+        // parameters.answer = $('#textarea' + (cardCounter-1)).val();
     }
 
     let xhr = new XMLHttpRequest();
