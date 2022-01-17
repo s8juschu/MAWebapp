@@ -15,6 +15,7 @@ def split_list(a_list):
     return a_list[:half], a_list[half:]
 
 
+# Distribute 2 of each task randomly into one task set
 def randomize_tasks():
     pre_tasks = []  # First set of tasks
     main_tasks = []  # Second set of tasks
@@ -39,6 +40,34 @@ def randomize_tasks():
     return pre1, pre2, main1, main2
 
 
+# Load list from session var
+def load_lists(request, p1, p2, m1, m2):
+    list_p1 = []
+    list_p2 = []
+    list_m1 = []
+    list_m2 = []
+
+    request.session['p1'] = p1
+    request.session['p2'] = p2
+    request.session['m1'] = m1
+    request.session['m2'] = m2
+
+    for p in p1:
+        task = Task.objects.get(pk=p)
+        list_p1.append(task)
+    for p in p2:
+        task = Task.objects.get(pk=p)
+        list_p2.append(task)
+    for p in m1:
+        task = Task.objects.get(pk=p)
+        list_m1.append(task)
+    for p in m2:
+        task = Task.objects.get(pk=p)
+        list_m2.append(task)
+
+    return list_p1, list_p2, list_m1, list_m2
+
+
 @ensure_csrf_cookie
 def index(request):
     list_p1 = []
@@ -47,62 +76,25 @@ def index(request):
     list_m2 = []
 
     # Initialize to either old value or 0
-    page_nr = request.session.get('page_nr', 'false')
+    page_nr = request.session.get('page_nr', '0')
     progress = request.session.get('progress', '0')
-
     p1 = request.session.get('p1', '0')
     p2 = request.session.get('p2', '0')
     m1 = request.session.get('m1', '0')
     m2 = request.session.get('m2', '0')
 
-    # Distribute 2 of each task randomly into one task set
     if 'init' not in request.session:
         request.session['init'] = 'true'
 
         p1, p2, m1, m2 = randomize_tasks()
-
-        request.session['p1'] = p1
-        request.session['p2'] = p2
-        request.session['m1'] = m1
-        request.session['m2'] = m2
-
-        p1 = request.session['p1']
-        p2 = request.session['p2']
-        m1 = request.session['m1']
-        m2 = request.session['m2']
-
-        for p in p1:
-            task = Task.objects.get(pk=p)
-            list_p1.append(task)
-        for p in p2:
-            task = Task.objects.get(pk=p)
-            list_p2.append(task)
-        for p in m1:
-            task = Task.objects.get(pk=p)
-            list_m1.append(task)
-        for p in m2:
-            task = Task.objects.get(pk=p)
-            list_m2.append(task)
+        list_p1, list_p2, list_m1, list_m2 = load_lists(request, p1, p2, m1, m2)
 
     elif request.session.get('init') == 'true':
         name = request.session.session_key
-        p1 = request.session['p1']
-        p2 = request.session['p2']
-        m1 = request.session['m1']
-        m2 = request.session['m2']
+        list_p1, list_p2, list_m1, list_m2 = load_lists(request, p1, p2, m1, m2)
 
-        for p in p1:
-            task = Task.objects.get(pk=p)
-            list_p1.append(task)
-        for p in p2:
-            task = Task.objects.get(pk=p)
-            list_p2.append(task)
-        for p in m1:
-            task = Task.objects.get(pk=p)
-            list_m1.append(task)
-        for p in m2:
-            task = Task.objects.get(pk=p)
-            list_m2.append(task)
+        print(name, list_p1, list_p2, list_m1, list_m2)
+
     else:
         print("error")
 
