@@ -12,8 +12,8 @@
         </div>
         <div class="card-body">
             <p class="card-text">
-               The questions on the next pages are again different kinds of cognitive ability tasks.
-               Please answer the questions as well as you can without using external instruments or taking notes.
+                The questions on the next pages are again different kinds of cognitive ability tasks.
+                Please answer the questions as well as you can without using external instruments or taking notes.
             </p>
         </div>
         <div class="modal-footer" id="btn-next">
@@ -33,25 +33,32 @@
             </div>
         </div>
         <div class="card-body">
-            <p class="card-text">
-            {% for task in m1 %}
-                {{ task.description }}
-                {% if task.image_link|length > 0  %}
-                    <br>
-                    <br>
-                    {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
-                        <img src="{% static image_static %}" width="150" height="150" alt="">
-                    {% endwith %}
-                {% endif %}
-                <br>
-                <br>
-                <div class="form-group">
-                    <label for="textarea4">Answer:</label>
-                    <textarea class="form-control" id="textarea4" rows="3" placeholder="Enter your answer"></textarea>
-                </div>
-                <hr>
-            {% endfor %}
-            </p>
+            <div class="container">
+                <p class="card-text">
+                    {% for task in m1 %}
+                        {{ task.description }}
+                        {% if task.image_link|length > 0 %}
+                            <br>
+                            <br>
+                            {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
+                                <img src="{% static image_static %}" width="150" height="150" alt="">
+                            {% endwith %}
+                        {% endif %}
+                        <br>
+                        <br>
+                        <div class="row">
+                            {% for arr in array_m1|dict_key:task.pk %}
+                                <div class="col-xs-12 col-sm-3 radiobtn">
+                                    <input type="radio" id="m1{{ task.pk }}{{ forloop.counter }}"
+                                           name="m1{{ task.pk }}" value="{{ arr }}" checked/>
+                                    <label for="m1{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </p>
+            </div>
         </div>
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
@@ -70,25 +77,32 @@
             </div>
         </div>
         <div class="card-body">
-            <p class="card-text">
-            {% for task in m2 %}
-                {{ task.description }}
-                {% if task.image_link|length > 0  %}
-                    <br>
-                    <br>
-                    {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
-                        <img src="{% static image_static %}" width="150" height="150" alt="">
-                    {% endwith %}
-                {% endif %}
-                <br>
-                <br>
-                <div class="form-group">
-                    <label for="textarea4">Answer:</label>
-                    <textarea class="form-control" id="textarea4" rows="3" placeholder="Enter your answer"></textarea>
-                </div>
-                <hr>
-            {% endfor %}
-            </p>
+            <div class="container">
+                <p class="card-text">
+                    {% for task in m2 %}
+                        {{ task.description }}
+                        {% if task.image_link|length > 0 %}
+                            <br>
+                            <br>
+                            {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
+                                <img src="{% static image_static %}" width="150" height="150" alt="">
+                            {% endwith %}
+                        {% endif %}
+                        <br>
+                        <br>
+                        <div class="row">
+                            {% for arr in array_m2|dict_key:task.pk %}
+                                <div class="col-xs-12 col-sm-3 radiobtn">
+                                    <input type="radio" id="m2{{ task.pk }}{{ forloop.counter }}"
+                                           name="m2{{ task.pk }}" value="{{ arr }}" checked/>
+                                    <label for="m2{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </p>
+            </div>
         </div>
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>

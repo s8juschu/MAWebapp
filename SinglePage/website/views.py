@@ -2,16 +2,19 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
 from random import shuffle
+from django.template.defaultfilters import register
+from collections import defaultdict
 import json
-from .models import Study, TaskSet, Task, Answer, Questionnaire, Question
+from .models import Study, TaskSet, Task, Answer, AnswerChoice, Questionnaire, Question
 from django.contrib.sessions.models import Session
 
 study_id = 1  # TestStudy
 overall_count = 12  # Nr. of cards
 
 
+# Split List in two
 def split_list(a_list):
-    half = len(a_list)//2
+    half = len(a_list) // 2
     return a_list[:half], a_list[half:]
 
 
@@ -46,6 +49,7 @@ def load_lists(request, p1, p2, m1, m2):
     list_p2 = []
     list_m1 = []
     list_m2 = []
+    array = defaultdict(list)
 
     request.session['p1'] = p1
     request.session['p2'] = p2
@@ -66,6 +70,27 @@ def load_lists(request, p1, p2, m1, m2):
         list_m2.append(task)
 
     return list_p1, list_p2, list_m1, list_m2
+
+
+# Returns the possible Answer choices for a given task
+def get_choices(list_object):
+    array = defaultdict(list)
+    for l in list_object:
+        if AnswerChoice.objects.filter(task=l).exists():
+            choice = AnswerChoice.objects.filter(task=l)
+            for c in choice:
+                array[l.pk].append(c.text)
+
+    arraydict = dict(array)  # transform defaultdict to dict
+    # print(arraydict)
+
+    return arraydict
+
+
+# Returns the given key from a dictionary
+@register.filter(name='dict_key')
+def dict_key(d, k):
+    return d.get(k)
 
 
 @ensure_csrf_cookie
@@ -89,11 +114,21 @@ def index(request):
         p1, p2, m1, m2 = randomize_tasks()
         list_p1, list_p2, list_m1, list_m2 = load_lists(request, p1, p2, m1, m2)
 
+        array_p1 = get_choices(list_p1)
+        array_p2 = get_choices(list_p2)
+        array_m1 = get_choices(list_m1)
+        array_m2 = get_choices(list_m2)
+
     elif request.session.get('init') == 'true':
-        name = request.session.session_key
+        # name = request.session.session_key
         list_p1, list_p2, list_m1, list_m2 = load_lists(request, p1, p2, m1, m2)
 
-        print(name, list_p1, list_p2, list_m1, list_m2)
+        array_p1 = get_choices(list_p1)
+        array_p2 = get_choices(list_p2)
+        array_m1 = get_choices(list_m1)
+        array_m2 = get_choices(list_m2)
+
+        # print(name, list_p1, list_p2, list_m1, list_m2)
 
     else:
         print("error")
@@ -105,11 +140,12 @@ def index(request):
         page_nr = request.session['page_nr']
         request.session['progress'] = 0
         progress = request.session['progress']
-        del(request.session['init'])
+        del (request.session['init'])
 
     return render(request, 'index.html',
-                  context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2, "page_nr": page_nr,
-                           "overall_count": overall_count, "progress": progress})
+                  context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2,
+                           "array_m1": array_m1, "array_m2": array_m2, "array_p1": array_p1, "array_p2": array_p2,
+                           "page_nr": page_nr, "overall_count": overall_count, "progress": progress})
 
 
 @ensure_csrf_cookie

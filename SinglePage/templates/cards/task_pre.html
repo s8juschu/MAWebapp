@@ -33,66 +33,34 @@
             </div>
         </div>
         <div class="card-body">
-            <p class="card-text">
-                {% for task in p1 %}
-                    {{ task.description }}
-                    {% if task.image_link|length > 0 %}
+            <div class="container">
+                <p class="card-text">
+                    {% for task in p1 %}
+                        {{ task.description }}
+                        {% if task.image_link|length > 0 %}
+                            <br>
+                            <br>
+                            {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
+                                <img src="{% static image_static %}" width="150" height="150" alt="">
+                            {% endwith %}
+                        {% endif %}
                         <br>
                         <br>
-                        {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
-                            <img src="{% static image_static %}" width="150" height="150" alt="">
-                        {% endwith %}
-                    {% endif %}
-                    <br>
-                    <br>
-                    <div class="container">
+                        {#                    <div class="container">#}
                         <div class="row">
-                            <div class="col-xs-12 col-sm-3 radiobtn">
-                                <input type="radio" id="a1"
-                                       name="drone" value="a1" checked/>
-                                <label for="a1">A</label>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 radiobtn">
-                                <input type="radio" id="a2"
-                                       name="drone" value="a2" checked/>
-                                <label for="a2">B</label>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 radiobtn">
-                                <input type="radio" id="a3"
-                                       name="drone" value="a3" checked/>
-                                <label for="a3">C</label>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 radiobtn">
-                                <input type="radio" id="a4"
-                                       name="drone" value="a4" checked/>
-                                <label for="a4">D</label>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 radiobtn">
-                                <input type="radio" id="a5"
-                                       name="drone" value="a5" checked/>
-                                <label for="a5">E</label>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 radiobtn">
-                                <input type="radio" id="a6"
-                                       name="drone" value="a6" checked/>
-                                <label for="a6">F</label>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 radiobtn">
-                                <input type="radio" id="a7"
-                                       name="drone" value="a7" checked/>
-                                <label for="a7">G</label>
-                            </div>
-                            <div class="col-xs-12 col-sm-3 radiobtn">
-                                <input type="radio" id="a8"
-                                       name="drone" value="a8" checked/>
-                                <label for="a8">H</label>
-                            </div>
+                            {% for arr in array_p1|dict_key:task.pk %}
+                                <div class="col-xs-12 col-sm-3 radiobtn">
+                                    <input type="radio" id="p1{{ task.pk }}{{ forloop.counter }}"
+                                           name="p1{{ task.pk }}" value="{{ arr }}" checked/>
+                                    <label for="p1{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
+                                </div>
+                            {% endfor %}
                         </div>
-                    </div>
-
-                    <hr>
-                {% endfor %}
-            </p>
+                        {#                    </div>#}
+                        <hr>
+                    {% endfor %}
+                </p>
+            </div>
         </div>
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
@@ -111,26 +79,32 @@
             </div>
         </div>
         <div class="card-body">
-            <p class="card-text">
-                {% for task in p2 %}
-                    {{ task.description }}
-                    {% if task.image_link|length > 0 %}
+            <div class="container">
+                <p class="card-text">
+                    {% for task in p2 %}
+                        {{ task.description }}
+                        {% if task.image_link|length > 0 %}
+                            <br>
+                            <br>
+                            {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
+                                <img src="{% static image_static %}" width="150" height="150" alt="">
+                            {% endwith %}
+                        {% endif %}
                         <br>
                         <br>
-                        {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
-                            <img src="{% static image_static %}" width="150" height="150" alt="">
-                        {% endwith %}
-                    {% endif %}
-                    <br>
-                    <br>
-                    <div class="form-group">
-                        <label for="textarea4">Answer:</label>
-                        <textarea class="form-control" id="textarea4" rows="3"
-                                  placeholder="Enter your answer"></textarea>
-                    </div>
-                    <hr>
-                {% endfor %}
-            </p>
+                        <div class="row">
+                            {% for arr in array_p2|dict_key:task.pk %}
+                                <div class="col-xs-12 col-sm-3 radiobtn">
+                                    <input type="radio" id="p2{{ task.pk }}{{ forloop.counter }}"
+                                           name="p2{{ task.pk }}" value="{{ arr }}" checked/>
+                                    <label for="p2{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </p>
+            </div>
         </div>
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>

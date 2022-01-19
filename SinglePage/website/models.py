@@ -33,7 +33,7 @@ class Task(models.Model):
 # Task Answer Choices
 class AnswerChoice(models.Model):
     text = models.CharField(max_length=200, default="", blank=True)
-    answer = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text

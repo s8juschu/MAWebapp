@@ -13,7 +13,7 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 class AnswerChoiceAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'text', 'answer')
+    list_display = ('pk', 'text', 'task')
 
 
 class QuestionnaireAdmin(admin.ModelAdmin):
