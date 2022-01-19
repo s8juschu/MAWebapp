@@ -34,36 +34,36 @@
         </div>
         <div class="card-body">
             <div class="container">
-                <p class="card-text">
-                    {% for task in p1 %}
-                        {{ task.description|linebreaks }}
-                        {% if task.details|length > 0 %}
-                            {{ task.details }}
-                            <br>
-                        {% endif %}
-                        {% if task.image_link|length > 0 %}
-                            {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
-                                <img src="{% static image_static %}" width="150" height="150" alt="">
-                            {% endwith %}
-                            <br>
-                        {% endif %}
+                {% for task in p1 %}
+                    <p class="card-text">{{ task.description }}</p>
+                    {% if task.details|length > 0 %}
+                        {{ task.details }}
+                        <br><br>
+                    {% endif %}
+                    {% if task.image_link|length > 0 %}
+                        {% with 'img/'|add:task.image_link as image_static %}
+                            <img src="{% static image_static %}" alt="">
+                        {% endwith %}
+                        <br><br>
+                    {% endif %}
+                    {#                        <br>#}
+                    {#                    <div class="container">#}
+                    <div class="row">
+                        {% for arr in array_p1|dict_key:task.pk %}
+                            <div class="col-xs-12 col-sm-3 radiobtn">
+                                <input type="radio" id="p1{{ task.pk }}{{ forloop.counter }}"
+                                       name="p1{{ task.pk }}" value="{{ arr }}" checked/>
+                                <label for="p1{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {#                    </div>#}
+                    {% if not forloop.last %}
                         <br>
-                        {#                    <div class="container">#}
-                        <div class="row">
-                            {% for arr in array_p1|dict_key:task.pk %}
-                                <div class="col-xs-12 col-sm-3 radiobtn">
-                                    <input type="radio" id="p1{{ task.pk }}{{ forloop.counter }}"
-                                           name="p1{{ task.pk }}" value="{{ arr }}" checked/>
-                                    <label for="p1{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        {#                    </div>#}
-                        {% if not forloop.last %}
-                            <hr>
-                        {% endif %}
-                    {% endfor %}
-                </p>
+                        <hr>
+                    {% endif %}
+                    <br>
+                {% endfor %}
             </div>
         </div>
         <div class="modal-footer" id="btn-next">
@@ -84,34 +84,33 @@
         </div>
         <div class="card-body">
             <div class="container">
-                <p class="card-text">
-                    {% for task in p2 %}
-                        {{ task.description|linebreaks }}
-                        {% if task.details|length > 0 %}
-                            {{ task.details }}
-                            <br>
-                        {% endif %}
-                        {% if task.image_link|length > 0 %}
-                            {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
-                                <img src="{% static image_static %}" width="150" height="150" alt="">
-                            {% endwith %}
-                            <br>
-                        {% endif %}
+                {% for task in p2 %}
+                    <p class="card-text">{{ task.description }}</p>
+                    {% if task.details|length > 0 %}
+                        {{ task.details }}
+                        <br><br>
+                    {% endif %}
+                    {% if task.image_link|length > 0 %}
+                        {% with 'img/'|add:task.image_link as image_static %}
+                            <img src="{% static image_static %}" alt="">
+                        {% endwith %}
+                        <br><br>
+                    {% endif %}
+                    <div class="row">
+                        {% for arr in array_p2|dict_key:task.pk %}
+                            <div class="col-xs-12 col-sm-3 radiobtn">
+                                <input type="radio" id="p2{{ task.pk }}{{ forloop.counter }}"
+                                       name="p2{{ task.pk }}" value="{{ arr }}" checked/>
+                                <label for="p2{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if not forloop.last %}
                         <br>
-                        <div class="row">
-                            {% for arr in array_p2|dict_key:task.pk %}
-                                <div class="col-xs-12 col-sm-3 radiobtn">
-                                    <input type="radio" id="p2{{ task.pk }}{{ forloop.counter }}"
-                                           name="p2{{ task.pk }}" value="{{ arr }}" checked/>
-                                    <label for="p2{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        {% if not forloop.last %}
-                            <hr>
-                        {% endif %}
-                    {% endfor %}
-                </p>
+                        <hr>
+                    {% endif %}
+                    <br>
+                {% endfor %}
             </div>
         </div>
         <div class="modal-footer" id="btn-next">
