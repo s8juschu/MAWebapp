@@ -9,7 +9,7 @@ class TaskSetAdmin(admin.ModelAdmin):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'description', 'text', 'task_set', 'image_link')
+    list_display = ('pk', 'description', 'details', 'text', 'task_set', 'image_link')
 
 
 class AnswerChoiceAdmin(admin.ModelAdmin):

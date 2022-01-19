@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.template.defaultfilters import linebreaksbr
 from random import shuffle
 from django.template.defaultfilters import register
 from collections import defaultdict

@@ -36,15 +36,17 @@
             <div class="container">
                 <p class="card-text">
                     {% for task in m1 %}
-                        {{ task.description }}
+                        {{ task.description|linebreaks }}
+                        {% if task.details|length > 0 %}
+                            {{ task.details }}
+                            <br>
+                        {% endif %}
                         {% if task.image_link|length > 0 %}
-                            <br>
-                            <br>
                             {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
                                 <img src="{% static image_static %}" width="150" height="150" alt="">
                             {% endwith %}
+                            <br>
                         {% endif %}
-                        <br>
                         <br>
                         <div class="row">
                             {% for arr in array_m1|dict_key:task.pk %}
@@ -55,7 +57,9 @@
                                 </div>
                             {% endfor %}
                         </div>
-                        <hr>
+                         {% if not forloop.last %}
+                            <hr>
+                        {% endif %}
                     {% endfor %}
                 </p>
             </div>
@@ -80,15 +84,17 @@
             <div class="container">
                 <p class="card-text">
                     {% for task in m2 %}
-                        {{ task.description }}
+                        {{ task.description|linebreaks }}
+                        {% if task.details|length > 0 %}
+                            {{ task.details }}
+                            <br>
+                        {% endif %}
                         {% if task.image_link|length > 0 %}
-                            <br>
-                            <br>
                             {% with 'img/'|add:task.image_link|add:'.png' as image_static %}
                                 <img src="{% static image_static %}" width="150" height="150" alt="">
                             {% endwith %}
+                            <br>
                         {% endif %}
-                        <br>
                         <br>
                         <div class="row">
                             {% for arr in array_m2|dict_key:task.pk %}
@@ -99,7 +105,9 @@
                                 </div>
                             {% endfor %}
                         </div>
-                        <hr>
+                        {% if not forloop.last %}
+                            <hr>
+                        {% endif %}
                     {% endfor %}
                 </p>
             </div>

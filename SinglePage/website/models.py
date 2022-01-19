@@ -22,6 +22,7 @@ class TaskSet(models.Model):
 # Tasks
 class Task(models.Model):
     description = models.CharField(max_length=200)
+    details = models.CharField(max_length=20, default="", blank=True)
     text = models.CharField(max_length=200, default="", blank=True)
     task_set = models.ForeignKey(TaskSet, on_delete=models.CASCADE)
     image_link = models.CharField(max_length=200,  default="", blank=True)
