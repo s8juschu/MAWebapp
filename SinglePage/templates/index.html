@@ -28,22 +28,30 @@
 {% include 'cards/task_pre.html' %}
 <div class="container" id="card5" style="display: none;">
     <div class="card">
+        {% include 'cards/questionnaire.html' %}
+        <div class="modal-footer" id="btn-next">
+            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+        </div>
+    </div>
+</div>
+<div class="container" id="card6" style="display: none;">
+    <div class="card">
         {% include 'cards/imi.html' %}
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveIMI('pre');"> Continue</a>
         </div>
     </div>
 </div>
-<div class="container" id="card6" style="display: none;">
+{% include 'cards/task_main.html' %}
+<div class="container" id="card10" style="display: none;">
     <div class="card">
-        {% include 'cards/pxi.html' %}
+        {% include 'cards/questionnaire.html' %}
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress(); savePXI('pre');"> Continue</a>
+            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
         </div>
     </div>
 </div>
-{% include 'cards/task_main.html' %}
-<div class="container" id="card10" style="display: none;">
+<div class="container" id="card11" style="display: none;">
     <div class="card">
         {% include 'cards/imi.html' %}
         <div class="modal-footer" id="btn-next">
@@ -51,14 +59,14 @@
         </div>
     </div>
 </div>
-<div class="container" id="card11" style="display: none;">
-    <div class="card">
-        {% include 'cards/pxi.html' %}
-        <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress(); savePXI('main');"> Continue</a>
-        </div>
-    </div>
-</div>
+{#<div class="container" id="card12" style="display: none;">#}
+{#    <div class="card">#}
+{#        {% include 'cards/pxi.html' %}#}
+{#        <div class="modal-footer" id="btn-next">#}
+{#            <a class="btn btn-next" onclick="displayCards(); fillProgress(); savePXI();"> Continue</a>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
 <div class="container" id="card12" style="display: none;">
     <div class="card">
          {% include 'cards/end.html' %}

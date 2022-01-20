@@ -2,7 +2,7 @@
 <div class="container" id="card7" style="display: none;">
     <div class="card">
         <div class="card-header text-white">
-            Cognitive Ability Tasks
+            Study Part 2
         </div>
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -11,6 +11,20 @@
             </div>
         </div>
         <div class="card-body">
+            <p class="card-text">
+                {% if framing == 0 %}
+                  Control Group: Thank you for your answers so far. Please proceed with the second half of this survey.
+                {% endif %}
+                {% if framing == 1 %}
+                  pos framing: Thank you for your answers so far. You did exceptionally well in the first round.
+                    If you continue like this, you will help us a lot with your contribution to the advancement of science.
+                    Please proceed with the second half of this survey.
+                {% endif %}
+                {% if framing == 2 %}
+                  neg Framing: Unfortunately, your rate of correct answers was not very high in the first round.
+                    We still appreciate your effort! Please proceed with the second half of this survey.
+                {% endif %}
+            </p>
             <p class="card-text">
                 The questions on the next pages are again different kinds of cognitive ability tasks.
                 Please answer the questions as well as you can without using external instruments or taking notes.
@@ -50,7 +64,7 @@
                         {% for arr in array_m1|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
                                 <input type="radio" id="m1{{ task.pk }}{{ forloop.counter }}"
-                                       name="m1{{ task.pk }}" value="{{ arr }}" checked/>
+                                       name="m1{{ task.pk }}" value="{{ arr }}"/>
                                 <label for="m1{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
                             </div>
                         {% endfor %}
@@ -97,7 +111,7 @@
                         {% for arr in array_m2|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
                                 <input type="radio" id="m2{{ task.pk }}{{ forloop.counter }}"
-                                       name="m2{{ task.pk }}" value="{{ arr }}" checked/>
+                                       name="m2{{ task.pk }}" value="{{ arr }}"/>
                                 <label for="m2{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
                             </div>
                         {% endfor %}

@@ -1,13 +1,15 @@
-from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.decorators.csrf import ensure_csrf_cookie
-from django.template.defaultfilters import linebreaksbr
-from random import shuffle
-from django.template.defaultfilters import register
-from collections import defaultdict
 import json
-from .models import Study, TaskSet, Task, Answer, AnswerChoice, Questionnaire, Question
+from collections import defaultdict
+from random import shuffle
+import random
+
 from django.contrib.sessions.models import Session
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, reverse
+from django.template.defaultfilters import register
+from django.views.decorators.csrf import ensure_csrf_cookie
+
+from .models import Study, TaskSet, Task, Answer, AnswerChoice, Question
 
 study_id = 1  # TestStudy
 overall_count = 12  # Nr. of cards
@@ -94,6 +96,15 @@ def dict_key(d, k):
     return d.get(k)
 
 
+# Assign randomly to one of 3 groups
+# 0: control group
+# 1: pos framing
+# 2: neg framing
+def get_condition():
+    rnd = random.randint(0, 2)
+    return rnd
+
+
 @ensure_csrf_cookie
 def index(request):
     list_p1 = []
@@ -101,13 +112,22 @@ def index(request):
     list_m1 = []
     list_m2 = []
 
-    # Initialize to either old value or 0
+    # Initialize to either old value or 0 if not exists
     page_nr = request.session.get('page_nr', '0')
     progress = request.session.get('progress', '0')
     p1 = request.session.get('p1', '0')
     p2 = request.session.get('p2', '0')
     m1 = request.session.get('m1', '0')
     m2 = request.session.get('m2', '0')
+
+    # Assign randomly to condition
+    r = get_condition()
+    rnd = request.session.get('rand', r)
+    print("rand:" + str(rnd))
+
+    # Load answers from questionnaire
+    imi = Question.objects.filter(questionnaire__name="Intrinsic Motivation Inventory")
+    print(imi)
 
     if 'init' not in request.session:
         request.session['init'] = 'true'
@@ -146,7 +166,8 @@ def index(request):
     return render(request, 'index.html',
                   context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2,
                            "array_m1": array_m1, "array_m2": array_m2, "array_p1": array_p1, "array_p2": array_p2,
-                           "page_nr": page_nr, "overall_count": overall_count, "progress": progress})
+                           "page_nr": page_nr, "overall_count": overall_count, "progress": progress,
+                           "framing": rnd, "imi": imi})
 
 
 @ensure_csrf_cookie
@@ -191,10 +212,10 @@ def saveIMI(request):
     parameterinfo = json.loads(getparameterinfo)
 
 
-@ensure_csrf_cookie
-def savePXI(request):
-    getparameterinfo = request.body.decode('utf-8')
-    parameterinfo = json.loads(getparameterinfo)
+# @ensure_csrf_cookie
+# def savePXI(request):
+#     getparameterinfo = request.body.decode('utf-8')
+#     parameterinfo = json.loads(getparameterinfo)
 
 
 def evaluation(request):

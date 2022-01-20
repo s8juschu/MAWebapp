@@ -12,7 +12,7 @@
         </div>
         <div class="card-body">
             <p class="card-text">
-                The questions on the next pages are different kinds of cognitive ability tasks.
+                The questions on the next two pages are different kinds of cognitive ability tasks.
                 Please answer the questions as well as you can without using external instruments or taking notes.
             </p>
         </div>
@@ -52,7 +52,7 @@
                         {% for arr in array_p1|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
                                 <input type="radio" id="p1{{ task.pk }}{{ forloop.counter }}"
-                                       name="p1{{ task.pk }}" value="{{ arr }}" checked/>
+                                       name="p1{{ task.pk }}" value="{{ arr }}"/>
                                 <label for="p1{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
                             </div>
                         {% endfor %}
@@ -100,7 +100,7 @@
                         {% for arr in array_p2|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
                                 <input type="radio" id="p2{{ task.pk }}{{ forloop.counter }}"
-                                       name="p2{{ task.pk }}" value="{{ arr }}" checked/>
+                                       name="p2{{ task.pk }}" value="{{ arr }}"/>
                                 <label for="p2{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
                             </div>
                         {% endfor %}

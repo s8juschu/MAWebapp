@@ -25,7 +25,7 @@ class Task(models.Model):
     details = models.CharField(max_length=20, default="", blank=True)
     text = models.CharField(max_length=200, default="", blank=True)
     task_set = models.ForeignKey(TaskSet, on_delete=models.CASCADE)
-    image_link = models.CharField(max_length=200,  default="", blank=True)
+    image_link = models.CharField(max_length=200, default="", blank=True)
 
     def __int__(self):
         return self.pk
@@ -39,6 +39,7 @@ class AnswerChoice(models.Model):
     def __str__(self):
         return self.text
 
+
 # -------------------------------------------------------------
 # Answer of Tasks
 class Answer(models.Model):
@@ -49,6 +50,8 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.answer
+
+
 # -------------------------------------------------------------
 
 

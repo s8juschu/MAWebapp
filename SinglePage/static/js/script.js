@@ -102,10 +102,10 @@ function saveIMI(type) {
     // xhr.send(JSON.stringify(parameters));
 
 }
-
-//Save values PXI
-function savePXI(type) {
-        for (var i = 0; i < 5; i++) {
-       console.log($('input[name=scale'+i+']:checked').val());
-    }
-}
+//
+// //Save values PXI
+// function savePXI() {
+//         for (var i = 0; i < 5; i++) {
+//        console.log($('input[name=scale'+i+']:checked').val());
+//     }
+// }
