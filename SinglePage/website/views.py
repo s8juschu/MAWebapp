@@ -9,7 +9,7 @@ from django.shortcuts import render, reverse
 from django.template.defaultfilters import register
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from .models import Study, TaskSet, Task, Answer, AnswerChoice, Question
+from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question
 
 study_id = 1  # TestStudy
 overall_count = 12  # Nr. of cards
