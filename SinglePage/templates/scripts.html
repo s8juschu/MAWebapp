@@ -1,0 +1,26 @@
+{# Save answer from tasks, grouped by pre or main task#}
+<script type="text/javascript">
+function saveTask(type, number){
+    let parameters = {};
+    parameters.type = type;
+
+    console.log(number);
+    console.log(type);
+
+    if (number === "first"){
+        {% for task in p1 %}
+            console.log({{ task.pk }});
+            {#parameters.task_id = "{{ task.pk }}";#}
+            {#parameters.answer = "{{ task.pk }}";#}
+        {% endfor %}
+    }
+
+    console.log(parameters);
+    // let xhr = new XMLHttpRequest();
+    // xhr.open("POST", '/website/saveTask', true);
+    // xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    // xhr.setRequestHeader('Content-Type', 'application/json');
+    // xhr.send(JSON.stringify(parameters));
+}
+</script>
+

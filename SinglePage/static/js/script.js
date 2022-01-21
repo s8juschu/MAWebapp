@@ -134,19 +134,6 @@ function setData(v) {
     xhr.send(JSON.stringify(parameters));
 }
 
-/*
- Save answer from tasks, grouped by pre or main task
-*/
-function saveTask(type){
-    let parameters = {};
-
-    console.log(parameters);
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/website/saveTask', true);
-    xhr.setRequestHeader("X-CSRFToken", csrfToken);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(parameters));
-}
 
 /*
 Save values IMI
