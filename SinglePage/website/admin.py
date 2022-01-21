@@ -6,7 +6,7 @@ from .models import Study, TaskSet, Task, Submission, QuestionnaireSubmission, T
 
 
 class StudyAdmin (admin.ModelAdmin):
-    list_display = ('name', 'get_task', 'get_questionnaire')
+    list_display = ('pk', 'name', 'get_task', 'get_questionnaire')
 
     def get_task(self, obj):
         return obj.tasks.all()
@@ -23,7 +23,7 @@ class TaskSetAdmin(admin.ModelAdmin):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'description', 'details', 'text', 'task_set', 'image_link')
+    list_display = ('pk', 'description', 'details', 'item', 'task_set', 'image_link')
 
 
 class AnswerChoiceAdmin(admin.ModelAdmin):
@@ -42,7 +42,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'session', 'age', 'nationality', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
+    list_display = ('pk', 'study', 'session', 'age', 'nationality', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
                     'terms_agree', 'finished')
 
 

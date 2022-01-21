@@ -1,4 +1,6 @@
-// On page load, display correct page & progress
+/*
+ On page load, display correct page & progress
+*/
 $(document).ready(function() {
     // executes when HTML-Document is loaded and DOM is ready
     for (let i = 0; i < cardCounter; i++) {
@@ -10,7 +12,9 @@ $(document).ready(function() {
     }
 });
 
-// Display Continue btn only if check on first card
+/*
+ Display Continue btn only if check on first card
+*/
 document.getElementById('checkbox').onclick = function () {
     toggleSub(this, 'accept');
 };
@@ -25,7 +29,9 @@ function toggleSub(box, id) {
     }
 }
 
-//Fill progressbar
+/*
+ Calculate and fill progressbar
+*/
 function fillProgress(){
     if(progressCounter < 100) {
         progressCounter += (100/maxValue);
@@ -39,7 +45,9 @@ function fillProgress(){
     }
 }
 
-//Display cards one after another
+/*
+Display cards one after another
+*/
 function displayCards() {
     if((cardCounter) < maxValue+1){
         $('#card' + cardCounter).hide();
@@ -51,6 +59,9 @@ function displayCards() {
     $('html,body').scrollTop(0);
 }
 
+/*
+ Get cookie for POST request
+*/
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -69,15 +80,16 @@ function getCookie(name) {
 
 let csrfToken = getCookie('csrftoken');
 
-// Save current page & counter
-// Save answer
+/*
+ Save current page & counter
+*/
 function setSession() {
     let parameters = {};
     parameters.page = cardCounter;
     parameters.progress = progressCounter;
-    if ( 0 < cardCounter < maxValue){
-        // parameters.answer = $('#textarea' + (cardCounter-1)).val();
-    }
+    // if ( 0 < cardCounter < maxValue){
+    //     // parameters.answer = $('#textarea' + (cardCounter-1)).val();
+    // }
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/website/saveSession', true);
@@ -86,6 +98,10 @@ function setSession() {
     xhr.send(JSON.stringify(parameters));
 }
 
+
+/*
+ Save personal information
+*/
 function setData(v) {
     let parameters = {};
     if (v === "agree"){
@@ -111,7 +127,6 @@ function setData(v) {
         parameters.finish = "true"
     }
 
-    console.log(parameters)
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/website/saveData', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
@@ -119,7 +134,23 @@ function setData(v) {
     xhr.send(JSON.stringify(parameters));
 }
 
-//Save values IMI
+/*
+ Save answer from tasks, grouped by pre or main task
+*/
+function saveTask(type){
+    let parameters = {};
+
+    console.log(parameters);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", '/website/saveTask', true);
+    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(parameters));
+}
+
+/*
+Save values IMI
+*/
 function saveIMI(type) {
     // let parameters = {};
     // parameters.type = type;
@@ -135,6 +166,7 @@ function saveIMI(type) {
     // xhr.send(JSON.stringify(parameters));
 
 }
+
 //
 // //Save values PXI
 // function savePXI() {

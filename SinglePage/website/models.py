@@ -23,7 +23,7 @@ class TaskSet(models.Model):
 class Task(models.Model):
     description = models.CharField(max_length=200)
     details = models.CharField(max_length=20, default="", blank=True)
-    text = models.CharField(max_length=200, default="", blank=True)
+    item = models.CharField(max_length=200, default="", blank=True)
     task_set = models.ForeignKey(TaskSet, on_delete=models.CASCADE)
     image_link = models.CharField(max_length=200, default="", blank=True)
 
@@ -67,6 +67,7 @@ class Question(models.Model):
 
 # Answers of Study
 class Submission(models.Model):
+    study = models.ForeignKey(Study, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     list_p1 = models.CharField(max_length=128)
     list_p2 = models.CharField(max_length=128)

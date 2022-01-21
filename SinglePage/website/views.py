@@ -113,6 +113,7 @@ def save_initialization(request, list_p1, list_p2, list_m1, list_m2):
     print(session)
     if not Submission.objects.filter(session=session).exists():
         submission = Submission()
+        submission.study = Study.objects.get(pk=study_id)
         submission.session = session
         submission.list_p1 = list_p1
         submission.list_p2 = list_p2
@@ -206,6 +207,7 @@ def saveSession(request):
     return HttpResponse(200)
 
 
+# Save personal info from frontend in DB
 @ensure_csrf_cookie
 def saveData(request):
     getparameterinfo = request.body.decode('utf-8')
@@ -261,12 +263,25 @@ def saveData(request):
     return HttpResponse(200)
 
 
+# Save tasks answers from frontend in DB
+@ensure_csrf_cookie
+def saveTask(request):
+    getparameterinfo = request.body.decode('utf-8')
+    parameterinfo = json.loads(getparameterinfo)
+
+    return HttpResponse(200)
+
+
+# Save answers of IMI from frontend in DB
 @ensure_csrf_cookie
 def saveIMI(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
+    return HttpResponse(200)
 
+
+# Save answers of PXI from frontend in DB
 # @ensure_csrf_cookie
 # def savePXI(request):
 #     getparameterinfo = request.body.decode('utf-8')
