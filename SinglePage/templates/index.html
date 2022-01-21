@@ -13,7 +13,7 @@
     <div class="card">
         {% include 'cards/start.html' %}
         <div class="modal-footer" id="accept" style="display: none;">
-            <a class="btn btn-accept-terms" onclick="displayCards()"> Continue</a>
+            <a class="btn btn-accept-terms" onclick="displayCards(); setData('agree')"> Continue</a>
         </div>
     </div>
 </div>
@@ -21,7 +21,7 @@
     <div class="card">
         {% include 'cards/personal_info.html' %}
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+            <a class="btn btn-next" onclick="displayCards(); fillProgress(); setData('personal')"> Continue</a>
         </div>
     </div>
 </div>
@@ -30,7 +30,7 @@
     <div class="card">
         {% include 'cards/questionnaire.html' %}
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveQuestion('pre')"> Continue</a>
         </div>
     </div>
 </div>
@@ -47,7 +47,7 @@
     <div class="card">
         {% include 'cards/questionnaire.html' %}
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveQuestion('main')"> Continue</a>
         </div>
     </div>
 </div>
@@ -55,7 +55,7 @@
     <div class="card">
         {% include 'cards/imi.html' %}
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveIMI('main');"> Continue</a>
+            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveIMI('main'); setData('finish')"> Continue</a>
         </div>
     </div>
 </div>

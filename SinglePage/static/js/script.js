@@ -86,6 +86,39 @@ function setSession() {
     xhr.send(JSON.stringify(parameters));
 }
 
+function setData(v) {
+    let parameters = {};
+    if (v === "agree"){
+        parameters.type = "agree";
+        parameters.agree = "true"
+    }
+    if (v === "personal"){
+        parameters.type = "personal";
+        parameters.age = document.getElementById("age").value;
+        parameters.nationality = document.getElementById("nationality").value;
+        if (document.getElementById("female").checked === true){
+            parameters.gender = "female";
+        }
+        else if (document.getElementById("male").checked === true){
+           parameters.gender = "male";
+        }
+        else{
+             parameters.gender = "other";
+        }
+    }
+    if (v === "finish"){
+        parameters.type = "finish";
+        parameters.finish = "true"
+    }
+
+    console.log(parameters)
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", '/website/saveData', true);
+    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(parameters));
+}
+
 //Save values IMI
 function saveIMI(type) {
     // let parameters = {};

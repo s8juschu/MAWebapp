@@ -1,3 +1,4 @@
+from distutils.util import strtobool
 import json
 from collections import defaultdict
 from random import shuffle
@@ -105,6 +106,21 @@ def get_condition():
     return rnd
 
 
+def save_initialization(request, list_p1, list_p2, list_m1, list_m2):
+    if not request.session.exists(request.session.session_key):
+        request.session.create()
+    session = Session.objects.get(session_key=request.session.session_key)
+    print(session)
+    if not Submission.objects.filter(session=session).exists():
+        submission = Submission()
+        submission.session = session
+        submission.list_p1 = list_p1
+        submission.list_p2 = list_p2
+        submission.list_m1 = list_m1
+        submission.list_m2 = list_m2
+        submission.save()
+
+
 @ensure_csrf_cookie
 def index(request):
     list_p1 = []
@@ -127,7 +143,7 @@ def index(request):
 
     # Load answers from questionnaire
     imi = Question.objects.filter(questionnaire__name="Intrinsic Motivation Inventory")
-    print(imi)
+    # print(imi)
 
     if 'init' not in request.session:
         request.session['init'] = 'true'
@@ -153,6 +169,8 @@ def index(request):
 
     else:
         print("error")
+
+    save_initialization(request, list_p1, list_p2, list_m1, list_m2)
 
     # TODO delete whole IF
     print(page_nr)
@@ -185,24 +203,61 @@ def saveSession(request):
     progress = parameterinfo["progress"]
     request.session['progress'] = progress
 
-    if 'answer' in parameterinfo:
-        study = Study.objects.get(pk=study_id)
-        session = Session.objects.get(session_key=request.session.session_key)
-        print(session)
-        question_nr_exist = Answer.objects.filter(question_nr=current_page, session=session).exists()
-        if not question_nr_exist:
-            answer = parameterinfo["answer"]
-            answer_model = Answer()
-            answer_model.answer = answer
-            answer_model.study = study
-            answer_model.session = session
-            answer_model.question_nr = current_page
-            answer_model.save()
+    return HttpResponse(200)
 
-            print(Answer.objects.all())
-            print(Session.objects.all())
-        else:
-            print("Already done that task. Not saved.")
+
+@ensure_csrf_cookie
+def saveData(request):
+    getparameterinfo = request.body.decode('utf-8')
+    parameterinfo = json.loads(getparameterinfo)
+
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+
+    if submission_exist:
+        # Save if participant agreed data terms
+        if parameterinfo["type"] == 'agree':
+            # Only save if entry not yet saved
+            if Submission.objects.filter(session=session, terms_agree="False").exists():
+                agree = parameterinfo["agree"]
+                submission = Submission.objects.get(session=session)
+                submission.terms_agree = bool(strtobool(agree))
+                print(agree)
+                submission.save()
+            else:
+                print("Already saved terms_agree info. No changes made to DB.")
+
+        # Save if participants personal info
+        if parameterinfo["type"] == 'personal':
+            if Submission.objects.get(session=session).age == "" and \
+                    Submission.objects.get(session=session).gender == "":
+                age = parameterinfo["age"]
+                nationality = parameterinfo["nationality"]
+                gender = parameterinfo["gender"]
+                submission = Submission.objects.get(session=session)
+                submission.age = age
+                submission.nationality = nationality
+                submission.gender = gender
+                print(age + nationality + gender)
+                submission.save()
+            else:
+                print("Already saved personal info. No changes made to DB.")
+
+        # Save if participant finished study
+        if parameterinfo["type"] == 'finish':
+            # Only save if entry not yet saved
+            if Submission.objects.filter(session=session, finished="False").exists():
+                finish = parameterinfo["finish"]
+                submission = Submission.objects.get(session=session)
+                submission.finished = bool(strtobool(finish))
+                print(finish)
+                submission.save()
+            else:
+                print("Already saved finished info. No changes made to DB.")
+
+    else:
+        print("ERROR: Submission does not exist.")
+
     return HttpResponse(200)
 
 

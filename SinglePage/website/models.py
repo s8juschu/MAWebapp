@@ -13,7 +13,7 @@ class Study(models.Model):
 # Task Types
 class TaskSet(models.Model):
     name = models.CharField(max_length=200)
-    study = models.ForeignKey(Study, on_delete=models.CASCADE)
+    study = models.ManyToManyField(Study, related_name='tasks')
 
     def __str__(self):
         return self.name
@@ -47,7 +47,7 @@ class AnswerChoice(models.Model):
 # Questionnaire Types
 class Questionnaire(models.Model):
     name = models.CharField(max_length=128)
-    study = models.ForeignKey(Study, on_delete=models.CASCADE)
+    study = models.ManyToManyField(Study, related_name='questionnaires')
 
     def __str__(self):
         return self.name
@@ -68,47 +68,33 @@ class Question(models.Model):
 # Answers of Study
 class Submission(models.Model):
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.answer
-
-
-class GeneralData(models.Model):
-    submission = models.OneToOneField(Submission, on_delete=models.CASCADE)
-    session = models.ForeignKey(Session, on_delete=models.CASCADE)
     list_p1 = models.CharField(max_length=128)
     list_p2 = models.CharField(max_length=128)
     list_m1 = models.CharField(max_length=128)
     list_m2 = models.CharField(max_length=128)
-    terms_agree = models.BooleanField()
-    finished = models.BooleanField()
-
-    def __int__(self):
-        return self.pk
-
-
-class PersonalData(models.Model):
-    submission = models.OneToOneField(Submission, on_delete=models.CASCADE)
-    session = models.ForeignKey(Session, on_delete=models.CASCADE)
-    age = models.IntegerField()
-    nationality = models.CharField(max_length=128)
-    gender = models.CharField(max_length=20)
+    terms_agree = models.BooleanField(default=False)
+    age = models.IntegerField(null=True)
+    nationality = models.CharField(max_length=128, null=True)
+    gender = models.CharField(max_length=20, null=True)
+    finished = models.BooleanField(default=False)
 
     def __int__(self):
         return self.pk
 
 
 class QuestionnaireSubmission(models.Model):
-    submission = models.ManyToManyField(Submission)
+    submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    questionnaire_id = models.IntegerField()
     description = models.CharField(max_length=20)  # pre or main
+    answer = models.CharField(max_length=20)
 
     def __int__(self):
         return self.pk
 
 
 class TaskSubmission(models.Model):
-    submission = models.ManyToManyField(Submission)
+    submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     task_id = models.IntegerField()
     answer = models.CharField(max_length=20)
