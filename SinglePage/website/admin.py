@@ -47,11 +47,11 @@ class SubmissionAdmin(admin.ModelAdmin):
 
 
 class QuestionnaireSubmissionAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'session', 'submission', 'questionnaire_id', 'description', 'answer')
+    list_display = ('pk', 'session', 'submission', 'type', 'questionnaire_id', 'answer')
 
 
 class TaskSubmissionAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'session', 'submission', 'task_id', 'answer')
+    list_display = ('pk', 'session', 'submission', 'type', 'item', 'task_id', 'answer')
 
 
 admin.site.register(Study)

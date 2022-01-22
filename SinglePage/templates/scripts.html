@@ -1,26 +1,51 @@
 {# Save answer from tasks, grouped by pre or main task#}
 <script type="text/javascript">
-function saveTask(type, number){
+
+{#Get chekced radio btn by name#}
+function get_checked(name){
+    let radios = document.getElementsByName(name);
+    let value;
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].type === 'radio' && radios[i].checked) {
+            value = radios[i].value;
+        }
+    }
+    return value;
+}
+
+{#Save answered tasks#}
+function saveTask(type){
     let parameters = {};
+    parameters.listarray = [];
     parameters.type = type;
 
-    console.log(number);
-    console.log(type);
-
-    if (number === "first"){
+    if (type === "p1"){
         {% for task in p1 %}
-            console.log({{ task.pk }});
-            {#parameters.task_id = "{{ task.pk }}";#}
-            {#parameters.answer = "{{ task.pk }}";#}
+            var tasks = {};
+            tasks.item = {{ forloop.counter }};
+            tasks.task_id = "{{ task.pk }}";
+            {#document.write('<script id="task_pk" type="application/json">{{ task.pk }}<\/script>'); |json_string#}
+            {#var js_variable = JSON.parse(document.getElementById('task_pk').textContent);#}
+            tasks.answer = get_checked("p1{{ task.pk }}");
+            parameters.listarray.push(tasks);
         {% endfor %}
     }
 
-    console.log(parameters);
-    // let xhr = new XMLHttpRequest();
-    // xhr.open("POST", '/website/saveTask', true);
-    // xhr.setRequestHeader("X-CSRFToken", csrfToken);
-    // xhr.setRequestHeader('Content-Type', 'application/json');
-    // xhr.send(JSON.stringify(parameters));
+    if (type === "p2"){
+        {% for task in p2 %}
+            var tasks = {};
+            tasks.item = {{ forloop.counter }};
+            tasks.task_id = "{{ task.pk }}";
+            tasks.answer = get_checked("p2{{ task.pk }}");
+            parameters.listarray.push(tasks);
+        {% endfor %}
+    }
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", '/website/saveTask', true);
+    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(parameters));
 }
 </script>
 

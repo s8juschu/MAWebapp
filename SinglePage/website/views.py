@@ -10,7 +10,7 @@ from django.shortcuts import render, reverse
 from django.template.defaultfilters import register
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question
+from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission
 
 study_id = 1  # TestStudy
 overall_count = 12  # Nr. of cards
@@ -189,6 +189,7 @@ def index(request):
                            "framing": rnd, "imi": imi})
 
 
+# Save next page & progressbar to show on press continue in frontend
 @ensure_csrf_cookie
 def saveSession(request):
     getparameterinfo = request.body.decode('utf-8')
@@ -268,6 +269,32 @@ def saveData(request):
 def saveTask(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
+
+    print(parameterinfo)
+
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+    par_type = parameterinfo["type"]
+
+    if submission_exist:
+        listitem = parameterinfo["listarray"]
+        for item in listitem:
+            task_item = item["item"]
+            if not TaskSubmission.objects.filter(session=session, type=par_type, item=task_item).exists():
+                task_sub = TaskSubmission()
+                task_sub.submission = Submission.objects.get(session=session)
+                task_sub.session = session
+                task_sub.type = par_type
+
+                task_sub.item = task_item
+                task_sub.task_id = item["task_id"]
+                task_sub.answer = item["answer"]
+
+                task_sub.save()
+
+            else:
+                print("Already saved task info of type:" + str(par_type) + ", item:" + str(task_item) +
+                      ". No changes made to DB.")
 
     return HttpResponse(200)
 

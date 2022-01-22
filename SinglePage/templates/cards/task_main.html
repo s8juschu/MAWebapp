@@ -64,7 +64,7 @@
                         {% for arr in array_m1|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
                                 <input type="radio" id="m1{{ task.pk }}{{ forloop.counter }}"
-                                       name="m1{{ task.pk }}" value="{{ arr }}"/>
+                                       name="m1{{ task.pk }}" value="{{ arr }}" readonly="readonly"/>
                                 <label for="m1{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
                             </div>
                         {% endfor %}
@@ -111,7 +111,7 @@
                         {% for arr in array_m2|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
                                 <input type="radio" id="m2{{ task.pk }}{{ forloop.counter }}"
-                                       name="m2{{ task.pk }}" value="{{ arr }}"/>
+                                       name="m2{{ task.pk }}" value="{{ arr }}" readonly="readonly"/>
                                 <label for="m2{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
                             </div>
                         {% endfor %}

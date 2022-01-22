@@ -52,7 +52,7 @@
                         {% for arr in array_p1|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
                                 <input type="radio" id="p1{{ task.pk }}{{ forloop.counter }}"
-                                       name="p1{{ task.pk }}" value="{{ arr }}"/>
+                                       name="p1{{ task.pk }}" value="{{ arr }}" readonly="readonly"/>
                                 <label for="p1{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
                             </div>
                         {% endfor %}
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick=" saveTask('pre', 'first')"> Continue</a>
+            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveTask('p1')"> Continue</a>
         </div>
     </div>
 </div>
@@ -100,7 +100,7 @@
                         {% for arr in array_p2|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
                                 <input type="radio" id="p2{{ task.pk }}{{ forloop.counter }}"
-                                       name="p2{{ task.pk }}" value="{{ arr }}"/>
+                                       name="p2{{ task.pk }}" value="{{ arr }}" readonly="readonly"/>
                                 <label for="p2{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
                             </div>
                         {% endfor %}
@@ -114,7 +114,7 @@
             </div>
         </div>
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveTask('p2')"> Continue</a>
         </div>
     </div>
 </div>

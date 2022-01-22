@@ -87,7 +87,7 @@ class QuestionnaireSubmission(models.Model):
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     questionnaire_id = models.IntegerField()
-    description = models.CharField(max_length=20)  # pre or main
+    type = models.CharField(max_length=20)  # pre or main
     answer = models.CharField(max_length=20)
 
     def __int__(self):
@@ -97,6 +97,8 @@ class QuestionnaireSubmission(models.Model):
 class TaskSubmission(models.Model):
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    type = models.CharField(max_length=20)  # pre or main
+    item = models.CharField(max_length=20)  # page 1 or page 2
     task_id = models.IntegerField()
     answer = models.CharField(max_length=20)
 
