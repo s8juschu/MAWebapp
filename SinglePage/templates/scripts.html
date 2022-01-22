@@ -41,6 +41,27 @@ function saveTask(type){
         {% endfor %}
     }
 
+    if (type === "m1"){
+        {% for task in m1 %}
+            var tasks = {};
+            tasks.item = {{ forloop.counter }};
+            tasks.task_id = "{{ task.pk }}";
+            tasks.answer = get_checked("m1{{ task.pk }}");
+            parameters.listarray.push(tasks);
+        {% endfor %}
+    }
+
+    if (type === "m2"){
+        {% for task in m2 %}
+            var tasks = {};
+            tasks.item = {{ forloop.counter }};
+            tasks.task_id = "{{ task.pk }}";
+            tasks.answer = get_checked("m2{{ task.pk }}");
+            parameters.listarray.push(tasks);
+        {% endfor %}
+    }
+
+    console.log(parameters)
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/website/saveTask', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
