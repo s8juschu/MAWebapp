@@ -48,6 +48,7 @@
         </div>
         <div class="card-body">
             <div class="container">
+                <p id="errorm1" class="error">
                 {% for task in m1 %}
                     <p class="card-text">{{ task.description }}</p>
                     {% if task.details|length > 0 %}
@@ -60,6 +61,7 @@
                         {% endwith %}
                         <br><br>
                     {% endif %}
+                    <p id="errorm1{{ task.pk }}" class="error_sub">
                     <div class="row">
                         {% for arr in array_m1|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
@@ -78,7 +80,7 @@
             </div>
         </div>
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveTask('m1')"> Continue</a>
+            <a class="btn btn-next" onclick="saveTask('m1')"> Continue</a>
         </div>
     </div>
 </div>
@@ -95,6 +97,7 @@
         </div>
         <div class="card-body">
             <div class="container">
+                <p id="errorm2" class="error">
                 {% for task in m2 %}
                     <p class="card-text">{{ task.description }}</p>
                     {% if task.details|length > 0 %}
@@ -107,6 +110,7 @@
                         {% endwith %}
                         <br><br>
                     {% endif %}
+                    <p id="errorm2{{ task.pk }}" class="error_sub">
                     <div class="row">
                         {% for arr in array_m2|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
@@ -125,7 +129,7 @@
             </div>
         </div>
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveTask('m2')"> Continue</a>
+            <a class="btn btn-next" onclick="saveTask('m2')"> Continue</a>
         </div>
     </div>
 </div>

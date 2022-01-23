@@ -32,6 +32,13 @@ function display_error_msg(parameters, name) {
     if (missing_answr === "false"){
         document.getElementById('error'+name).innerHTML = "";
         displayCards(); fillProgress();
+
+        {#Save answers in DB#}
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", '/website/saveTask', true);
+        xhr.setRequestHeader("X-CSRFToken", csrfToken);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(parameters));
     }
 }
 
@@ -79,6 +86,10 @@ function saveTask(type){
             tasks.answer = get_checked("m1{{ task.pk }}");
             parameters.listarray.push(tasks);
         {% endfor %}
+
+        {#Display error message if question not answered#}
+        {#Else continue#}
+        display_error_msg(parameters, "m1");
     }
 
     if (type === "m2"){
@@ -89,14 +100,11 @@ function saveTask(type){
             tasks.answer = get_checked("m2{{ task.pk }}");
             parameters.listarray.push(tasks);
         {% endfor %}
-    }
 
-    {#console.log(parameters);#}
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/website/saveTask', true);
-    xhr.setRequestHeader("X-CSRFToken", csrfToken);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(parameters));
+        {#Display error message if question not answered#}
+        {#Else continue#}
+        display_error_msg(parameters, "m2");
+    }
 }
 </script>
 
