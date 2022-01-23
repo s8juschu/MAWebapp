@@ -36,9 +36,9 @@
 </div>
 <div class="container" id="card6" style="display: none;">
     <div class="card">
-        {% include 'cards/imi.html' %}
+        {% include 'cards/imi_pre.html' %}
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveIMI('pre');"> Continue</a>
+            <a class="btn btn-next" onclick="saveQuestionnaire('pre', 'IMI');"> Continue</a>
         </div>
     </div>
 </div>
@@ -53,9 +53,9 @@
 </div>
 <div class="container" id="card11" style="display: none;">
     <div class="card">
-        {% include 'cards/imi.html' %}
+        {% include 'cards/imi_main.html' %}
         <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); fillProgress(); saveIMI('main'); setData('finish')"> Continue</a>
+            <a class="btn btn-next" onclick="saveQuestionnaire('main', 'IMI'); setData('finish')"> Continue</a>
         </div>
     </div>
 </div>

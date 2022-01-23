@@ -86,8 +86,9 @@ class Submission(models.Model):
 class QuestionnaireSubmission(models.Model):
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
-    questionnaire_id = models.IntegerField()
-    type = models.CharField(max_length=20)  # pre or main
+    question_id = models.IntegerField()
+    type = models.CharField(max_length=20)  # pre or main, page 1 or page 2
+    item = models.CharField(max_length=20)  # order of task on page
     answer = models.CharField(max_length=20)
 
     def __int__(self):
@@ -97,8 +98,8 @@ class QuestionnaireSubmission(models.Model):
 class TaskSubmission(models.Model):
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
-    type = models.CharField(max_length=20)  # pre or main
-    item = models.CharField(max_length=20)  # page 1 or page 2
+    type = models.CharField(max_length=20)  # pre or main, page 1 or page 2
+    item = models.CharField(max_length=20)  # order of task on page
     task_id = models.IntegerField()
     answer = models.CharField(max_length=20)
 

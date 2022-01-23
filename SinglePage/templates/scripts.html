@@ -13,7 +13,7 @@ function get_checked(name){
     return value;
 }
 
-function display_error_msg(parameters, name) {
+function on_continue_task(parameters, name) {
     {#Display error message if question not answered#}
     let missing_answr = "false";
     let arrayLength = parameters.listarray.length;
@@ -61,10 +61,10 @@ function saveTask(type){
 
         {#Display error message if question not answered#}
         {#Else continue#}
-        display_error_msg(parameters, "p1");
+        on_continue_task(parameters, "p1");
     }
 
-    if (type === "p2"){
+    else if (type === "p2"){
         {% for task in p2 %}
             var tasks = {};
             tasks.item = {{ forloop.counter }};
@@ -75,10 +75,10 @@ function saveTask(type){
 
         {#Display error message if question not answered#}
         {#Else continue#}
-        display_error_msg(parameters, "p2");
+        on_continue_task(parameters, "p2");
     }
 
-    if (type === "m1"){
+    else if (type === "m1"){
         {% for task in m1 %}
             var tasks = {};
             tasks.item = {{ forloop.counter }};
@@ -89,10 +89,10 @@ function saveTask(type){
 
         {#Display error message if question not answered#}
         {#Else continue#}
-        display_error_msg(parameters, "m1");
+        on_continue_task(parameters, "m1");
     }
 
-    if (type === "m2"){
+    else if (type === "m2"){
         {% for task in m2 %}
             var tasks = {};
             tasks.item = {{ forloop.counter }};
@@ -103,7 +103,72 @@ function saveTask(type){
 
         {#Display error message if question not answered#}
         {#Else continue#}
-        display_error_msg(parameters, "m2");
+        on_continue_task(parameters, "m2");
+    }
+
+    else {
+        console.log("ERROR: Task set "+type+ " unknown.")
+    }
+}
+
+function on_continue_question(parameters, type, name){
+    console.log(parameters);
+    console.log(type);
+    console.log(name);
+    {#Display error message if question not answered#}
+    let missing_answr = "false";
+    let arrayLength = parameters.listarray.length;
+    for (let i = 0; i < arrayLength; i++) {
+        let items = parameters.listarray[i];
+        document.getElementById('error'+name+ type+(i+1)).innerHTML = "";
+        {#Check if not answered#}
+        if (items.answer == null || items.answer === "") {
+            document.getElementById('error'+name+ type+(i+1)).innerHTML = "Please select an answer.";
+            document.getElementById('error'+name+ type).innerHTML = "Some answers are missing. Please answer all questions before continuing.";
+            $('html,body').scrollTop(0);
+            missing_answr = "true";
+        }
+    }
+    {#Continue if all answered#}
+    if (missing_answr === "false") {
+        document.getElementById('error' + name+ type).innerHTML = "";
+        displayCards(); fillProgress();
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", '/website/saveIMI', true);
+        xhr.setRequestHeader("X-CSRFToken", csrfToken);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(parameters));
+    }
+}
+
+function saveQuestionnaire(type, name){
+    let parameters = {};
+    parameters.listarray = [];
+    parameters.type = type;
+
+    if (type === "pre") {
+        {% for question in imi %}
+            var question = {};
+            question.answer = get_checked("scalePre{{ forloop.counter }}");
+            question.item = {{ forloop.counter }};
+            parameters.listarray.push(question);
+        {% endfor %}
+        on_continue_question(parameters, type, name);
+    }
+
+    else  if (type === "main") {
+        {% for question in imi %}
+            var question = {};
+            question.answer = get_checked("scaleMain{{ forloop.counter }}");
+            question.item = {{ forloop.counter }};
+            parameters.listarray.push(question);
+        {% endfor %}
+        on_continue_question(parameters, type, name);
+    }
+
+    else {
+        console.log("ERROR: Questionnaire "+type+ " unknown.")
     }
 }
 </script>

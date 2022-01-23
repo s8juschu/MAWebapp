@@ -12,32 +12,34 @@
         Intrinsic Motivation Inventory
     </p>
     <br>
+    <p id="errorIMIpre" class="error">
     <div class="wrap">
         {% for question in imi %}
         <label class="statement">{{ question }}</label>
+        <p id="errorIMIpre{{ forloop.counter }}" class="error_sub error_question"></p>
         <ul class='likert'>
             <li>
-                <input type="radio" name="scale{{ forloop.counter0 }}" value="1">
+                <input type="radio" name="scalePre{{ forloop.counter }}" value="1">
                 <label>Not true at all</label>
             </li>
             <li>
-                <input type="radio" name="scale{{ forloop.counter0 }}" value="2">
+                <input type="radio" name="scalePre{{ forloop.counter }}" value="2">
             </li>
             <li>
-                <input type="radio" name="scale{{ forloop.counter0 }}" value="3">
+                <input type="radio" name="scalePre{{ forloop.counter }}" value="3">
             </li>
             <li>
-                <input type="radio" name="scale{{ forloop.counter0 }}" value="4">
+                <input type="radio" name="scalePre{{ forloop.counter }}" value="4">
                 <label>Somewhat true</label>
             </li>
             <li>
-                <input type="radio" name="scale{{ forloop.counter0 }}" value="5">
+                <input type="radio" name="scalePre{{ forloop.counter }}" value="5">
             </li>
             <li>
-                <input type="radio" name="scale{{ forloop.counter0 }}" value="6">
+                <input type="radio" name="scalePre{{ forloop.counter }}" value="6">
             </li>
             <li>
-                <input type="radio" name="scale{{ forloop.counter0 }}" value="7">
+                <input type="radio" name="scalePre{{ forloop.counter }}" value="7">
                 <label>Very true</label>
             </li>
         </ul>

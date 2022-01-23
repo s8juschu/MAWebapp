@@ -305,6 +305,8 @@ def saveIMI(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
+    print(parameterinfo)
+
     return HttpResponse(200)
 
 

@@ -152,3 +152,7 @@ h1.likert-header {
     color: red;
 }
 
+.error_question{
+  display:block;
+  padding: 0px 0 0 2%;
+}
