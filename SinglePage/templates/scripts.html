@@ -13,6 +13,28 @@ function get_checked(name){
     return value;
 }
 
+function display_error_msg(parameters, name) {
+    {#Display error message if question not answered#}
+    let missing_answr = "false";
+    let arrayLength = parameters.listarray.length;
+    for (let i = 0; i < arrayLength; i++) {
+        let items = parameters.listarray[i];
+        document.getElementById('error'+name+ items.task_id).innerHTML = "";
+        {#Check if not answered#}
+        if (items.answer == null || items.answer === "") {
+            document.getElementById('error'+name+ items.task_id).innerHTML = "Please select an answer.";
+            document.getElementById('error'+name).innerHTML = "Some answers are missing. Please answer all questions before continuing.";
+            $('html,body').scrollTop(0);
+            missing_answr = "true";
+        }
+    }
+    {#Continue if all answered#}
+    if (missing_answr === "false"){
+        document.getElementById('error'+name).innerHTML = "";
+        displayCards(); fillProgress();
+    }
+}
+
 {#Save answered tasks#}
 function saveTask(type){
     let parameters = {};
@@ -29,6 +51,10 @@ function saveTask(type){
             tasks.answer = get_checked("p1{{ task.pk }}");
             parameters.listarray.push(tasks);
         {% endfor %}
+
+        {#Display error message if question not answered#}
+        {#Else continue#}
+        display_error_msg(parameters, "p1");
     }
 
     if (type === "p2"){
@@ -39,6 +65,10 @@ function saveTask(type){
             tasks.answer = get_checked("p2{{ task.pk }}");
             parameters.listarray.push(tasks);
         {% endfor %}
+
+        {#Display error message if question not answered#}
+        {#Else continue#}
+        display_error_msg(parameters, "p2");
     }
 
     if (type === "m1"){
@@ -61,7 +91,7 @@ function saveTask(type){
         {% endfor %}
     }
 
-    console.log(parameters)
+    {#console.log(parameters);#}
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/website/saveTask', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);

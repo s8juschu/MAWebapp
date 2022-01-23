@@ -139,3 +139,16 @@ h1.likert-header {
   background-color: #e6f3ff;
 }
 
+/*Error messages*/
+.error{
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+}
+
+.error_sub{
+    font-size: 15px;
+    font-weight: bold;
+    color: red;
+}
+
