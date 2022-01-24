@@ -10,9 +10,9 @@ from django.shortcuts import render, reverse
 from django.template.defaultfilters import register
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission
+from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission
 
-study_id = 1  # TestStudy
+study_id = 1  # Study
 overall_count = 12  # Nr. of cards
 
 
@@ -144,7 +144,6 @@ def index(request):
 
     # Load answers from questionnaire
     imi = Question.objects.filter(questionnaire__name="Intrinsic Motivation Inventory")
-    # print(imi)
 
     if 'init' not in request.session:
         request.session['init'] = 'true'
@@ -241,7 +240,6 @@ def saveData(request):
                 submission.age = age
                 submission.nationality = nationality
                 submission.gender = gender
-                print(age + nationality + gender)
                 submission.save()
             else:
                 print("Already saved personal info. No changes made to DB.")
@@ -270,8 +268,6 @@ def saveTask(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
-    print(parameterinfo)
-
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
     par_type = parameterinfo["type"]
@@ -299,22 +295,42 @@ def saveTask(request):
     return HttpResponse(200)
 
 
-# Save answers of IMI from frontend in DB
+# Save answers of Questionnaires from frontend in DB
 @ensure_csrf_cookie
-def saveIMI(request):
+def saveQuestionnaire(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
     print(parameterinfo)
 
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+    par_type = parameterinfo["type"]
+    par_name = parameterinfo["name"]
+    print(par_name)
+
+    if submission_exist:
+        listitem = parameterinfo["listarray"]
+        for item in listitem:
+            question_item = item["item"]
+            if not QuestionnaireSubmission.objects.filter(session=session, type=par_type, item=question_item).exists():
+                question_sub = QuestionnaireSubmission()
+                question_sub.submission = Submission.objects.get(session=session)
+                question_sub.session = session
+
+                question_sub.type = par_type
+
+                question_sub.item = question_item
+                question_sub.question_id = item["question_id"]
+                question_sub.answer = item["answer"]
+
+                question_sub.save()
+
+            else:
+                print("Already saved questionnaire info of type:" + str(par_type) + ", item:" + str(question_item) +
+                      ". No changes made to DB.")
+
     return HttpResponse(200)
-
-
-# Save answers of PXI from frontend in DB
-# @ensure_csrf_cookie
-# def savePXI(request):
-#     getparameterinfo = request.body.decode('utf-8')
-#     parameterinfo = json.loads(getparameterinfo)
 
 
 def evaluation(request):

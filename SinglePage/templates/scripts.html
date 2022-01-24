@@ -112,9 +112,6 @@ function saveTask(type){
 }
 
 function on_continue_question(parameters, type, name){
-    console.log(parameters);
-    console.log(type);
-    console.log(name);
     {#Display error message if question not answered#}
     let missing_answr = "false";
     let arrayLength = parameters.listarray.length;
@@ -134,8 +131,12 @@ function on_continue_question(parameters, type, name){
         document.getElementById('error' + name+ type).innerHTML = "";
         displayCards(); fillProgress();
 
+        if (type === "main"){
+            setData('finish');
+        }
+
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", '/website/saveIMI', true);
+        xhr.open("POST", '/website/saveQuestionnaire', true);
         xhr.setRequestHeader("X-CSRFToken", csrfToken);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(parameters));
@@ -146,12 +147,14 @@ function saveQuestionnaire(type, name){
     let parameters = {};
     parameters.listarray = [];
     parameters.type = type;
+    parameters.name = name;
 
     if (type === "pre") {
         {% for question in imi %}
             var question = {};
             question.answer = get_checked("scalePre{{ forloop.counter }}");
             question.item = {{ forloop.counter }};
+            question.question_id = "{{ question.pk}}";
             parameters.listarray.push(question);
         {% endfor %}
         on_continue_question(parameters, type, name);
@@ -162,6 +165,7 @@ function saveQuestionnaire(type, name){
             var question = {};
             question.answer = get_checked("scaleMain{{ forloop.counter }}");
             question.item = {{ forloop.counter }};
+            question.question_id = "{{ question.pk}}";
             parameters.listarray.push(question);
         {% endfor %}
         on_continue_question(parameters, type, name);
