@@ -124,6 +124,7 @@ def save_initialization(request, list_p1, list_p2, list_m1, list_m2):
 
 @ensure_csrf_cookie
 def index(request):
+    # request.session.flush()
     list_p1 = []
     list_p2 = []
     list_m1 = []
@@ -179,7 +180,7 @@ def index(request):
         page_nr = request.session['page_nr']
         request.session['progress'] = 0
         progress = request.session['progress']
-        del (request.session['init'])
+        # del (request.session['init'])
 
     return render(request, 'index.html',
                   context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2,
@@ -224,15 +225,15 @@ def saveData(request):
                 agree = parameterinfo["agree"]
                 submission = Submission.objects.get(session=session)
                 submission.terms_agree = bool(strtobool(agree))
-                print(agree)
+                # print(agree)
                 submission.save()
             else:
                 print("Already saved terms_agree info. No changes made to DB.")
 
         # Save if participants personal info
         if parameterinfo["type"] == 'personal':
-            if Submission.objects.get(session=session).age == "" and \
-                    Submission.objects.get(session=session).gender == "":
+            if Submission.objects.filter(session=session, age__isnull=True) and \
+                    Submission.objects.filter(session=session, gender__isnull=True):
                 age = parameterinfo["age"]
                 nationality = parameterinfo["nationality"]
                 gender = parameterinfo["gender"]
