@@ -13,7 +13,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission
 
 study_id = 1  # Study
-overall_count = 12  # Nr. of cards
+overall_count = 14  # Nr. of cards
 
 
 # Split List in two

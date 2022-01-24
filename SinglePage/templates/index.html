@@ -31,6 +31,22 @@
 {% include 'cards/imi_main.html' %}
 <div class="container" id="card12" style="display: none;">
     <div class="card">
+         {% include 'cards/voluntary.html' %}
+        <div class="modal-footer" id="btn-next">
+                <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+        </div>
+    </div>
+</div>
+<div class="container" id="card13" style="display: none;">
+    <div class="card">
+         {% include 'cards/volunt_task.html' %}
+        <div class="modal-footer" id="btn-next">
+            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+        </div>
+    </div>
+</div>
+<div class="container" id="card14" style="display: none;">
+    <div class="card">
          {% include 'cards/end.html' %}
     </div>
 </div>
