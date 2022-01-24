@@ -37,7 +37,7 @@
 <div class="container" id="card6" style="display: none;">
     <div class="card">
         <div class="card-header text-white">
-            IMI
+            Questionnaire
         </div>
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -46,14 +46,13 @@
             </div>
         </div>
         <div class="card-body">
-            <p class="card-text">
-                Intrinsic Motivation Inventory
-            </p>
-            <br>
+{#            <p class="card-text">#}
+{#                Questionnaire#}
+{#            </p>#}
             <div id="errorIMIpre" class="error"></div>
             <div class="wrap">
                 {% for question in imi %}
-                    <label class="statement">{{ question }}</label>
+                    <label class="statement">{{ forloop.counter }}. {{ question }}</label>
                     <div id="errorIMIpre{{ forloop.counter }}" class="error_sub error_question"></div>
                     <ul class='likert'>
                         <li>
