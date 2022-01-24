@@ -109,23 +109,53 @@ function setData(v) {
         parameters.agree = "true"
     }
     if (v === "personal"){
+        let missing_answr = "false";
+        document.getElementById('errorPersonalAge').innerHTML = "";
+        document.getElementById('errorPersonalNation').innerHTML = "";
+        document.getElementById('errorPersonalGender').innerHTML = "";
+
         parameters.type = "personal";
         parameters.age = document.getElementById("age").value;
+        if (parameters.age == null || parameters.age === "") {
+            document.getElementById('errorPersonalAge').innerHTML = "Please enter your age.";
+            missing_answr = "true";
+        }
+
         parameters.nationality = document.getElementById("nationality").value;
+        if (parameters.nationality == null || parameters.nationality === "") {
+            document.getElementById('errorPersonalNation').innerHTML = "Please enter your nationality.";
+            missing_answr = "true";
+        }
+
         if (document.getElementById("female").checked === true){
             parameters.gender = "female";
         }
         else if (document.getElementById("male").checked === true){
            parameters.gender = "male";
         }
-        else{
+        else if (document.getElementById("other").checked === true){
              parameters.gender = "other";
         }
+        else{
+            document.getElementById('errorPersonalGender').innerHTML = "Please select an answer.";
+            missing_answr = "true";
+        }
+
+         if (missing_answr === "true"){
+             document.getElementById('errorPersonal').innerHTML = "Some answers are missing. Please answer all questions before continuing.";
+            $('html,body').scrollTop(0);
+             return;
+         }
+         else if (missing_answr === "false"){
+             displayCards(); fillProgress();
+         }
     }
     if (v === "finish"){
         parameters.type = "finish";
         parameters.finish = "true"
     }
+
+    document.getElementById('errorPersonal').innerHTML = "";
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/website/saveData', true);
