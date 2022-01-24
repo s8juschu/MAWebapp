@@ -111,19 +111,12 @@ function setData(v) {
     if (v === "personal"){
         let missing_answr = "false";
         document.getElementById('errorPersonalAge').innerHTML = "";
-        document.getElementById('errorPersonalNation').innerHTML = "";
         document.getElementById('errorPersonalGender').innerHTML = "";
 
         parameters.type = "personal";
         parameters.age = document.getElementById("age").value;
         if (parameters.age == null || parameters.age === "") {
             document.getElementById('errorPersonalAge').innerHTML = "Please enter your age.";
-            missing_answr = "true";
-        }
-
-        parameters.nationality = document.getElementById("nationality").value;
-        if (parameters.nationality == null || parameters.nationality === "") {
-            document.getElementById('errorPersonalNation').innerHTML = "Please enter your nationality.";
             missing_answr = "true";
         }
 

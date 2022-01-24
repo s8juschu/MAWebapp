@@ -1,49 +1,78 @@
-<div class="card-header text-white">
-    IMI
-</div>
-<div class="progress">
-    <div class="progress-bar" role="progressbar" aria-valuenow="0"
-         aria-valuemin="0" aria-valuemax="100" style="width:0%">
-        <div class="progress-text" style="margin-left: 4px">0%</div>
+<div class="container" id="card10" style="display: none;">
+    <div class="card">
+        <div class="card-header text-white">
+           Questionnaires
+        </div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                <div class="progress-text" style="margin-left: 4px">0%</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+               With the questionnaire on the next page, we would again like to get your opinion on the previous 8 tasks.
+               Please answer the questions as well as you can.
+            </p>
+        </div>
+        <div class="modal-footer" id="btn-next">
+            <a class="btn btn-next" onclick="displayCards(); fillProgress()"> Continue</a>
+        </div>
     </div>
 </div>
-<div class="card-body">
-    <p class="card-text">
-        Intrinsic Motivation Inventory
-    </p>
-    <br>
-    <p id="errorIMImain" class="error"></p>
-    <div class="wrap">
-        {% for question in imi %}
-        <label class="statement">{{ question }}</label>
-        <p id="errorIMImain{{ forloop.counter }}" class="error_sub error_question"></p>
-        <ul class='likert'>
-            <li>
-                <input type="radio" name="scaleMain{{ forloop.counter }}" value="1">
-                <label>Not true at all</label>
-            </li>
-            <li>
-                <input type="radio" name="scaleMain{{ forloop.counter }}" value="2">
-            </li>
-            <li>
-                <input type="radio" name="scaleMain{{ forloop.counter }}" value="3">
-            </li>
-            <li>
-                <input type="radio" name="scaleMain{{ forloop.counter }}" value="4">
-                <label>Somewhat true</label>
-            </li>
-            <li>
-                <input type="radio" name="scaleMain{{ forloop.counter }}" value="5">
-            </li>
-            <li>
-                <input type="radio" name="scaleMain{{ forloop.counter }}" value="6">
-            </li>
-            <li>
-                <input type="radio" name="scaleMain{{ forloop.counter }}" value="7">
-                <label>Very true</label>
-            </li>
-        </ul>
-        {% endfor %}
+<div class="container" id="card11" style="display: none;">
+    <div class="card">
+        <div class="card-header text-white">
+            IMI
+        </div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                <div class="progress-text" style="margin-left: 4px">0%</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                Intrinsic Motivation Inventory
+            </p>
+            <br>
+            <div id="errorIMImain" class="error"></div>
+            <div class="wrap">
+                {% for question in imi %}
+                <label class="statement">{{ question }}</label>
+                <div id="errorIMImain{{ forloop.counter }}" class="error_sub error_question"></div>
+                <ul class='likert'>
+                    <li>
+                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="1">
+                        <label>Not true at all</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="2">
+                    </li>
+                    <li>
+                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="3">
+                    </li>
+                    <li>
+                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="4">
+                        <label>Somewhat true</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="5">
+                    </li>
+                    <li>
+                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="6">
+                    </li>
+                    <li>
+                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="7">
+                        <label>Very true</label>
+                    </li>
+                </ul>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="modal-footer" id="btn-next">
+            <a class="btn btn-next" onclick="saveQuestionnaire('main', 'IMI');"> Continue</a>
+        </div>
     </div>
 </div>
 

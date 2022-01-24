@@ -34,7 +34,7 @@
         </div>
         <div class="card-body">
             <div class="container">
-                <p id="errorp1" class="error">
+                <div id="errorp1" class="error"></div>
                 {% for task in p1 %}
                     <p class="card-text">{{ task.description }}</p>
                     {% if task.details|length > 0 %}
@@ -49,7 +49,7 @@
                     {% endif %}
                     {#                        <br>#}
                     {#                    <div class="container">#}
-                    <p id="errorp1{{ task.pk }}" class="error_sub">
+                    <div id="errorp1{{ task.pk }}" class="error_sub"></div>
                     <div class="row">
                         {% for arr in array_p1|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">
@@ -86,7 +86,7 @@
         </div>
         <div class="card-body">
             <div class="container">
-                <p id="errorp2" class="error">
+                <div id="errorp2" class="error"></div>
                 {% for task in p2 %}
                     <p class="card-text">{{ task.description }}</p>
                     {% if task.details|length > 0 %}
@@ -99,7 +99,7 @@
                         {% endwith %}
                         <br><br>
                     {% endif %}
-                    <p id="errorp2{{ task.pk }}" class="error_sub">
+                    <div id="errorp2{{ task.pk }}" class="error_sub"></div>
                     <div class="row">
                         {% for arr in array_p2|dict_key:task.pk %}
                             <div class="col-xs-12 col-sm-3 radiobtn">

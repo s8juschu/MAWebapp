@@ -75,7 +75,6 @@ class Submission(models.Model):
     list_m2 = models.CharField(max_length=128)
     terms_agree = models.BooleanField(default=False)
     age = models.IntegerField(null=True)
-    nationality = models.CharField(max_length=128, null=True)
     gender = models.CharField(max_length=20, null=True)
     finished = models.BooleanField(default=False)
 

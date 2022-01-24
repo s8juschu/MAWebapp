@@ -139,6 +139,8 @@ def index(request):
     m2 = request.session.get('m2', '0')
 
     # Assign randomly to condition
+    # TODO Random is atm changing on each request
+    # TODO Save in session
     r = get_condition()
     rnd = request.session.get('rand', r)
     print("rand:" + str(rnd))
@@ -198,7 +200,7 @@ def saveSession(request):
     # Save which page to display next
     print("Next page:" + str(parameterinfo["page"]))
     next_page = parameterinfo["page"]
-    current_page = (next_page - 1)
+    # current_page = (next_page - 1)
     request.session['page_nr'] = next_page
 
     # Save progressbar status
@@ -235,11 +237,9 @@ def saveData(request):
             if Submission.objects.filter(session=session, age__isnull=True) and \
                     Submission.objects.filter(session=session, gender__isnull=True):
                 age = parameterinfo["age"]
-                nationality = parameterinfo["nationality"]
                 gender = parameterinfo["gender"]
                 submission = Submission.objects.get(session=session)
                 submission.age = age
-                submission.nationality = nationality
                 submission.gender = gender
                 submission.save()
             else:
