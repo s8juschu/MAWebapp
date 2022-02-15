@@ -175,5 +175,15 @@ function saveQuestionnaire(type, name){
         console.log("ERROR: Questionnaire "+type+ " unknown.")
     }
 }
+
+function displayDelete() {
+    document.getElementById('deleteData').innerHTML = "Your data has been deleted!";
+    $('html,body').scrollTop(0);
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", '/website/deleteData', true);
+    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send();
+}
 </script>
 

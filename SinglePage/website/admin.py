@@ -42,8 +42,8 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'study', 'session', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
-                    'terms_agree', 'finished')
+    list_display = ('pk', 'study', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1',
+                    'list_m2', 'terms_agree', 'finished')
 
 
 class QuestionnaireSubmissionAdmin(admin.ModelAdmin):

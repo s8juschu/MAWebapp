@@ -129,6 +129,9 @@ function setData(v) {
         else if (document.getElementById("other").checked === true){
              parameters.gender = "other";
         }
+        else if (document.getElementById("private").checked === true){
+             parameters.gender = "prefer not to say";
+        }
         else{
             document.getElementById('errorPersonalGender').innerHTML = "Please select an answer.";
             missing_answr = "true";

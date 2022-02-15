@@ -13,7 +13,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission
 
 study_id = 1  # Study
-overall_count = 14  # Nr. of cards
+overall_count = 12  # Nr. of cards
 
 
 # Split List in two
@@ -53,7 +53,6 @@ def load_lists(request, p1, p2, m1, m2):
     list_p2 = []
     list_m1 = []
     list_m2 = []
-    array = defaultdict(list)
 
     request.session['p1'] = p1
     request.session['p2'] = p2
@@ -86,7 +85,6 @@ def get_choices(list_object):
                 array[l.pk].append(c.text)
 
     arraydict = dict(array)  # transform defaultdict to dict
-    # print(arraydict)
 
     return arraydict
 
@@ -138,12 +136,10 @@ def index(request):
     m1 = request.session.get('m1', '0')
     m2 = request.session.get('m2', '0')
 
-    # Assign randomly to condition
-    # TODO Random is atm changing on each request
-    # TODO Save in session
-    r = get_condition()
-    rnd = request.session.get('rand', r)
-    print("rand:" + str(rnd))
+    # Assign randomly to framing condition
+    if 'rand' not in request.session:
+        request.session['rand'] = get_condition()
+    rnd = request.session.get('rand')
 
     # Load answers from questionnaire
     imi = Question.objects.filter(questionnaire__name="Intrinsic Motivation Inventory")
@@ -161,6 +157,7 @@ def index(request):
 
     elif request.session.get('init') == 'true':
         # name = request.session.session_key
+        # print(name)
         list_p1, list_p2, list_m1, list_m2 = load_lists(request, p1, p2, m1, m2)
 
         array_p1 = get_choices(list_p1)
@@ -174,15 +171,6 @@ def index(request):
         print("error")
 
     save_initialization(request, list_p1, list_p2, list_m1, list_m2)
-
-    # TODO delete whole IF
-    print(page_nr)
-    if (int(page_nr) == overall_count) or (int(page_nr) > overall_count):
-        request.session['page_nr'] = 0
-        page_nr = request.session['page_nr']
-        request.session['progress'] = 0
-        progress = request.session['progress']
-        # del (request.session['init'])
 
     return render(request, 'index.html',
                   context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2,
@@ -227,7 +215,7 @@ def saveData(request):
                 agree = parameterinfo["agree"]
                 submission = Submission.objects.get(session=session)
                 submission.terms_agree = bool(strtobool(agree))
-                # print(agree)
+                submission.framing = request.session.get('rand')
                 submission.save()
             else:
                 print("Already saved terms_agree info. No changes made to DB.")
@@ -252,7 +240,6 @@ def saveData(request):
                 finish = parameterinfo["finish"]
                 submission = Submission.objects.get(session=session)
                 submission.finished = bool(strtobool(finish))
-                print(finish)
                 submission.save()
             else:
                 print("Already saved finished info. No changes made to DB.")
@@ -302,8 +289,6 @@ def saveQuestionnaire(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
-    print(parameterinfo)
-
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
     par_type = parameterinfo["type"]
@@ -331,6 +316,22 @@ def saveQuestionnaire(request):
                 print("Already saved questionnaire info of type:" + str(par_type) + ", item:" + str(question_item) +
                       ". No changes made to DB.")
 
+    return HttpResponse(200)
+
+
+# Delete data of participant on request
+@ensure_csrf_cookie
+def deleteData(request):
+    print("Participant "+request.session.session_key+" wants to delete their data")
+    # TODO delete whole IF
+    # request.session.flush()
+    # print(page_nr)
+    # if (int(page_nr) == overall_count) or (int(page_nr) > overall_count):
+    request.session['page_nr'] = 0
+    page_nr = request.session['page_nr']
+    request.session['progress'] = 0
+    progress = request.session['progress']
+    # del (request.session['init'])
     return HttpResponse(200)
 
 

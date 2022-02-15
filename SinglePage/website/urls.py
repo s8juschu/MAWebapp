@@ -9,5 +9,6 @@ urlpatterns = [
     path('saveSession', views.saveSession, name='saveSession'),
     path('saveData', views.saveData, name='saveData'),
     path('saveTask', views.saveTask, name='saveTask'),
-    path('saveQuestionnaire', views.saveQuestionnaire, name='saveQuestionnaire')
+    path('saveQuestionnaire', views.saveQuestionnaire, name='saveQuestionnaire'),
+    path('deleteData', views.deleteData, name='deleteData')
 ]
