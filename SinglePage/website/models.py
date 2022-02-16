@@ -86,7 +86,8 @@ class Submission(models.Model):
 class QuestionnaireSubmission(models.Model):
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
-    question_id = models.IntegerField()
+    question_id = models.IntegerField(null=True)
+    name = models.CharField(max_length=20)
     type = models.CharField(max_length=20)  # pre or main, page 1 or page 2
     item = models.CharField(max_length=20)  # order of task on page
     answer = models.CharField(max_length=20)

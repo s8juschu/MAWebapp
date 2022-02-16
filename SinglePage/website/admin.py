@@ -47,7 +47,7 @@ class SubmissionAdmin(admin.ModelAdmin):
 
 
 class QuestionnaireSubmissionAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'session', 'submission', 'type', 'item', 'question_id', 'answer')
+    list_display = ('pk', 'session', 'submission', 'name', 'type', 'item', 'question_id', 'answer')
 
 
 class TaskSubmissionAdmin(admin.ModelAdmin):

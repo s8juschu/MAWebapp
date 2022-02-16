@@ -76,6 +76,9 @@ h1.likert-header {
   height:4px;
   width:80%;
 }
+.wrap .panas:before {
+    width: 54%!important;
+}
 .wrap .likert li {
   display:inline-block;
   width:13%;

@@ -149,30 +149,53 @@ function saveQuestionnaire(type, name){
     parameters.type = type;
     parameters.name = name;
 
-    if (type === "pre") {
-        {% for question in imi %}
-            var question = {};
-            question.answer = get_checked("scalePre{{ forloop.counter }}");
-            question.item = {{ forloop.counter }};
-            question.question_id = "{{ question.pk}}";
-            parameters.listarray.push(question);
-        {% endfor %}
-        on_continue_question(parameters, type, name);
-    }
+    if (name === "IMI") {
+        if (type === "pre") {
+            {% for item in imi %}
+                var question = {};
+                question.answer = get_checked("scalePre{{ forloop.counter }}");
+                question.item = {{ forloop.counter }};
+                question.question_id = "{{ item.pk}}";
+                parameters.listarray.push(question);
+            {% endfor %}
+            on_continue_question(parameters, type, name);
+        } else if (type === "main") {
+            {% for item in imi %}
+                var question = {};
+                question.answer = get_checked("scaleMain{{ forloop.counter }}");
+                question.item = {{ forloop.counter }};
+                question.question_id = "{{ item.pk}}";
+                parameters.listarray.push(question);
+            {% endfor %}
+            on_continue_question(parameters, type, name);
+        } else {
+            console.log("ERROR: Questionnaire " + name +" "+ type + " unknown.")
+        }
 
-    else  if (type === "main") {
-        {% for question in imi %}
-            var question = {};
-            question.answer = get_checked("scaleMain{{ forloop.counter }}");
-            question.item = {{ forloop.counter }};
-            question.question_id = "{{ question.pk}}";
-            parameters.listarray.push(question);
-        {% endfor %}
-        on_continue_question(parameters, type, name);
-    }
-
-    else {
-        console.log("ERROR: Questionnaire "+type+ " unknown.")
+    } else if (name == "PANAS"){
+        if (type === "pre") {
+            {% for item in panas %}
+                var question = {};
+                question.answer = get_checked("scalePanasPre{{ forloop.counter }}");
+                question.item = {{ forloop.counter }};
+                question.question_id = "{{ item.pk}}";
+                parameters.listarray.push(question);
+            {% endfor %}
+            on_continue_question(parameters, type, name);
+        } else if (type === "main") {
+            {% for item in panas %}
+                var question = {};
+                question.answer = get_checked("scalePanasMain{{ forloop.counter }}");
+                question.item = {{ forloop.counter }};
+                question.question_id = "{{ item.pk}}";
+                parameters.listarray.push(question);
+            {% endfor %}
+            on_continue_question(parameters, type, name);
+        } else {
+            console.log("ERROR: Questionnaire "+ name +" "+ type + " unknown.")
+        }
+    } else{
+        console.log("ERROR: Questionnaire " + name + " unknown.")
     }
 }
 
@@ -186,4 +209,3 @@ function displayDelete() {
     xhr.send();
 }
 </script>
-

@@ -1,6 +1,6 @@
  {% load static %}
 <div class="card-header text-white">
-    End
+    End {{ page_nr }}
 </div>
 <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -17,56 +17,61 @@
         research.
     </p>
     <p class="card-text">
-        <b style="font-size: 20px">Clarification Study goal</b>
+        <b style="font-size: 20px">Clarification of Study Goal</b>
         <br>
-        In this study, we used partial disclosure and deception. At the beginning, you were told that the purpose of
-        this study was to investigate whether your cognitive abilities matched your experience while completing the
-        tasks.
-        However, this was only partially true. We also wanted to investigate whether framing had an impact on perceived
-        competence. The framing effect describes that our decisions are influenced by the way information is presented.
-        Therefore, each participant was randomly assigned to one of three groups: Either they were told
-        after the first 8 tasks and the first questionnaire that they had performed well or poorly, or they were given a
-        neutral sentence asking them to continue the study.
+        {# Only display if completed study#}
+{#        {% if page_nr == overall_count %}#}
+            In this study, we used partial disclosure and deception. At the beginning, you were told that the purpose of
+            this study was to investigate whether your cognitive abilities matched your experience while completing the
+            tasks.
+            However, this was only partially true. We also wanted to investigate whether framing had an impact on perceived
+            competence. The framing effect describes that our decisions are influenced by the way information is presented.
+            Therefore, each participant was randomly assigned to one of three groups: Either they were told
+            after the first 8 tasks and the first questionnaire that they had performed well or poorly, or they were given a
+            neutral sentence asking them to continue the study.
 
-        <br><br>
+            <br><br>
 
-        {% if framing == 0 %}
-            You were in the control condition. This means that you were presented with the neutral statement:
-            "Thank you for your answers so far. Please proceed with the survey.".
-        {% endif %}
-        {% if framing == 1 %}
-            You were in the positive framing condition. This means that you were presented with the positive statement:
-            "Thank you for your answers so far. You performed well in the first round.
-            If you continue like this, you will perform better than most participants.
-            Please proceed with the survey.".
-        {% endif %}
-        {% if framing == 2 %}
-            You were in the negative framing condition. This means that you were presented with the negative statement:
-            "Thank you for your answers so far. You performed poorly in the first round.
-            If you continue like this, you will perform worse than most participants.
-            Please proceed with the survey."
-        {% endif %}
+            {% if framing == 0 %}
+                You were in the control condition. This means that you were presented with the neutral statement:
+                "Thank you for your answers so far. Please proceed with the survey.".
+            {% endif %}
+            {% if framing == 1 %}
+                You were in the positive framing condition. This means that you were presented with the positive statement:
+                "Thank you for your answers so far. You performed well in the first round.
+                If you continue like this, you will perform better than most participants.
+                Please proceed with the survey.".
+            {% endif %}
+            {% if framing == 2 %}
+                You were in the negative framing condition. This means that you were presented with the negative statement:
+                "Thank you for your answers so far. You performed poorly in the first round.
+                If you continue like this, you will perform worse than most participants.
+                Please proceed with the survey."
+            {% endif %}
 
-        <br><br>
-        In reality, the framing condition you were presented with did not reflect your performance and was purely
-        random.
+            <br><br>
+            In reality, the framing condition you were presented with did not reflect your performance and was purely
+            random.
 
-        We could not give participants complete information about the study prior to their participation, as this could
-        have influenced their behavior during the study in a way that would have invalidated investigations of the
-        research question. The reason for the deception in this study was to keep participants' behaviors and attitudes
-        unaffected by the goals of the study.
+            We could not give participants complete information about the study prior to their participation, as this could
+            have influenced their behavior during the study in a way that would have invalidated investigations of the
+            research question. The reason for the deception in this study was to keep participants' behaviors and attitudes
+            unaffected by the goals of the study.
 
-        <br><br>
-        For more information or questions, please feel free to contact us:
-        <a href="mailto:s8juschu@stud.uni-saarland.de ">s8juschu@stud.uni-saarland.de </a>
+            <br><br>
+            For more information or questions, please feel free to contact us:
+            <a href="mailto:s8juschu@stud.uni-saarland.de ">s8juschu@stud.uni-saarland.de </a>
 
-        <br><br>
-        <b>If you do not agree, you can now revoke your responses and participation in the study:</b>
-        <br>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">
-            Delete data
-        </button>
+            <br><br>
+            <b>If you do not agree, you can now revoke your responses and participation in the study:</b>
+            <br>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">
+                Delete data
+            </button>
+{#        {% else %}#}
+{#            Please complete the whole study to view the clarification.#}
+{#        {% endif %}#}
 
         <!-- Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"

@@ -13,7 +13,11 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission
 
 study_id = 1  # Study
-overall_count = 12  # Nr. of cards
+overall_count = 14  # Nr. of cards
+
+# Load answers from questionnaire
+imi = Question.objects.filter(questionnaire__name="Intrinsic Motivation Inventory")
+panas = Question.objects.filter(questionnaire__name="PANAS")
 
 
 # Split List in two
@@ -141,9 +145,6 @@ def index(request):
         request.session['rand'] = get_condition()
     rnd = request.session.get('rand')
 
-    # Load answers from questionnaire
-    imi = Question.objects.filter(questionnaire__name="Intrinsic Motivation Inventory")
-
     if 'init' not in request.session:
         request.session['init'] = 'true'
 
@@ -172,11 +173,13 @@ def index(request):
 
     save_initialization(request, list_p1, list_p2, list_m1, list_m2)
 
+    print(page_nr)
+
     return render(request, 'index.html',
                   context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2,
                            "array_m1": array_m1, "array_m2": array_m2, "array_p1": array_p1, "array_p2": array_p2,
                            "page_nr": page_nr, "overall_count": overall_count, "progress": progress,
-                           "framing": rnd, "imi": imi})
+                           "framing": rnd, "imi": imi, "panas": panas})
 
 
 # Save next page & progressbar to show on press continue in frontend
@@ -293,17 +296,17 @@ def saveQuestionnaire(request):
     submission_exist = Submission.objects.filter(session=session).exists()
     par_type = parameterinfo["type"]
     par_name = parameterinfo["name"]
-    print(par_name)
 
     if submission_exist:
         listitem = parameterinfo["listarray"]
         for item in listitem:
             question_item = item["item"]
-            if not QuestionnaireSubmission.objects.filter(session=session, type=par_type, item=question_item).exists():
+            if not QuestionnaireSubmission.objects.filter(session=session, name=par_name, type=par_type, item=question_item).exists():
                 question_sub = QuestionnaireSubmission()
                 question_sub.submission = Submission.objects.get(session=session)
                 question_sub.session = session
 
+                question_sub.name = par_name
                 question_sub.type = par_type
 
                 question_sub.item = question_item
@@ -313,8 +316,8 @@ def saveQuestionnaire(request):
                 question_sub.save()
 
             else:
-                print("Already saved questionnaire info of type:" + str(par_type) + ", item:" + str(question_item) +
-                      ". No changes made to DB.")
+                print("Already saved questionnaire " + str(par_name)+" info of type:" + str(par_type) + ", item:" +
+                      str(question_item) + ". No changes made to DB.")
 
     return HttpResponse(200)
 
@@ -322,7 +325,7 @@ def saveQuestionnaire(request):
 # Delete data of participant on request
 @ensure_csrf_cookie
 def deleteData(request):
-    print("Participant "+request.session.session_key+" wants to delete their data")
+    print("Participant " + request.session.session_key + " wants to delete their data")
     # TODO delete whole IF
     # request.session.flush()
     # print(page_nr)

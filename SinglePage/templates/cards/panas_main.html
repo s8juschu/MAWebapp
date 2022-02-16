@@ -1,0 +1,57 @@
+<div class="container" id="card13" style="display: none;">
+    <div class="card">
+        <div class="card-header text-white">
+            Questionnaire 2
+        </div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                <div class="progress-text" style="margin-left: 4px">0%</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div id="errorPANASmain" class="error"></div>
+            Now we would like to again know how you feel. The following words describe different kinds of feelings and
+            perception. Read every word and mark the intensity on the scale. You have the choice between five
+            gradations. Please indicate how you generally feel.
+            <br><br>
+            <div class="wrap">
+                <div class="container">
+                    {% for item in panas %}
+                    <div class="row">
+                        <div id="errorPANASmain{{ forloop.counter }}" class="col-md-1 error_sub error_question"></div>
+                        <div class="col-md-2">{{forloop.counter}}. {{item}}</div>
+                        <div class="col-md-9">
+                            <ul class='likert panas'>
+                                <li>
+                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="1">
+                                    <label>not at all</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="2">
+                                    <label>a little</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="3">
+                                    <label>moderately</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="4">
+                                    <label>quite a bit</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="5">
+                                    <label>extremely</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" id="btn-next">
+            <a class="btn btn-next" onclick="saveQuestionnaire('main', 'PANAS');"> Continue</a>
+        </div>
+    </div>
+</div>
