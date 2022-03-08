@@ -208,4 +208,15 @@ function displayDelete() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send();
 }
+
+$(window).scroll(function(){
+    if ($(window).scrollTop() >= $("#card{{ page_nr }}").offset().top ) {
+        $('.sticky{{ page_nr }}').addClass('fixed-header');
+    }
+    else {
+        $('.sticky{{ page_nr }}').removeClass('fixed-header');
+
+    }
+});
+
 </script>

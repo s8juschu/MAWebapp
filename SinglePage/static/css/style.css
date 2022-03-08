@@ -1,19 +1,23 @@
 /*General*/
 html, body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
-body{
+
+body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
 }
+
 footer {
     margin-top: 5%;
     color: black;
 }
+
 .page-background {
     background-color: #E6EDF2;
 }
+
 .page-header {
     color: #004B8B;
 }
@@ -22,6 +26,7 @@ footer {
 .card-header {
     background: #004B8B;
 }
+
 .btn-accept-terms {
     color: white !important;
     background-color: #004B8B;
@@ -33,129 +38,213 @@ footer {
 }
 
 .container > img {
-  max-width: 60%;
-  max-height: 60%;
+    max-width: 60%;
+    max-height: 60%;
+}
+
+@media only screen and (max-width: 768px) {
+    .container > img {
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 
 /*Progressbar*/
-.progress{
+.progress {
     border-radius: 0rem;
 }
-.progress-bar{
+
+.progress-bar {
     background-color: #006dcc;
 }
 
 /*Scales*/
 h1.likert-header {
-  padding-left:4.25%;
-  margin:20px 0 0;
+    padding-left: 4.25%;
+    margin: 20px 0 0;
 }
+
 .wrap .statement {
-  display:block;
-  /*font-size: 14px;*/
-  font-weight: bold;
-  padding: 15px 0 0 2%;
-  margin-bottom:10px;
+    display: block;
+    /*font-size: 14px;*/
+    font-weight: bold;
+    padding: 15px 0 0 2%;
+    margin-bottom: 10px;
 }
+
+@media only screen and (max-width: 768px) {
+    .wrap .statement {
+        font-size: 14px;
+    }
+
+    .wrap .likert:before {
+        width: 83% !important;
+    }
+}
+
 .wrap .likert {
-  list-style:none;
-  width:100%;
-  margin:0;
-  padding:0 0 15px;
-  display:block;
-  border-bottom:2px solid #efefef;
+    list-style: none;
+    width: 100%;
+    /*font-size:12px;*/
+    margin: 0;
+    padding: 0 0 15px;
+    display: block;
+    border-bottom: 2px solid #efefef;
 }
-.wrap .likert:last-of-type {border-bottom:0;}
+
+.wrap .likert:last-of-type {
+    border-bottom: 0;
+}
+
 .wrap .likert:before {
-  content: '';
-  position:relative;
-  top:11px;
-  left:6.5%;
-  display:block;
-  background-color:#efefef;
-  height:4px;
-  width:80%;
+    content: '';
+    position: relative;
+    top: 11px;
+    left: 6.5%;
+    display: block;
+    background-color: #efefef;
+    height: 4px;
+    width: 80%;
 }
+
 .wrap .panas:before {
-    width: 54%!important;
+    width: 54% !important;
 }
+
 .wrap .likert li {
-  display:inline-block;
-  width:13%;
-  text-align:center;
-  vertical-align: top;
+    display: inline-block;
+    width: 13%;
+    text-align: center;
+    vertical-align: top;
 }
+
 .wrap .likert li input[type=radio] {
-  display:block;
-  position:relative;
-  top:0;
-  left:50%;
-  margin-left:-6px;
+    display: block;
+    position: relative;
+    top: 0;
+    left: 50%;
+    margin-left: -6px;
 
 }
-.wrap .likert li label {width:100%;}
+
+.wrap .likert li label {
+    width: 100%;
+}
+
 .wrap .buttons {
-  margin:30px 0;
-  padding:0 4.25%;
-  text-align:right
+    margin: 30px 0;
+    padding: 0 4.25%;
+    text-align: right
 }
+
 .wrap .buttons button {
-  padding: 5px 10px;
-  background-color: #67ab49;
-  border: 0;
-  border-radius: 3px;
+    padding: 5px 10px;
+    background-color: #67ab49;
+    border: 0;
+    border-radius: 3px;
 }
-.wrap .buttons .clear {background-color: #e9e9e9;}
-.wrap .buttons .submit {background-color: #67ab49;}
-.wrap .buttons .clear:hover {background-color: #ccc;}
-.wrap .buttons .submit:hover {background-color: #14892c;}
+
+.wrap .buttons .clear {
+    background-color: #e9e9e9;
+}
+
+.wrap .buttons .submit {
+    background-color: #67ab49;
+}
+
+.wrap .buttons .clear:hover {
+    background-color: #ccc;
+}
+
+.wrap .buttons .submit:hover {
+    background-color: #14892c;
+}
 
 /*Radio Label*/
 .radiobtn {
     position: relative;
     display: block;
-    text-align:center;
+    text-align: center;
 }
+
 .radiobtn label {
     display: block;
-    background:none;
-    color:#007ae6;
+    background: none;
+    color: #007ae6;
     border-radius: 5px;
     padding: 10px 20px;
     border: 2px solid #007ae6;
     margin-bottom: 5px;
     cursor: pointer;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
 .radiobtn input[type="radio"] {
     display: none;
     position: absolute;
     width: 100%;
     appearance: none;
 }
+
 .radiobtn input[type="radio"]:checked + label {
-    background:#007ae6;
-    color:#fff;
+    background: #007ae6;
+    color: #fff;
 }
 
 .radiobtn label:hover {
-  background-color: #e6f3ff;
+    background-color: #e6f3ff;
 }
 
 /*Error messages*/
-.error{
+.error {
     font-size: 20px;
     font-weight: bold;
     color: red;
 }
 
-.error_sub{
+.error_sub {
     font-size: 15px;
     font-weight: bold;
     color: red;
 }
 
-.error_question{
-  display:block;
-  padding: 0px 0 0 2%;
+.error_question {
+    display: block;
+    padding: 0px 0 0 2%;
+}
+
+/* large devices */
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+    }
+}
+
+/* extra large devices */
+@media screen and (min-width: 2000px) {
+    .container {
+        max-width: 2000px;
+    }
+}
+
+.fixed-header {
+    position: -webkit-sticky;
+    position: fixed;
+    top: 1%;
+    right: 1%;
+    z-index: 1;
+    background-color: #004B8B;
+    border: 2px solid transparent;
+    border-radius: .25rem;
+    padding-right: 1%;
+    padding-left: 1%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .fixed-header {
+        top: 0 !important;
+    }
 }

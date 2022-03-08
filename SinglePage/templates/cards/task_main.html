@@ -13,16 +13,21 @@
         <div class="card-body">
             <p class="card-text">
                 {% if framing == 0 %}
-                  Control Group: Thank you for your answers so far. Please proceed with the survey.
+                    <!--Control Group-->
+                    Control Group: Thank you for your answers so far. Please proceed with the survey.
                 {% endif %}
                 {% if framing == 1 %}
-                  pos framing: Thank you for your answers so far. You performed well in the first round.
-                    If you continue like this, you will perform better than most participants.
+                    <!--Positive Framing-->
+                    Thank you for your answers so far. In the previous round you answered
+                    <b>6 out of 8</b> tasks correctly.
+                    <br>
                     Please proceed with the survey.
                 {% endif %}
                 {% if framing == 2 %}
-                  neg Framing: Thank you for your answers so far. You performed poorly in the first round.
-                    If you continue like this, you will perform worse than most participants.
+                    <!--Negative Framing-->
+                    Thank you for your answers so far. In the previous round you answered
+                    <b>1 out of 8</b> tasks correctly.
+                    <br>
                     Please proceed with the survey.
                 {% endif %}
             </p>
@@ -39,7 +44,14 @@
 <div class="container" id="card9" style="display: none;">
     <div class="card">
         <div class="card-header text-white">
-            Cognitive Ability Tasks
+            <div style="display: flex; justify-content: space-between">
+                <div>
+                    Cognitive Ability Tasks
+                </div>
+                <div class="sticky{{ page_nr }}">
+                   Correct: 1/8
+                </div>
+            </div>
         </div>
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -88,7 +100,14 @@
 <div class="container" id="card10" style="display: none;">
     <div class="card">
         <div class="card-header text-white">
-            Cognitive Ability Tasks
+           <div style="display: flex; justify-content: space-between">
+                <div>
+                    Cognitive Ability Tasks
+                </div>
+                <div class="sticky{{ page_nr }}">
+                   Correct: 1/8
+                </div>
+            </div>
         </div>
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -134,5 +153,3 @@
         </div>
     </div>
 </div>
-
-

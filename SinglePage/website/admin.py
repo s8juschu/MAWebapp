@@ -1,8 +1,15 @@
 from django.contrib import admin
+from django.contrib.sessions.models import Session
 
 # Register your models here.
 from .models import Study, TaskSet, Task, Submission, QuestionnaireSubmission, TaskSubmission, Questionnaire,\
     Question, AnswerChoice
+
+
+class SessionAdmin(admin.ModelAdmin):
+    def _session_data(self, obj):
+        return obj.get_decoded()
+    list_display = ['session_key', '_session_data', 'expire_date']
 
 
 class StudyAdmin (admin.ModelAdmin):
@@ -54,6 +61,7 @@ class TaskSubmissionAdmin(admin.ModelAdmin):
     list_display = ('pk', 'session', 'submission', 'type', 'item', 'task_id', 'answer')
 
 
+admin.site.register(Session, SessionAdmin)
 admin.site.register(Study)
 admin.site.register(TaskSet, TaskSetAdmin)
 admin.site.register(Task, TaskAdmin)
