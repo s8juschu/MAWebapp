@@ -261,9 +261,10 @@ def saveTask(request):
 
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
+    request_delete = Submission.objects.get(session=session).request_delete
     par_type = parameterinfo["type"]
 
-    if submission_exist:
+    if submission_exist and not request_delete:
         listitem = parameterinfo["listarray"]
         for item in listitem:
             task_item = item["item"]
@@ -294,10 +295,12 @@ def saveQuestionnaire(request):
 
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
+    submission_exist = Submission.objects.filter(session=session).exists()
+    request_delete = Submission.objects.get(session=session).request_delete
     par_type = parameterinfo["type"]
     par_name = parameterinfo["name"]
 
-    if submission_exist:
+    if submission_exist and not request_delete:
         listitem = parameterinfo["listarray"]
         for item in listitem:
             question_item = item["item"]
@@ -326,14 +329,25 @@ def saveQuestionnaire(request):
 @ensure_csrf_cookie
 def deleteData(request):
     print("Participant " + request.session.session_key + " wants to delete their data")
+
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+
+    if submission_exist:
+        submission = Submission.objects.get(session=session)
+        submission.request_delete = bool(True)
+        submission.save()
+
+    # Delete Task and Questionniare submissions
+    TaskSubmission.objects.filter(session=session).delete()
+    QuestionnaireSubmission.objects.filter(session=session).delete()
+
     # TODO delete whole IF
     # request.session.flush()
-    # print(page_nr)
-    # if (int(page_nr) == overall_count) or (int(page_nr) > overall_count):
-    request.session['page_nr'] = 0
-    page_nr = request.session['page_nr']
-    request.session['progress'] = 0
-    progress = request.session['progress']
+    # request.session['page_nr'] = 0
+    # page_nr = request.session['page_nr']
+    # request.session['progress'] = 0
+    # progress = request.session['progress']
     # del (request.session['init'])
     return HttpResponse(200)
 

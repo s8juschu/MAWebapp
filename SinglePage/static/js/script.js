@@ -87,9 +87,6 @@ function setSession() {
     let parameters = {};
     parameters.page = cardCounter;
     parameters.progress = progressCounter;
-    // if ( 0 < cardCounter < maxValue){
-    //     // parameters.answer = $('#textarea' + (cardCounter-1)).val();
-    // }
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", '/website/saveSession', true);
@@ -97,7 +94,6 @@ function setSession() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(parameters));
 }
-
 
 /*
  Save personal information
