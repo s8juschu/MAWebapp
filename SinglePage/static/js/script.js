@@ -57,31 +57,6 @@ function displayCards() {
     setSession();
     // Scroll to top of page
     $('html,body').scrollTop(0);
-
-    // if (document.getElementById("card9").style.display !== "none"){
-    //     console.log("here");
-    //     console.log($(window).scrollTop());
-    //     console.log($("#card9").offset().top );
-    //     if ($(window).scrollTop() >= $("#card9").offset().top ) {
-    //         $('.sticky9').addClass('fixed-header');
-    //     }
-    //     else {
-    //         $('.sticky9').removeClass('fixed-header');
-    //
-    //     }
-    // }
-    // if (document.getElementById("card10").style.display !== "none"){
-    //     console.log("here");
-    //     console.log($(window).scrollTop());
-    //     console.log($("#card10").offset().top );
-    //     if ($(window).scrollTop() >= $("#card10").offset().top ) {
-    //         $('.sticky10').addClass('fixed-header');
-    //     }
-    //     else {
-    //         $('.sticky10').removeClass('fixed-header');
-    //
-    //     }
-    // }
 }
 
 /*

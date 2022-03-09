@@ -209,8 +209,9 @@ function displayDelete() {
 }
 
 $(window).scroll(function(){
+    var sticky = document.getElementsByClassName('sticky9');
 
-    if (document.getElementById("card9").style.display !== "none"){
+    if (sticky.length > 0 && document.getElementById("card9").style.display !== "none"){
         console.log("here 9");
         console.log($(window).scrollTop());
         console.log($("#card9").offset().top );
@@ -222,7 +223,7 @@ $(window).scroll(function(){
 
         }
     }
-    if (document.getElementById("card10").style.display !== "none"){
+    if (sticky.length > 0 && document.getElementById("card10").style.display !== "none"){
         console.log("here n10");
         console.log($(window).scrollTop());
         console.log($("#card10").offset().top );
