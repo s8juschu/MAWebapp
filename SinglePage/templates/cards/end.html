@@ -1,6 +1,6 @@
  {% load static %}
 <div class="card-header text-white">
-    End {{ page_nr }}
+    End
 </div>
 <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -30,7 +30,7 @@
             after the first 8 tasks and the first questionnaire that they had performed well or poorly, or they were given a
             neutral sentence asking them to continue the study.
 
-            <br><br>
+            <br>
 
             {% if framing == 0 %}
                 You were in the control condition. This means that you were presented with the neutral statement:
@@ -61,6 +61,28 @@
             <br><br>
             For more information or questions, please feel free to contact us:
             <a href="mailto:s8juschu@stud.uni-saarland.de ">s8juschu@stud.uni-saarland.de </a>
+
+            <br><br>
+            <div class="form-group">
+                <label for="1">
+                    During the study, did you suspect that you had been given false information about your performance?
+                </label>
+                <textarea class="form-control" id="1" rows="2"></textarea>
+            </div>
+
+            <br>
+            <label for="2">
+                How competent did you feel?
+            </label>
+            <textarea class="form-control" id="2" rows="2"></textarea>
+
+            <br>
+            <label for="3">
+                Your actual score was: <b>x/8</b> in the first round. How would you have rated your performance?
+            </label>
+            <textarea class="form-control" id="3" rows="2"></textarea>
+
+
 
             <br><br>
             <b>If you do not agree, you can now revoke your responses and participation in the study:</b>
