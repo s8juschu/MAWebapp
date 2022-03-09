@@ -44,6 +44,7 @@ function on_continue_task(parameters, name) {
 
 {#Save answered tasks#}
 function saveTask(type){
+    $('.sticky{{ page_nr }}').removeClass('fixed-header');
     let parameters = {};
     parameters.listarray = [];
     parameters.type = type;
@@ -53,8 +54,6 @@ function saveTask(type){
             var tasks = {};
             tasks.item = {{ forloop.counter }};
             tasks.task_id = "{{ task.pk }}";
-            {#document.write('<script id="task_pk" type="application/json">{{ task.pk }}<\/script>'); |json_string#}
-            {#var js_variable = JSON.parse(document.getElementById('task_pk').textContent);#}
             tasks.answer = get_checked("p1{{ task.pk }}");
             parameters.listarray.push(tasks);
         {% endfor %}
@@ -210,12 +209,30 @@ function displayDelete() {
 }
 
 $(window).scroll(function(){
-    if ($(window).scrollTop() >= $("#card{{ page_nr }}").offset().top ) {
-        $('.sticky{{ page_nr }}').addClass('fixed-header');
-    }
-    else {
-        $('.sticky{{ page_nr }}').removeClass('fixed-header');
 
+    if (document.getElementById("card9").style.display !== "none"){
+        console.log("here 9");
+        console.log($(window).scrollTop());
+        console.log($("#card9").offset().top );
+        if ($(window).scrollTop() >= $("#card9").offset().top ) {
+            $('.sticky9').addClass('fixed-header');
+        }
+        else {
+            $('.sticky9').removeClass('fixed-header');
+
+        }
+    }
+    if (document.getElementById("card10").style.display !== "none"){
+        console.log("here n10");
+        console.log($(window).scrollTop());
+        console.log($("#card10").offset().top );
+        if ($(window).scrollTop() >= $("#card10").offset().top ) {
+            $('.sticky10').addClass('fixed-header');
+        }
+        else {
+            $('.sticky10').removeClass('fixed-header');
+
+        }
     }
 });
 
