@@ -115,6 +115,10 @@ function setData(v) {
             document.getElementById('errorPersonalAge').innerHTML = "Please enter your age.";
             missing_answr = "true";
         }
+        if (parameters.age < 1 || parameters.age > 100){
+            document.getElementById('errorPersonalAge').innerHTML = "Please enter a valid age.";
+            missing_answr = "true";
+        }
 
         if (document.getElementById("female").checked === true){
             parameters.gender = "female";

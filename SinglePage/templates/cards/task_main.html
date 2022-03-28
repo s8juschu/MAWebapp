@@ -14,24 +14,25 @@
             <p class="card-text">
                 {% if framing == 0 %}
                     <!--Control Group-->
-                    Thank you for your answers so far. Please proceed with the survey.
+                    Thank you for your answers so far.
                 {% endif %}
                 {% if framing == 1 %}
                     <!--Positive Framing-->
-                    Thank you for your answers so far. In the previous round you answered
-                    <b>7 out of 8</b> tasks correctly.
+                    Thank you for your answers so far. Number of correctly answered tasks in the last round:
                     <br>
-                    Please proceed with the survey.
+                    <b style="color: #006dcc; font-size: 21px">7 out of 8</b> tasks
+                    <br>
                 {% endif %}
                 {% if framing == 2 %}
                     <!--Negative Framing-->
-                    Thank you for your answers so far. In the previous round you answered
-                    <b>2 out of 8</b> tasks correctly.
+                    Thank you for your answers so far. Number of correctly answered tasks in the last round:
                     <br>
-                    Please proceed with the survey.
+                    <b style="color: #006dcc; font-size: 21px">2 out of 8</b> tasks
+                    <br>
                 {% endif %}
             </p>
             <p class="card-text">
+                Please proceed with the survey.
                 The questions on the next pages are again different kinds of cognitive ability tasks.
                 Please answer the questions as well as you can without using external instruments or taking notes.
             </p>
@@ -54,13 +55,13 @@
                 {% if framing == 1 %}
                     <!--Positive Framing-->
                     <div class="sticky9">
-                        Correct: 6/8
+                        Correct 1<sup>st</sup> round: 6/8
                     </div>
                 {% endif %}
                 {% if framing == 2 %}
                     <!--Negative Framing-->
                     <div class="sticky9">
-                        Correct: 2/8
+                        Correct 1<sup>st</sup> round: 2/8
                     </div>
                 {% endif %}
             </div>

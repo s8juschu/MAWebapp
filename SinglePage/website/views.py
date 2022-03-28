@@ -143,8 +143,8 @@ def index(request):
     # Assign randomly to framing condition
     if 'rand' not in request.session:
         request.session['rand'] = get_condition()
-    rnd = request.session.get('rand')
-
+    # rnd = request.session.get('rand')
+    rnd = 2
     if 'init' not in request.session:
         request.session['init'] = 'true'
 
@@ -343,11 +343,11 @@ def deleteData(request):
     QuestionnaireSubmission.objects.filter(session=session).delete()
 
     # TODO delete whole IF
-    # request.session.flush()
-    # request.session['page_nr'] = 0
-    # page_nr = request.session['page_nr']
-    # request.session['progress'] = 0
-    # progress = request.session['progress']
+    request.session.flush()
+    request.session['page_nr'] = 0
+    page_nr = request.session['page_nr']
+    request.session['progress'] = 0
+    progress = request.session['progress']
     # del (request.session['init'])
     return HttpResponse(200)
 
