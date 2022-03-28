@@ -1,4 +1,4 @@
- {% load static %}
+{% load static %}
 <div class="card-header text-white">
     End
 </div>
@@ -19,102 +19,107 @@
     <p class="card-text">
         <b style="font-size: 20px">Clarification of Study Goal</b>
         <br>
-        {# Only display if completed study#}
-{#        {% if page_nr == overall_count %}#}
-            In this study, we used partial disclosure and deception. At the beginning, you were told that the purpose of
-            this study was to investigate whether your cognitive abilities matched your experience while completing the
-            tasks.
-            However, this was only partially true. We also wanted to investigate whether framing had an impact on perceived
-            competence. The framing effect describes that our decisions are influenced by the way information is presented.
-            Therefore, each participant was randomly assigned to one of three groups: Either they were told
-            after the first 8 tasks and the first questionnaire that they had performed well or poorly, or they were given a
-            neutral sentence asking them to continue the study.
-
-            <br>
-
-            {% if framing == 0 %}
-                You were in the control condition. This means that you were presented with the neutral statement:
-                "Thank you for your answers so far. Please proceed with the survey.".
-            {% endif %}
-            {% if framing == 1 %}
-                You were in the positive framing condition. This means that you were presented with the positive statement:
-                "Thank you for your answers so far. You performed well in the first round.
-                If you continue like this, you will perform better than most participants.
-                Please proceed with the survey.".
-            {% endif %}
-            {% if framing == 2 %}
-                You were in the negative framing condition. This means that you were presented with the negative statement:
-                "Thank you for your answers so far. You performed poorly in the first round.
-                If you continue like this, you will perform worse than most participants.
-                Please proceed with the survey."
-            {% endif %}
-
-            <br><br>
-            In reality, the framing condition you were presented with did not reflect your performance and was purely
-            random.
-
-            We could not give participants complete information about the study prior to their participation, as this could
-            have influenced their behavior during the study in a way that would have invalidated investigations of the
-            research question. The reason for the deception in this study was to keep participants' behaviors and attitudes
-            unaffected by the goals of the study.
-
-            <br><br>
-            For more information or questions, please feel free to contact us:
-            <a href="mailto:s8juschu@stud.uni-saarland.de ">s8juschu@stud.uni-saarland.de </a>
-
-            <br><br>
-            <div class="form-group">
-                <label for="1">
-                    During the study, did you suspect that you had been given false information about your performance?
-                </label>
-                <textarea class="form-control" id="1" rows="2"></textarea>
-            </div>
-
-            <br>
-            <label for="2">
-                How competent did you feel?
+        The purpose of this post-study information page is to provide additional details about the study you
+        just participated in. In this study, we used partial disclosure and deception. At the beginning, you were told
+        that the purpose of
+        this study was to investigate whether your cognitive abilities matched your experience while completing the
+        tasks.
+        However, this was only partially true. We also wanted to investigate whether framing had an impact on perceived
+        competence.
+        The framing effect describes that our decisions are influenced by the way information is presented.
+        Therefore, each participant was randomly assigned to one of three groups: Either they were told
+        after the first 8 tasks and the first questionnaire that they answered 2/8 tasks right or 7/8, or they were
+        given a
+        neutral sentence asking them to continue the study.
+    <p>
+    <p class="card-text">
+        {% if framing == 0 %}
+            You were in the control condition. This means that you were presented with the neutral statement:
+            "Thank you for your answers so far. Please proceed with the survey.".
+        {% endif %}
+        {% if framing == 1 %}
+            You were in the positive framing condition. This means that you were presented with the positive statement:
+            "Thank you for your answers so far. In the previous round you answered 7 out of 8 tasks correctly."
+        {% endif %}
+        {% if framing == 2 %}
+            You were in the negative framing condition. This means that you were presented with the negative statement:
+            "Thank you for your answers so far. In the previous round you answered 2 out of 8 tasks correctly."
+        {% endif %}
+    </p>
+    <p class="card-text">
+        In reality, the framing condition you were presented with did not reflect your performance and was purely
+        random.
+        We could not give participants complete information about the study prior to their participation, as this could
+        have influenced their behavior during the study in a way that would have invalidated investigations of the
+        research question. The reason for the deception in this study was to keep participants' behaviors and attitudes
+        unaffected by the goals of the study.
+    </p>
+    <p class="card-text">
+        Since some elements of the study are different from what was originally explained, there is another
+        consent form for you to read and complete, if you are willing to allow us to use the information you
+        have provided. This consent is also a record that the full purpose of the study was explained to you.
+    </p>
+    <p class="card-text">
+        We really appreciate your participation and hope that this has been an interesting experience for you.
+        Once all the data are collected and analyzed for this project, we plan on sharing this information with
+        the research community through seminars, conferences, presentations, and journal articles.
+    </p>
+    <p class="card-text">
+        <b style="font-size: 20px">Post-debriefing consent form</b>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="check_debriefing" autocomplete="off">
+                I read the post-study information and give my permission for the researchers to use my data
+                and/or the information I provided through the online survey for this study. This includes
+                permission to use all the data I provided: my demographic data, my answers from the questionnaires
+                assessing intrinsic motivation, my answers from the questionnaires assessing the feelings and emotions
+                of doing the tasks as well as my answers from the tasks.<br>
+        </div>
+    </p>
+    <p class="card-text">
+        If you have questions about the use of partial deception in this study, please contact the researcher
+        Julia Schulz at <a href="mailto:s8juschu@stud.uni-saarland.de"
+                           target="_BLANK">s8juschu@stud.uni-saarland.de</a>.
+    </p>
+    <p class="card-text">
+        <div class="form-group">
+            <label for="1">
+                During the study, did you suspect that you had been given false information about your performance?
             </label>
-            <textarea class="form-control" id="2" rows="2"></textarea>
+            <textarea class="form-control" id="1" rows="2"></textarea>
+        </div>
+    </p>
+    <br>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-accept-terms" id="endSurvey">
+        End survey
+    </button>
 
-            <br>
-            <label for="3">
-                Your actual score was: <b>x/8</b> in the first round. How would you have rated your performance?
-            </label>
-            <textarea class="form-control" id="3" rows="2"></textarea>
-
-
-
-            <br><br>
-            <b>If you do not agree, you can now revoke your responses and participation in the study:</b>
-            <br>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal">
-                Delete data
-            </button>
-{#        {% else %}#}
-{#            Please complete the whole study to view the clarification.#}
-{#        {% endif %}#}
-
-        <!-- Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Are you sure you want to delete your data?</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="displayDelete()">
-                            Yes
-                        </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">You did not accept the post-debriefing consent form </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    You have <b>not accepted</b> the consent form for debriefing.
+                    If you continue, your responses and <b>participation in the study will be revoked</b>. If you would like to
+                    go back to the prolific page and revoke your participation, please press the "Delete Answers" button.
+                    Otherwise press the "Back" button.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="revokeData" data-dismiss="modal" onclick="displayDelete()">
+                        Delete Answers
+                    </button>
+                    <button type="button" class="btn btn-accept-terms" data-dismiss="modal">Back</button>
                 </div>
             </div>
         </div>
+    </div>
     </p>
     <br>
 </div>

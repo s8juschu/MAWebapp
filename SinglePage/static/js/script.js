@@ -155,3 +155,65 @@ function setData(v) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(parameters));
 }
+
+// Permanently display score in pos/neg framing condition
+$(window).scroll(function(){
+    var sticky = document.getElementsByClassName('sticky9');
+
+    if (sticky.length > 0 && document.getElementById("card9").style.display !== "none"){
+        console.log("here 9");
+        console.log($(window).scrollTop());
+        console.log($("#card9").offset().top );
+        if ($(window).scrollTop() >= $("#card9").offset().top ) {
+            $('.sticky9').addClass('fixed-header');
+        }
+        else {
+            $('.sticky9').removeClass('fixed-header');
+
+        }
+    }
+    if (sticky.length > 0 && document.getElementById("card10").style.display !== "none"){
+        console.log("here n10");
+        console.log($(window).scrollTop());
+        console.log($("#card10").offset().top );
+        if ($(window).scrollTop() >= $("#card10").offset().top ) {
+            $('.sticky10').addClass('fixed-header');
+        }
+        else {
+            $('.sticky10').removeClass('fixed-header');
+
+        }
+    }
+});
+
+// Delete answers from questionnaires and tasks for this user
+function displayDelete() {
+    // document.getElementById('deleteData').innerHTML = "Your data has been deleted!";
+    // $('html,body').scrollTop(0);
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() { // listen for state changes
+      if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
+       window.location.href = 'https://prolific.co';
+      }
+    };
+    xhr.open("POST", '/website/deleteData', true);
+    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send();
+}
+
+//Display modal if consent form not checked
+$('#endSurvey').click(function () {
+    if($("#check_debriefing").is(':checked')){
+        window.location.href = 'https://prolific.co';
+    }
+    else{
+         $("#deleteModal").modal();
+    }
+});
+
+
+// $('#revokeData').click(function () {
+//     // window.location.href = 'https://prolific.co';
+//     console.log("redirect");
+// });

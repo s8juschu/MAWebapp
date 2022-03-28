@@ -1,7 +1,6 @@
-{# Save answer from tasks, grouped by pre or main task#}
 <script type="text/javascript">
 
-{#Get chekced radio btn by name#}
+{#Get checked radio btn by name#}
 function get_checked(name){
     let radios = document.getElementsByName(name);
     let value;
@@ -13,6 +12,7 @@ function get_checked(name){
     return value;
 }
 
+{# Save answer from tasks, grouped by pre or main task#}
 function on_continue_task(parameters, name) {
     {#Display error message if question not answered#}
     let missing_answr = "false";
@@ -110,6 +110,7 @@ function saveTask(type){
     }
 }
 
+{# Save answer from questions, grouped by pre or main task#}
 function on_continue_question(parameters, type, name){
     {#Display error message if question not answered#}
     let missing_answr = "false";
@@ -142,6 +143,7 @@ function on_continue_question(parameters, type, name){
     }
 }
 
+{# Save answer from questionnaires#}
 function saveQuestionnaire(type, name){
     let parameters = {};
     parameters.listarray = [];
@@ -197,44 +199,4 @@ function saveQuestionnaire(type, name){
         console.log("ERROR: Questionnaire " + name + " unknown.")
     }
 }
-
-function displayDelete() {
-    document.getElementById('deleteData').innerHTML = "Your data has been deleted!";
-    $('html,body').scrollTop(0);
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/website/deleteData', true);
-    xhr.setRequestHeader("X-CSRFToken", csrfToken);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send();
-}
-
-$(window).scroll(function(){
-    var sticky = document.getElementsByClassName('sticky9');
-
-    if (sticky.length > 0 && document.getElementById("card9").style.display !== "none"){
-        console.log("here 9");
-        console.log($(window).scrollTop());
-        console.log($("#card9").offset().top );
-        if ($(window).scrollTop() >= $("#card9").offset().top ) {
-            $('.sticky9').addClass('fixed-header');
-        }
-        else {
-            $('.sticky9').removeClass('fixed-header');
-
-        }
-    }
-    if (sticky.length > 0 && document.getElementById("card10").style.display !== "none"){
-        console.log("here n10");
-        console.log($(window).scrollTop());
-        console.log($("#card10").offset().top );
-        if ($(window).scrollTop() >= $("#card10").offset().top ) {
-            $('.sticky10').addClass('fixed-header');
-        }
-        else {
-            $('.sticky10').removeClass('fixed-header');
-
-        }
-    }
-});
-
 </script>
