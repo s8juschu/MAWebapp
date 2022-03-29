@@ -116,7 +116,7 @@ function setData(v) {
             missing_answr = "true";
         }
         if (parameters.age < 1 || parameters.age > 100){
-            document.getElementById('errorPersonalAge').innerHTML = "Please enter a valid age.";
+            document.getElementById('errorPersonalAge').innerHTML = "Please enter a valid age (0-100).";
             missing_answr = "true";
         }
 
