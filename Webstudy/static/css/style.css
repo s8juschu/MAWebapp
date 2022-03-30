@@ -1,0 +1,36 @@
+/*General*/
+html, body {
+  margin: 0;
+  padding: 0;
+}
+body{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+footer {
+    margin-top: 5%;
+    color: black;
+}
+.page-background {
+    background-color: #E6EDF2;
+}
+.page-header {
+    color: #004B8B;
+}
+
+/*Card*/
+.card-header {
+    background: #004B8B;
+}
+.btn-accept-terms {
+    color: white !important;
+    background-color: #004B8B;
+}
+
+/*Progressbar*/
+.progress{
+    border-radius: 0rem;
+}
+.progress-bar{
+    background-color: #006dcc;
+}

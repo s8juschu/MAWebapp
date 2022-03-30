@@ -10,7 +10,8 @@ from django.shortcuts import render, reverse
 from django.template.defaultfilters import register
 from django.views.decorators.csrf import ensure_csrf_cookie
 
-from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission
+from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission, \
+    TaskScore
 
 study_id = 1  # Study
 overall_count = 14  # Nr. of cards
@@ -253,6 +254,74 @@ def saveData(request):
     return HttpResponse(200)
 
 
+# Calculate actual score for each participant
+def calculateScore(request, task, session):
+    score_pre = 0
+    score_main = 0
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+
+    if task == "p2":
+        answers_p1 = TaskSubmission.objects.filter(session=session, type='p1')
+        answers_p2 = TaskSubmission.objects.filter(session=session, type='p2')
+
+        for answer_p1 in answers_p1:
+            task_id = answer_p1.task_id
+            correct_answer = AnswerChoice.objects.get(task=task_id, correct_answer=True)
+            if answer_p1.answer == correct_answer.text:
+                score_pre += 1
+            # print(str("p1 "+answer_p1.answer)+" "+str(correct_answer)+" "+str(task_id))
+
+        for answer_p2 in answers_p2:
+            task_id = answer_p2.task_id
+            correct_answer = AnswerChoice.objects.get(task=task_id, correct_answer=True)
+            if answer_p2.answer == correct_answer.text:
+                score_pre += 1
+            # print(str("p2 " + answer_p2.answer) + " " + str(correct_answer) + " " + str(task_id))
+
+        print("Pre tasks score: "+str(score_pre))
+
+        if submission_exist:
+            submission = Submission.objects.get(session=session)
+
+            task_score = TaskScore()
+            task_score.session = session
+            task_score.submission = submission
+            task_score.score_pre = score_pre
+
+            task_score.save()
+
+    if task == "m2":
+        answers_m1 = TaskSubmission.objects.filter(session=session, type='m1')
+        answers_m2 = TaskSubmission.objects.filter(session=session, type='m2')
+
+        for answer_m1 in answers_m1:
+            task_id = answer_m1.task_id
+            correct_answer = AnswerChoice.objects.get(task=task_id, correct_answer=True)
+            if answer_m1.answer == correct_answer.text:
+                score_main += 1
+            # print(str("m1 " + answer_m1.answer) + " " + str(correct_answer) + " " + str(task_id))
+
+        for answer_m2 in answers_m2:
+            task_id = answer_m2.task_id
+            correct_answer = AnswerChoice.objects.get(task=task_id, correct_answer=True)
+            if answer_m2.answer == correct_answer.text:
+                score_main += 1
+            # print(str("m2 " + answer_m2.answer) + " " + str(correct_answer) + " " + str(task_id))
+
+        print("Main tasks score: " + str(score_main))
+
+        if submission_exist:
+            submission = Submission.objects.get(session=session)
+
+            task_score = TaskScore()
+            task_score.session = session
+            task_score.submission = submission
+            task_score.score_main = score_main
+
+            task_score.save()
+
+
 # Save tasks answers from frontend in DB
 @ensure_csrf_cookie
 def saveTask(request):
@@ -283,6 +352,9 @@ def saveTask(request):
             else:
                 print("Already saved task info of type:" + str(par_type) + ", item:" + str(task_item) +
                       ". No changes made to DB.")
+
+        if par_type == "p2" or par_type == "m2":
+            calculateScore(request, par_type, session)
 
     return HttpResponse(200)
 
@@ -342,11 +414,11 @@ def deleteData(request):
     QuestionnaireSubmission.objects.filter(session=session).delete()
 
     # TODO delete whole IF
-    # request.session.flush()
-    # request.session['page_nr'] = 0
-    # page_nr = request.session['page_nr']
-    # request.session['progress'] = 0
-    # progress = request.session['progress']
+    request.session.flush()
+    request.session['page_nr'] = 0
+    page_nr = request.session['page_nr']
+    request.session['progress'] = 0
+    progress = request.session['progress']
     # del (request.session['init'])
     return HttpResponse(200)
 

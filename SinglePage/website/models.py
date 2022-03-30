@@ -35,6 +35,7 @@ class Task(models.Model):
 class AnswerChoice(models.Model):
     text = models.CharField(max_length=200, default="", blank=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    correct_answer = models.BooleanField(default=False)
 
     def __str__(self):
         return self.text
@@ -105,6 +106,16 @@ class TaskSubmission(models.Model):
     item = models.CharField(max_length=20)  # order of task on page
     task_id = models.IntegerField()
     answer = models.CharField(max_length=20)
+
+    def __int__(self):
+        return self.pk
+
+
+class TaskScore(models.Model):
+    submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    score_pre = models.IntegerField(default=0)
+    score_main = models.IntegerField(default=0)
 
     def __int__(self):
         return self.pk

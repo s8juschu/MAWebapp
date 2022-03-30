@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 class="mt-5 page-header">Welcome to WebSurvey</h1>
+        </div>
+    </div>
+</div>
+<br>
+{% for card in cards %}
+<div class="container" id="card0">
+    <div class="card">
+        <div class="card-header text-white">
+            {{ card.title }}
+        </div>
+{#        <progress value="70" max="100">70 %</progress>#}
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                 aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                <div class="progress-text" style="margin-left: 4px">0%</div>
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <b>Participation information</b><br>
+                Welcome to our survey!
+
+                Your data will be stored and processed anonymously only. More information on data protection can be
+                found in the data protection notes. This study is conducted by Julia Schulz as part of her master thesis
+                at DFKI (German Research Center for Artificial Intelligence) and UdS (Saarland University). For
+                questions or comments, contact us at:<br>
+                <b>s8juschu@stud.uni-saarland.de</b>.<br><br>
+
+                <b>Notes on data protection and participation information:</b><br>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="checkbox" value="100" autocomplete="off"> I have read and understood the information on data protection and the participation information and agree
+                that my data may be used anonymously for scientific research purposes. <br>
+                </div>
+
+            </p>
+
+            {{ card.text }}
+            <br>
+            {{ card.image }}
+        </div>
+        <div class="modal-footer" id="accept" style="display: none;">
+            <a class="btn btn-accept-terms" href="page1">Continue</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
