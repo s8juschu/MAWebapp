@@ -10,5 +10,6 @@ urlpatterns = [
     path('saveData', views.saveData, name='saveData'),
     path('saveTask', views.saveTask, name='saveTask'),
     path('saveQuestionnaire', views.saveQuestionnaire, name='saveQuestionnaire'),
-    path('deleteData', views.deleteData, name='deleteData')
+    path('deleteData', views.deleteData, name='deleteData'),
+    path('saveTextInput', views.saveTextInput, name='saveTextInput')
 ]

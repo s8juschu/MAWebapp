@@ -190,15 +190,27 @@ $(window).scroll(function(){
     }
 });
 
+function saveTextInput() {
+    let parameters = {};
+    parameters.text = document.getElementById('suspect_deception').value;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", '/website/saveTextInput', true);
+    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(parameters));
+}
+
 // Delete answers from questionnaires and tasks for this user
 function displayDelete() {
     // document.getElementById('deleteData').innerHTML = "Your data has been deleted!";
     // $('html,body').scrollTop(0);
     let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() { // listen for state changes
-      if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
-       window.location.href = 'https://prolific.co';
-      }
+    xhr.onreadystatechange = function () { // listen for state changes
+        if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
+            saveTextInput();
+            window.location.href = 'https://prolific.co';
+        }
     };
     xhr.open("POST", '/website/deleteData', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
@@ -209,15 +221,10 @@ function displayDelete() {
 //Display modal if consent form not checked
 $('#endSurvey').click(function () {
     if($("#check_debriefing").is(':checked')){
+        saveTextInput();
         window.location.href = 'https://prolific.co';
     }
     else{
          $("#deleteModal").modal();
     }
 });
-
-
-// $('#revokeData').click(function () {
-//     // window.location.href = 'https://prolific.co';
-//     console.log("redirect");
-// });

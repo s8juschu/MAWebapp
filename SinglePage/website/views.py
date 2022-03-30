@@ -295,10 +295,9 @@ def saveQuestionnaire(request):
 
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
-    submission_exist = Submission.objects.filter(session=session).exists()
     request_delete = Submission.objects.get(session=session).request_delete
-    par_type = parameterinfo["type"]
-    par_name = parameterinfo["name"]
+    par_type = parameterinfo["name"]
+    par_name = parameterinfo["type"]
 
     if submission_exist and not request_delete:
         listitem = parameterinfo["listarray"]
@@ -349,6 +348,26 @@ def deleteData(request):
     # request.session['progress'] = 0
     # progress = request.session['progress']
     # del (request.session['init'])
+    return HttpResponse(200)
+
+# Save input of textfield on last card
+@ensure_csrf_cookie
+def saveTextInput(request):
+    getparameterinfo = request.body.decode('utf-8')
+    parameterinfo = json.loads(getparameterinfo)
+
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+    par_text = parameterinfo["text"]
+
+    if submission_exist:
+        if Submission.objects.filter(session=session, suspect_deception__isnull=True):
+            submission = Submission.objects.get(session=session)
+            submission.suspect_deception = par_text
+            submission.save()
+        else:
+            print("Already saved textfield input form last card. ")
+
     return HttpResponse(200)
 
 
