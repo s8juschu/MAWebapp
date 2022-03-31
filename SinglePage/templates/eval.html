@@ -1,5 +1,49 @@
-{% extends "base.html" %}
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <title>WebSurvey</title>
+
+    <link rel="icon" type="image/x-icon" href="{% static 'img/clipboard_survey_icon.ico' %}"/>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body class="page-background">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+    <a class="navbar-brand" href="#">
+        <img src="{% static 'img/clipboard_survey_icon_huge.png' %}" width="30" height="30" class="d-inline-block align-top"
+             alt="">
+        WebSurvey
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'eval' %}">Back</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-12 text-center">
@@ -8,21 +52,30 @@
     </div>
 </div>
 <br>
-{#<div class="container">#}
-{#    <ul class="list-group">#}
-{#        {% for session in sessions %}#}
-{#            <li class="list-group-item">Participant {{ forloop.counter }}: {{ session }}</li>#}
-{#            <a href="{% url 'showdata' %}?data={{ forloop.counter }}" class="list-group-item list-group-item-action active">#}
-{#                Participant {{ forloop.counter }}: {{ session }}#}
-{#            </a>#}
-{#        {% endfor %}#}
-{#    </ul>#}
-{#</div>#}
 <div class="container">
     <ul class="list-group">
-        {% for arr in array %}
-            <li class="list-group-item">Participant {{ forloop.counter }}: {{ arr }}</li>
+        {% for submission in submissions %}
+{#            <li class="list-group-item">Participant {{ forloop.counter }}: Submission {{ submission.pk }}</li>#}
+            <a href="{% url 'showParticipant' submission_id=submission.pk %}" class="list-group-item">
+                Participant {{ forloop.counter }}: Submission {{ submission.pk }}
+            </a>
         {% endfor %}
     </ul>
 </div>
-{% endblock %}
+
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">
+    </div>
+    <!-- Copyright -->
+
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'vendor/jquery/jquery.slim.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+
+</html>

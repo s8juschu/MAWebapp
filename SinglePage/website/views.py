@@ -279,7 +279,7 @@ def calculateScore(request, task):
                 score_pre += 1
             # print(str("p2 " + answer_p2.answer) + " " + str(correct_answer) + " " + str(task_id))
 
-        print("Pre tasks score: "+str(score_pre))
+        print("Pre tasks score: " + str(score_pre))
 
         if submission_exist:
             submission = Submission.objects.get(session=session)
@@ -371,7 +371,8 @@ def saveQuestionnaire(request):
         listitem = parameterinfo["listarray"]
         for item in listitem:
             question_item = item["item"]
-            if not QuestionnaireSubmission.objects.filter(session=session, name=par_name, type=par_type, item=question_item).exists():
+            if not QuestionnaireSubmission.objects.filter(session=session, name=par_name, type=par_type,
+                                                          item=question_item).exists():
                 question_sub = QuestionnaireSubmission()
                 question_sub.submission = Submission.objects.get(session=session)
                 question_sub.session = session
@@ -386,7 +387,7 @@ def saveQuestionnaire(request):
                 question_sub.save()
 
             else:
-                print("Already saved questionnaire " + str(par_name)+" info of type:" + str(par_type) + ", item:" +
+                print("Already saved questionnaire " + str(par_name) + " info of type:" + str(par_type) + ", item:" +
                       str(question_item) + ". No changes made to DB.")
 
     return HttpResponse(200)
@@ -410,13 +411,14 @@ def deleteData(request):
     QuestionnaireSubmission.objects.filter(session=session).delete()
 
     # TODO delete whole IF
-    request.session.flush()
-    request.session['page_nr'] = 0
-    page_nr = request.session['page_nr']
-    request.session['progress'] = 0
-    progress = request.session['progress']
+    # request.session.flush()
+    # request.session['page_nr'] = 0
+    # page_nr = request.session['page_nr']
+    # request.session['progress'] = 0
+    # progress = request.session['progress']
     # del (request.session['init'])
     return HttpResponse(200)
+
 
 # Save input of textfield on last card
 @ensure_csrf_cookie
@@ -452,20 +454,56 @@ def getScore(request):
     return HttpResponse("-")
 
 
-# def evaluation(request):
-#     if request.user.is_superuser:
-#         array = []
-#         sessions = Session.objects.all()
-#         print(sessions[1])
-#         for r in request.session.items():
-#             print(r)
-#         # for session in sessions:
-#         #     if Answer.objects.filter(session=session.session_key).exists():
-#         #         answer = Answer.objects.get(session=id)
-#         #         array.append(answer)
-#         #         return render(request, 'eval.html', context={"array": array})
-#         #     else:
-#         #         return HttpResponseRedirect(reverse('index'))
-#         # return render(request, 'eval.html', context={"sessions": sessions})
-#     else:
-#         return HttpResponseRedirect(reverse('index'))
+def evaluation(request):
+    if request.user.is_superuser:
+        # array = []
+        # sessions = Session.objects.all()
+        # print(sessions[1])
+        # for r in request.session.items():
+        #     print(r)
+        # for session in sessions:
+        #     # if Answer.objects.filter(session=session.session_key).exists():
+        #     #     answer = Answer.objects.get(session=id)
+        #     #     array.append(answer)
+        #         return render(request, 'eval.html', context={"array": array})
+        #     else:
+        #         return HttpResponseRedirect(reverse('index'))
+
+        submissions = Submission.objects.filter(terms_agree=True, finished=True, request_delete=False)
+        return render(request, 'eval.html', context={"submissions": submissions})
+    else:
+        print('Access denied. You are not logged in as superuser.')
+        return HttpResponseRedirect(reverse('index'))
+
+
+def showParticipant(request, submission_id):
+    questionnaire = []
+    task = []
+    questions = Question.objects.all()
+    if request.user.is_superuser:
+        if Submission.objects.filter(pk=submission_id).exists():
+            submission = Submission.objects.get(pk=submission_id)
+            if QuestionnaireSubmission.objects.filter(submission=submission).exists():
+                questionnaire_sub = QuestionnaireSubmission.objects.filter(submission=submission)
+                for q_sub in questionnaire_sub:
+                    questionnaire.append(q_sub)
+            else:
+                questionnaire.append("--")
+            if TaskSubmission.objects.filter(submission=submission).exists():
+                task_sub = TaskSubmission.objects.filter(submission=submission)
+                for t_sub in task_sub:
+                    task.append(t_sub)
+            else:
+                task.append("--")
+            if TaskScore.objects.filter(submission=submission).exists():
+                score = TaskScore.objects.get(submission=submission)
+            else:
+                score = ""
+            return render(request, 'show_participant.html', context={'submission': submission, 'questionnaire':
+                questionnaire, 'task': task, 'score': score, 'questions': questions})
+        else:
+            print('Submission ' + str(submission_id) + ' does not exist or has not accepted the terms .')
+            return HttpResponseRedirect(reverse('eval'))
+    else:
+        print('Access denied. You are not logged in as superuser.')
+        return HttpResponseRedirect(reverse('index'))
