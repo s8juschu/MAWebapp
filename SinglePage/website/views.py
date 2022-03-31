@@ -255,7 +255,7 @@ def saveData(request):
 
 
 # Calculate actual score for each participant
-def calculateScore(request, task, session):
+def calculateScore(request, task):
     score_pre = 0
     score_main = 0
     session = Session.objects.get(session_key=request.session.session_key)
@@ -288,7 +288,6 @@ def calculateScore(request, task, session):
             task_score.session = session
             task_score.submission = submission
             task_score.score_pre = score_pre
-
             task_score.save()
 
     if task == "m2":
@@ -314,11 +313,8 @@ def calculateScore(request, task, session):
         if submission_exist:
             submission = Submission.objects.get(session=session)
 
-            task_score = TaskScore()
-            task_score.session = session
-            task_score.submission = submission
+            task_score = TaskScore.objects.get(session=session)
             task_score.score_main = score_main
-
             task_score.save()
 
 
@@ -354,7 +350,7 @@ def saveTask(request):
                       ". No changes made to DB.")
 
         if par_type == "p2" or par_type == "m2":
-            calculateScore(request, par_type, session)
+            calculateScore(request, par_type)
 
     return HttpResponse(200)
 
@@ -443,20 +439,33 @@ def saveTextInput(request):
     return HttpResponse(200)
 
 
-def evaluation(request):
-    if request.user.is_superuser:
-        array = []
-        sessions = Session.objects.all()
-        print(sessions[1])
-        for r in request.session.items():
-            print(r)
-        # for session in sessions:
-        #     if Answer.objects.filter(session=session.session_key).exists():
-        #         answer = Answer.objects.get(session=id)
-        #         array.append(answer)
-        #         return render(request, 'eval.html', context={"array": array})
-        #     else:
-        #         return HttpResponseRedirect(reverse('index'))
-        # return render(request, 'eval.html', context={"sessions": sessions})
-    else:
-        return HttpResponseRedirect(reverse('index'))
+def getScore(request):
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+
+    if submission_exist:
+        if TaskScore.objects.filter(session=session):
+            task_score = TaskScore.objects.get(session=session)
+
+            return HttpResponse(task_score.score_pre)
+
+    return HttpResponse("-")
+
+
+# def evaluation(request):
+#     if request.user.is_superuser:
+#         array = []
+#         sessions = Session.objects.all()
+#         print(sessions[1])
+#         for r in request.session.items():
+#             print(r)
+#         # for session in sessions:
+#         #     if Answer.objects.filter(session=session.session_key).exists():
+#         #         answer = Answer.objects.get(session=id)
+#         #         array.append(answer)
+#         #         return render(request, 'eval.html', context={"array": array})
+#         #     else:
+#         #         return HttpResponseRedirect(reverse('index'))
+#         # return render(request, 'eval.html', context={"sessions": sessions})
+#     else:
+#         return HttpResponseRedirect(reverse('index'))

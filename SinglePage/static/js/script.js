@@ -2,6 +2,9 @@
  On page load, display correct page & progress
 */
 $(document).ready(function() {
+    // display actual score on last page
+    displayScore();
+
     // executes when HTML-Document is loaded and DOM is ready
     for (let i = 0; i < cardCounter; i++) {
         $('#card' + i).hide();
@@ -228,3 +231,18 @@ $('#endSurvey').click(function () {
          $("#deleteModal").modal();
     }
 });
+
+//Display actual score of user in first task round on end card
+function displayScore() {
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () { // listen for state changes
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("actual_score").innerHTML = this.responseText;
+        }
+    };
+    xhr.open("GET", '/website/getScore', true);
+    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send();
+
+}
