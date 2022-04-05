@@ -113,7 +113,6 @@ def save_initialization(request, list_p1, list_p2, list_m1, list_m2):
     if not request.session.exists(request.session.session_key):
         request.session.create()
     session = Session.objects.get(session_key=request.session.session_key)
-    print(session)
     if not Submission.objects.filter(session=session).exists():
         submission = Submission()
         submission.study = Study.objects.get(pk=study_id)
@@ -168,8 +167,6 @@ def index(request):
         print("error")
 
     save_initialization(request, list_p1, list_p2, list_m1, list_m2)
-
-    print(page_nr)
 
     return render(request, 'index.html',
                   context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2,
@@ -265,14 +262,12 @@ def calculateScore(request, task):
             correct_answer = AnswerChoice.objects.get(task=task_id, correct_answer=True)
             if answer_p1.answer == correct_answer.text:
                 score_pre += 1
-            # print(str("p1 "+answer_p1.answer)+" "+str(correct_answer)+" "+str(task_id))
 
         for answer_p2 in answers_p2:
             task_id = answer_p2.task_id
             correct_answer = AnswerChoice.objects.get(task=task_id, correct_answer=True)
             if answer_p2.answer == correct_answer.text:
                 score_pre += 1
-            # print(str("p2 " + answer_p2.answer) + " " + str(correct_answer) + " " + str(task_id))
 
         print("Pre tasks score: " + str(score_pre))
 
@@ -294,14 +289,12 @@ def calculateScore(request, task):
             correct_answer = AnswerChoice.objects.get(task=task_id, correct_answer=True)
             if answer_m1.answer == correct_answer.text:
                 score_main += 1
-            # print(str("m1 " + answer_m1.answer) + " " + str(correct_answer) + " " + str(task_id))
 
         for answer_m2 in answers_m2:
             task_id = answer_m2.task_id
             correct_answer = AnswerChoice.objects.get(task=task_id, correct_answer=True)
             if answer_m2.answer == correct_answer.text:
                 score_main += 1
-            # print(str("m2 " + answer_m2.answer) + " " + str(correct_answer) + " " + str(task_id))
 
         print("Main tasks score: " + str(score_main))
 
@@ -366,6 +359,7 @@ def saveQuestionnaire(request):
         listitem = parameterinfo["listarray"]
         for item in listitem:
             question_item = item["item"]
+            question_id = item["question_id"]
             if not QuestionnaireSubmission.objects.filter(session=session, name=par_name, type=par_type,
                                                           item=question_item).exists():
                 question_sub = QuestionnaireSubmission()
@@ -376,7 +370,7 @@ def saveQuestionnaire(request):
                 question_sub.type = par_type
 
                 question_sub.item = question_item
-                question_sub.question_id = item["question_id"]
+                question_sub.question_id = Question.objects.get(pk=question_id)
                 question_sub.answer = item["answer"]
 
                 question_sub.save()

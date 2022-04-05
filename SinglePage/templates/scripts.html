@@ -106,7 +106,7 @@ function saveTask(type){
     }
 
     else {
-        console.log("ERROR: Task set "+type+ " unknown.")
+        {#console.log("ERROR: Task set "+type+ " unknown.")#}
     }
 }
 
@@ -170,7 +170,7 @@ function saveQuestionnaire(type, name){
             {% endfor %}
             on_continue_question(parameters, type, name);
         } else {
-            console.log("ERROR: Questionnaire " + name +" "+ type + " unknown.")
+            {#console.log("ERROR: Questionnaire " + name +" "+ type + " unknown.")#}
         }
 
     } else if (name == "PANAS"){
@@ -193,10 +193,10 @@ function saveQuestionnaire(type, name){
             {% endfor %}
             on_continue_question(parameters, type, name);
         } else {
-            console.log("ERROR: Questionnaire "+ name +" "+ type + " unknown.")
+            {#console.log("ERROR: Questionnaire "+ name +" "+ type + " unknown.")#}
         }
     } else{
-        console.log("ERROR: Questionnaire " + name + " unknown.")
+        {#console.log("ERROR: Questionnaire " + name + " unknown.")#}
     }
 }
 </script>

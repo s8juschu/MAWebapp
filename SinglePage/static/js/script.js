@@ -39,7 +39,6 @@ function fillProgress(){
     if(progressCounter < 100) {
         progressCounter += (100/maxValue);
         if(progressCounter > 100) {
-            console.log(progressCounter);
             progressCounter = 100;
         }
         let val = Math.round(progressCounter);
@@ -168,9 +167,6 @@ $(window).scroll(function(){
     var sticky = document.getElementsByClassName('sticky9');
 
     if (sticky.length > 0 && document.getElementById("card9").style.display !== "none"){
-        console.log("here 9");
-        console.log($(window).scrollTop());
-        console.log($("#card9").offset().top );
         if ($(window).scrollTop() >= $("#card9").offset().top ) {
             $('.sticky9').addClass('fixed-header');
         }
@@ -180,9 +176,6 @@ $(window).scroll(function(){
         }
     }
     if (sticky.length > 0 && document.getElementById("card10").style.display !== "none"){
-        console.log("here n10");
-        console.log($(window).scrollTop());
-        console.log($("#card10").offset().top );
         if ($(window).scrollTop() >= $("#card10").offset().top ) {
             $('.sticky10').addClass('fixed-header');
         }
