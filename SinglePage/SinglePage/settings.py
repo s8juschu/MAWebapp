@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-jp(b$+%(&0%57)ie#g(6an(-n4%zmmxxdqx-22b=@1d%2g7!j1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'webstudy.uber.space']
 
 
 # Application definition
@@ -121,16 +121,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
+STATIC_URL = '/static/'
 
+## Local hosting
 STATICFILES_DIRS = (
      os.path.join(BASE_DIR, 'static'),
 )
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 
-STATIC_URL = '/static/'
+## Uber space
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 
 #Redirect Login User
 LOGIN_URL = '/website/index'

@@ -127,7 +127,6 @@ def save_initialization(request, list_p1, list_p2, list_m1, list_m2):
 
 @ensure_csrf_cookie
 def index(request):
-    # request.session.flush()
     list_p1 = []
     list_p2 = []
     list_m1 = []
@@ -145,7 +144,7 @@ def index(request):
     if 'rand' not in request.session:
         request.session['rand'] = get_condition()
     rnd = request.session.get('rand')
-    # rnd = 2
+
     if 'init' not in request.session:
         request.session['init'] = 'true'
 
@@ -158,16 +157,12 @@ def index(request):
         array_m2 = get_choices(list_m2)
 
     elif request.session.get('init') == 'true':
-        # name = request.session.session_key
-        # print(name)
         list_p1, list_p2, list_m1, list_m2 = load_lists(request, p1, p2, m1, m2)
 
         array_p1 = get_choices(list_p1)
         array_p2 = get_choices(list_p2)
         array_m1 = get_choices(list_m1)
         array_m2 = get_choices(list_m2)
-
-        # print(name, list_p1, list_p2, list_m1, list_m2)
 
     else:
         print("error")
@@ -456,19 +451,6 @@ def getScore(request):
 
 def evaluation(request):
     if request.user.is_superuser:
-        # array = []
-        # sessions = Session.objects.all()
-        # print(sessions[1])
-        # for r in request.session.items():
-        #     print(r)
-        # for session in sessions:
-        #     # if Answer.objects.filter(session=session.session_key).exists():
-        #     #     answer = Answer.objects.get(session=id)
-        #     #     array.append(answer)
-        #         return render(request, 'eval.html', context={"array": array})
-        #     else:
-        #         return HttpResponseRedirect(reverse('index'))
-
         submissions = Submission.objects.filter(terms_agree=True, finished=True, request_delete=False)
         return render(request, 'eval.html', context={"submissions": submissions})
     else:
