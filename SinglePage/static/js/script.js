@@ -191,6 +191,11 @@ function saveTextInput() {
     parameters.text = document.getElementById('suspect_deception').value;
 
     let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () { // listen for state changes
+        if (this.readyState == 4 && this.status == 200) {
+            window.location.href = 'https://prolific.co';
+        }
+    };
     xhr.open("POST", '/website/saveTextInput', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -205,7 +210,6 @@ function displayDelete() {
     xhr.onreadystatechange = function () { // listen for state changes
         if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
             saveTextInput();
-            window.location.href = 'https://prolific.co';
         }
     };
     xhr.open("POST", '/website/deleteData', true);
@@ -218,7 +222,6 @@ function displayDelete() {
 $('#endSurvey').click(function () {
     if($("#check_debriefing").is(':checked')){
         saveTextInput();
-        window.location.href = 'https://prolific.co';
     }
     else{
          $("#deleteModal").modal();
