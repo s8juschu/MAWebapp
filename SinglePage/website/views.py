@@ -3,6 +3,7 @@ import json
 from collections import defaultdict
 from random import shuffle
 import random
+import csv
 
 from django.contrib.sessions.models import Session
 from django.http import HttpResponse, HttpResponseRedirect
@@ -480,6 +481,120 @@ def showParticipant(request, submission_id):
         else:
             print('Submission ' + str(submission_id) + ' does not exist or has not accepted the terms .')
             return HttpResponseRedirect(reverse('eval'))
+    else:
+        print('Access denied. You are not logged in as superuser.')
+        return HttpResponseRedirect(reverse('index'))
+
+
+def exportCSV(request):
+    if request.user.is_superuser:
+
+        with open('submission_score.csv', 'w', encoding='UTF8') as f:
+            writer = csv.writer(f)
+
+            header = ['session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
+                      'suspect_deception', 'taskscore__score_pre', 'taskscore__score_main']
+
+            # write the header
+            writer.writerow(header)
+
+            # write the data
+            submissions = Submission.objects.filter(terms_agree=True, finished=True, request_delete=False).values_list(
+                'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2', 'suspect_deception',
+                'taskscore__score_pre', 'taskscore__score_main')
+
+            for submission in submissions:
+                writer.writerow(submission)
+
+        with open('questionnaires.csv', 'w', encoding='UTF8') as q:
+            writer = csv.writer(q)
+
+            header = ['session', 'name', 'type', 'item', 'question_id', 'answer']
+
+            # write the header
+            writer.writerow(header)
+
+            # write the data
+            questions = QuestionnaireSubmission.objects.filter(submission__terms_agree=True, submission__finished=True,
+                                                               submission__request_delete=False).values_list(
+                'session', 'name', 'type', 'item', 'question_id', 'answer')
+
+            for question in questions:
+                writer.writerow(question)
+
+        with open('tasks.csv', 'w', encoding='UTF8') as t:
+            writer = csv.writer(t)
+
+            header = ['session', 'type', 'item', 'task_id', 'answer']
+
+            # write the header
+            writer.writerow(header)
+
+            # write the data
+            tasks = TaskSubmission.objects.filter(submission__terms_agree=True, submission__finished=True,
+                                                  submission__request_delete=False).values_list(
+                'session', 'type', 'item', 'task_id', 'answer')
+
+            for task in tasks:
+                writer.writerow(task)
+
+        # # Create the HttpResponse object with the appropriate CSV header.
+        # response_sub = HttpResponse(
+        #     content_type='text/csv',
+        #     headers={'Content-Disposition': 'attachment; filename="submission_score.csv"'},
+        # )
+        #
+        # writer = csv.writer(response_sub)
+        # writer.writerow(
+        #     ['session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2', 'suspect_deception',
+        #      # 'questionnairesubmission__name', 'questionnairesubmission__type', 'questionnairesubmission__item',
+        #      # 'questionnairesubmission__answer',
+        #      # 'tasksubmission__type', 'tasksubmission__item', 'tasksubmission__task_id', 'tasksubmission__answer',
+        #      'taskscore__score_pre', 'taskscore__score_main'])
+        #
+        # submissions = Submission.objects.filter(terms_agree=True, finished=True, request_delete=False).values_list(
+        #     'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2', 'suspect_deception',
+        #     # 'questionnairesubmission__name', 'questionnairesubmission__type', 'questionnairesubmission__item',
+        #     # 'questionnairesubmission__answer',
+        #     # 'tasksubmission__type', 'tasksubmission__item', 'tasksubmission__task_id', 'tasksubmission__answer',
+        #     'taskscore__score_pre', 'taskscore__score_main')
+        #
+        # for submission in submissions:
+        #     writer.writerow(submission)
+        #
+        # response_quest = HttpResponse(
+        #     content_type='text/csv',
+        #     headers={'Content-Disposition': 'attachment; filename="submission_score.csv"'},
+        # )
+        #
+        # writer2 = csv.writer(response_quest)
+        # writer2.writerow(
+        #     ['session', 'name', 'type', 'item', 'question_id', 'answer'])
+        #
+        # questions = QuestionnaireSubmission.objects.filter(submission__terms_agree=True, submission__finished=True, submission__request_delete=False).values_list(
+        #     'session', 'name', 'type', 'item', 'question_id', 'answer')
+        #
+        # for question in questions:
+        #     writer2.writerow(question)
+        #
+        #
+        # reponse_task = HttpResponse(
+        #     content_type='text/csv',
+        #     headers={'Content-Disposition': 'attachment; filename="submission_score.csv"'},
+        # )
+        #
+        # writer3 = csv.writer(response_quest)
+        # writer3.writerow(
+        #     ['session', 'name', 'type', 'item', 'question_id', 'answer'])
+        #
+        # questions = QuestionnaireSubmission.objects.filter(submission__terms_agree=True, submission__finished=True,
+        #                                                    submission__request_delete=False).values_list(
+        #     'session', 'name', 'type', 'item', 'question_id', 'answer')
+        #
+        # for question in questions:
+        #     writer3.writerow(question)
+
+        return HttpResponseRedirect(reverse('eval'))
     else:
         print('Access denied. You are not logged in as superuser.')
         return HttpResponseRedirect(reverse('index'))
