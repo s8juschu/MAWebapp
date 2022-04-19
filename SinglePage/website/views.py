@@ -444,7 +444,7 @@ def getScore(request):
 
             return HttpResponse(data)
 
-    return HttpResponse("-")
+    return HttpResponse(json.dumps({'pre': '-', 'main': '-'}))
 
 
 def evaluation(request):

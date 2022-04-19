@@ -273,7 +273,7 @@ function displayScore() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
         if (this.readyState == 4 && this.status == 200) {
-            const obj = JSON.parse(this.responseText);
+            let obj = JSON.parse(this.responseText);
             document.getElementById("actual_score_pre").innerHTML = obj.pre;
             document.getElementById("actual_score_main").innerHTML = obj.main;
         }

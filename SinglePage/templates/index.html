@@ -2,7 +2,7 @@
 {% block content %}
 <!-- Page Content -->
 <br>
-<div class="container" id="card0">
+<div class="container" id="card0" name="start">
     <div class="card">
         {% include 'cards/start.html' %}
         <div class="modal-footer" id="accept" style="display: none;">
@@ -10,7 +10,7 @@
         </div>
     </div>
 </div>
-<div class="container" id="card1" style="display: none;">
+<div class="container" id="card1" name="personal" style="display: none;">
     <div class="card">
         {% include 'cards/personal_info.html' %}
         <div class="modal-footer" id="btn-next">
@@ -40,7 +40,7 @@
 {#        </div>#}
 {#    </div>#}
 {#</div>#}
-<div class="container" id="card14" style="display: none;">
+<div class="container" id="card14" name="end" style="display: none;">
     <div class="card">
          {% include 'cards/end.html' %}
     </div>

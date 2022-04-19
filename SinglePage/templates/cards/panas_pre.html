@@ -19,31 +19,31 @@
                 <div class="container">
                     {% for item in panas %}
                     <div class="row">
-                        <div class="col-md-3" style="margin-right: -8% !important;">
+                        <div class="col-md-3" style="margin-right: -8% !important; padding-left: 0% !important">
                             <div id="errorPANASpre{{ forloop.counter }}" class="error_sub error_question"></div>
-                            {{forloop.counter}}. {{item}}
+                            <b>{{forloop.counter}}. {{item}}</b>
                         </div>
                         <div class="col-md-9">
                             <ul class='likert panas'>
                                 <li>
-                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="1">
-                                    <label>not at all</label>
+                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="1" id="scalePanasPre{{forloop.counter}}1">
+                                    <label for="scalePanasPre{{forloop.counter}}1">not at all</label>
                                 </li>
                                 <li>
-                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="2">
-                                    <label>a little</label>
+                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="2" id="scalePanasPre{{forloop.counter}}2">
+                                    <label for="scalePanasPre{{forloop.counter}}2">a little</label>
                                 </li>
                                 <li>
-                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="3">
-                                    <label>moderately</label>
+                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="3" id="scalePanasPre{{forloop.counter}}3">
+                                    <label for="scalePanasPre{{forloop.counter}}3">moderately</label>
                                 </li>
                                 <li>
-                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="4">
-                                    <label>quite a bit</label>
+                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="4" id="scalePanasPre{{forloop.counter}}4">
+                                    <label for="scalePanasPre{{forloop.counter}}4">quite a bit</label>
                                 </li>
                                 <li>
-                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="5">
-                                    <label>extremely</label>
+                                    <input type="radio" name="scalePanasPre{{forloop.counter}}" value="5" id="scalePanasPre{{forloop.counter}}5">
+                                    <label for="scalePanasPre{{forloop.counter}}5">extremely</label>
                                 </li>
                             </ul>
                         </div>
