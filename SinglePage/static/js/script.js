@@ -13,6 +13,11 @@ $(document).ready(function() {
     if( cardCounter > 1){
          fillProgress();
     }
+
+    // Display decribe gender on page reload if checked
+    if (cardCounter ===1 && $('#describe').is(":checked")){
+        $('#genderText').show();
+    }
 });
 
 /*
@@ -112,27 +117,51 @@ function setData(v) {
         document.getElementById('errorPersonalGender').innerHTML = "";
 
         parameters.type = "personal";
-        parameters.age = document.getElementById("age").value;
-        if (parameters.age == null || parameters.age === "") {
-            document.getElementById('errorPersonalAge').innerHTML = "Please enter your age.";
-            missing_answr = "true";
+
+        if (document.getElementById("1824").checked === true){
+            parameters.age = "18-24";
         }
-        if (parameters.age < 1 || parameters.age > 100){
-            document.getElementById('errorPersonalAge').innerHTML = "Please enter a valid age (0-100).";
+        else if (document.getElementById("2531").checked === true){
+           parameters.age = "25-31";
+        }
+        else if (document.getElementById("3238").checked === true){
+             parameters.age = "32-38";
+        }
+        else if (document.getElementById("3945").checked === true){
+             parameters.age = "39-45";
+        }
+        else if (document.getElementById("4652").checked === true){
+           parameters.age = "46-52";
+        }
+        else if (document.getElementById("5359").checked === true){
+             parameters.age = "53-59";
+        }
+        else if (document.getElementById("6065").checked === true){
+             parameters.age = "60-65";
+        }
+        else if (document.getElementById("65").checked === true){
+           parameters.age = ">65";
+        }
+        else{
+            document.getElementById('errorPersonalAge').innerHTML = "Please select an answer.";
             missing_answr = "true";
         }
 
-        if (document.getElementById("female").checked === true){
-            parameters.gender = "female";
+        if (document.getElementById("woman").checked === true){
+            parameters.gender = "woman";
         }
-        else if (document.getElementById("male").checked === true){
-           parameters.gender = "male";
+        else if (document.getElementById("man").checked === true){
+           parameters.gender = "man";
         }
-        else if (document.getElementById("other").checked === true){
-             parameters.gender = "other";
+        else if (document.getElementById("non-binary").checked === true){
+             parameters.gender = "non-binary";
         }
         else if (document.getElementById("private").checked === true){
-             parameters.gender = "prefer not to say";
+             parameters.gender = "prefer not to disclose"; describe
+        }
+        else if (document.getElementById("describe").checked === true){
+             let description = document.getElementById("genderText").value;
+             parameters.gender = "prefer to self-describe: " + description;
         }
         else{
             document.getElementById('errorPersonalGender').innerHTML = "Please select an answer.";
@@ -161,6 +190,17 @@ function setData(v) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(parameters));
 }
+
+
+// Display box to self-describe gender if checked, else hide
+$('input[type=radio][name=gender]').change(function() {
+    if ($('#describe').is(":checked")){
+        $('#genderText').show();
+    }
+    else{
+        $('#genderText').hide();
+    }
+});
 
 // Permanently display score in pos/neg framing condition
 $(window).scroll(function(){
@@ -233,12 +273,13 @@ function displayScore() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("actual_score").innerHTML = this.responseText;
+            const obj = JSON.parse(this.responseText);
+            document.getElementById("actual_score_pre").innerHTML = obj.pre;
+            document.getElementById("actual_score_main").innerHTML = obj.main;
         }
     };
     xhr.open("GET", '/website/getScore', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
-    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'text/plain');
     xhr.send();
-
 }

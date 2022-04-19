@@ -223,7 +223,7 @@ h1.likert-header {
 /* extra large devices */
 @media screen and (min-width: 2000px) {
     .container {
-        max-width: 2000px;
+        max-width: 1650px;
     }
 }
 

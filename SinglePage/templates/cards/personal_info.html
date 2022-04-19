@@ -10,35 +10,104 @@
 <div class="card-body">
     <div id="errorPersonal" class="error"></div>
     <p class="card-text">
-        How old are you?
+        <div>How old are you?</div>
         <div id="errorPersonalAge" class="error_sub"></div>
-        <input type="number" min="0" max="110" step="1" id="age" name="age" class="form-control"  style="width: 200px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="age" id="1824">
+                        <label class="form-check-label" for="1824">
+                            18-24
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="age" id="2531">
+                        <label class="form-check-label" for="2531">
+                            25-31
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="age" id="3238">
+                        <label class="form-check-label" for="3238">
+                            32-38
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="age" id="3945">
+                        <label class="form-check-label" for="3945">
+                            39-45
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="age" id="4652">
+                        <label class="form-check-label" for="4652">
+                            46-52
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="age" id="5359">
+                        <label class="form-check-label" for="5359">
+                            53-59
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="age" id="6065">
+                        <label class="form-check-label" for="6065">
+                            60-65
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="age" id="65">
+                        <label class="form-check-label" for="65">
+                            >65
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <hr>
         With which gender do you identify yourself?
         <div id="errorPersonalGender" class="error_sub"></div>
-        <div class="form-check">
-        <input class="form-check-input" type="radio" name="gender" id="male">
-            <label class="form-check-label" for="male">
-                Male
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="gender" id="female">
-            <label class="form-check-label" for="female">
-                Female
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="gender" id="other">
-            <label class="form-check-label" for="other">
-                Other
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="gender" id="private">
-            <label class="form-check-label" for="private">
-                Prefer not to say.
-            </label>
+        <div class="container">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="man">
+                <label class="form-check-label" for="man">
+                    man
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="woman">
+                <label class="form-check-label" for="woman">
+                    woman
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="non-binary">
+                <label class="form-check-label" for="non-binary">
+                    non-binary
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="private">
+                <label class="form-check-label" for="private">
+                    prefer not to disclose
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="describe">
+                <label class="form-check-label" for="describe">
+                    prefer to self-describe
+                </label>
+                <input id="genderText" name="genderText" type="text" style="display: none; max-width: 200px" placeholder="Self-describe (optional)" class="form-control" >
+            </div>
         </div>
     </p>
 </div>

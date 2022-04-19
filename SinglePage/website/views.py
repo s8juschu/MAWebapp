@@ -169,6 +169,8 @@ def index(request):
 
     save_initialization(request, list_p1, list_p2, list_m1, list_m2)
 
+    print(request.session.session_key)
+
     return render(request, 'index.html',
                   context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2,
                            "array_m1": array_m1, "array_m2": array_m2, "array_p1": array_p1, "array_p2": array_p2,
@@ -406,7 +408,6 @@ def deleteData(request):
     # page_nr = request.session['page_nr']
     # request.session['progress'] = 0
     # progress = request.session['progress']
-    # del (request.session['init'])
     return HttpResponse(200)
 
 
@@ -439,7 +440,9 @@ def getScore(request):
         if TaskScore.objects.filter(session=session):
             task_score = TaskScore.objects.get(session=session)
 
-            return HttpResponse(task_score.score_pre)
+            data = json.dumps({'pre': task_score.score_pre, 'main': task_score.score_main})
+
+            return HttpResponse(data)
 
     return HttpResponse("-")
 
