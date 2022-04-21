@@ -20,7 +20,7 @@
         </div>
     </div>
 </div>
-<div class="container" id="card12" style="display: none;">
+<div class="container" name="imi_main" id="card12" style="display: none;">
     <div class="card">
         <div class="card-header text-white">
             Questionnaire 2
@@ -39,28 +39,44 @@
                 <div id="errorIMImain{{ forloop.counter }}" class="error_sub error_question"></div>
                 <ul class='likert'>
                     <li>
-                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="1" id="scaleMain{{forloop.counter}}1">
-                        <label for="scaleMain{{forloop.counter}}1">Not true at all</label>
+                        <label class="imiLabel">
+                            <input type="radio" class="scaleIMI"  name="scaleMain{{ forloop.counter }}" value="1"
+                                   id="scaleMain{{ forloop.counter }}1">
+                                Not true at all
+                        </label>
                     </li>
                     <li>
-                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="2">
+                        <label class="imiLabel">
+                            <input type="radio" class="scaleIMI" name="scaleMain{{ forloop.counter }}" value="2">
+                        </label>
                     </li>
                     <li>
-                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="3">
+                        <label class="imiLabel">
+                            <input type="radio" class="scaleIMI" name="scaleMain{{ forloop.counter }}" value="3">
+                        </label>
                     </li>
                     <li>
-                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="4" id="scaleMain{{forloop.counter}}4">
-                        <label for="scaleMain{{forloop.counter}}4">Somewhat true</label>
+                        <label class="imiLabel">
+                            <input type="radio" class="scaleIMI" name="scaleMain{{ forloop.counter }}" value="4" id="scaleMain{{forloop.counter}}4">
+                            Somewhat true
+                        </label>
                     </li>
                     <li>
-                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="5">
+                        <label class="imiLabel">
+                            <input type="radio" class="scaleIMI" name="scaleMain{{ forloop.counter }}" value="5">
+                        </label>
                     </li>
                     <li>
-                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="6">
+                        <label class="imiLabel">
+                            <input type="radio" class="scaleIMI" name="scaleMain{{ forloop.counter }}" value="6">
+                        </label>
                     </li>
                     <li>
-                        <input type="radio" name="scaleMain{{ forloop.counter }}" value="7" id="scaleMain{{forloop.counter}}7">
-                        <label for="scaleMain{{forloop.counter}}7">Very true</label>
+                        <label class="imiLabel">
+                            <input type="radio" class="scaleIMI" name="scaleMain{{ forloop.counter }}" value="7"
+                                   id="scaleMain{{ forloop.counter }}7">
+                            Very true
+                        </label>
                     </li>
                 </ul>
                 {% endfor %}

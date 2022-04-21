@@ -1,4 +1,4 @@
-<div class="container" id="card13" style="display: none;">
+<div class="container" name="panas_main" id="card13" style="display: none;">
     <div class="card">
         <div class="card-header text-white">
             Questionnaire 2
@@ -19,29 +19,45 @@
                 <div class="container">
                     {% for item in panas %}
                     <div class="row">
-                        <div id="errorPANASmain{{ forloop.counter }}" class="col-md-1 error_sub error_question"></div>
-                        <div class="col-md-2">{{forloop.counter}}. {{item}}</div>
-                        <div class="col-md-9">
+                        <div class="col-lg-3" style="margin-right: -8% !important; padding-left: 0% !important">
+                            <div id="errorPANASmain{{ forloop.counter }}" class="col-md-1 error_sub error_question"></div>
+                            <b>{{forloop.counter}}. {{item}}</b>
+                        </div>
+                        <div class="col-lg-9">
                             <ul class='likert panas'>
                                 <li>
-                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="1" id="scalePanasMain{{forloop.counter}}1">
-                                    <label for="scalePanasMain{{forloop.counter}}1">not at all</label>
+                                    <label class="imiLabel">
+                                        <input type="radio" name="scalePanasMain{{forloop.counter}}" value="1" id="scalePanasMain{{forloop.counter}}1">
+                                        not at all
+                                    </label>
                                 </li>
                                 <li>
-                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="2" id="scalePanasMain{{forloop.counter}}2">
-                                    <label for="scalePanasMain{{forloop.counter}}2">a little</label>
+                                    <label class="imiLabel">
+                                        <input type="radio" name="scalePanasMain{{ forloop.counter }}" value="2"
+                                               id="scalePanasMain{{ forloop.counter }}2">
+                                        a little
+                                    </label>
                                 </li>
                                 <li>
-                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="3" id="scalePanasMain{{forloop.counter}}3">
-                                    <label for="scalePanasMain{{forloop.counter}}3">moderately</label>
+                                    <label class="imiLabel">
+                                        <input type="radio" name="scalePanasMain{{ forloop.counter }}" value="3"
+                                               id="scalePanasMain{{ forloop.counter }}3">
+                                        moderately
+                                    </label>
                                 </li>
                                 <li>
-                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="4" id="scalePanasMain{{forloop.counter}}4">
-                                    <label for="scalePanasMain{{forloop.counter}}4">quite a bit</label>
+                                    <label class="imiLabel">
+                                        <input type="radio" name="scalePanasMain{{ forloop.counter }}" value="4"
+                                               id="scalePanasMain{{ forloop.counter }}4">
+                                        quite a bit
+                                    </label>
                                 </li>
                                 <li>
-                                    <input type="radio" name="scalePanasMain{{forloop.counter}}" value="5" id="scalePanasMain{{forloop.counter}}5">
-                                    <label for="scalePanasMain{{forloop.counter}}5">extremely</label>
+                                    <label class="imiLabel">
+                                        <input type="radio" name="scalePanasMain{{ forloop.counter }}" value="5"
+                                               id="scalePanasMain{{ forloop.counter }}5">
+                                        extremely
+                                    </label>
                                 </li>
                             </ul>
                         </div>
