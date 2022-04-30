@@ -4,6 +4,8 @@
 $(document).ready(function() {
     // display actual score on last page
     displayScore();
+    // check if study finished
+    finishedStudy();
 
     // executes when HTML-Document is loaded and DOM is ready
     for (let i = 0; i < cardCounter; i++) {
@@ -226,9 +228,24 @@ $(window).scroll(function(){
     }
 });
 
-function saveTextInput() {
+// Save if participant suspected deception and optional comments
+function saveDeceptionInput() {
+
     let parameters = {};
-    parameters.text = document.getElementById('suspect_deception').value;
+    parameters.text = document.getElementById('text_deception').value;
+
+    if($("#deception_yes").is(':checked')){
+        parameters.suspect = "true";
+    }
+    else if($("#deception_no").is(':checked')){
+         parameters.suspect = "false";
+    }
+    else {
+        alert("Please answer if you suspected the deception");
+        return;
+    }
+
+    setData('finish');
 
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
@@ -236,7 +253,7 @@ function saveTextInput() {
             window.location.href = 'https://prolific.co';
         }
     };
-    xhr.open("POST", '/website/saveTextInput', true);
+    xhr.open("POST", '/website/saveDeceptionInput', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(parameters));
@@ -244,12 +261,10 @@ function saveTextInput() {
 
 // Delete answers from questionnaires and tasks for this user
 function displayDelete() {
-    // document.getElementById('deleteData').innerHTML = "Your data has been deleted!";
-    // $('html,body').scrollTop(0);
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
         if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
-            saveTextInput();
+            saveDeceptionInput();
         }
     };
     xhr.open("POST", '/website/deleteData', true);
@@ -261,7 +276,7 @@ function displayDelete() {
 //Display modal if consent form not checked
 $('#endSurvey').click(function () {
     if($("#check_debriefing").is(':checked')){
-        saveTextInput();
+        saveDeceptionInput();
     }
     else{
          $("#deleteModal").modal();
@@ -279,6 +294,23 @@ function displayScore() {
         }
     };
     xhr.open("GET", '/website/getScore', true);
+    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+    xhr.setRequestHeader('Content-Type', 'text/plain');
+    xhr.send();
+}
+
+function finishedStudy(){
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () { // listen for state changes
+        if (this.readyState == 4 && this.status == 200) {
+            let obj = JSON.parse(this.responseText);
+            console.log(obj.finished);
+            if (obj.finished === 'true'){
+                document.getElementById("endSurvey").disabled = true;
+            }
+        }
+    };
+    xhr.open("GET", '/website/finishedStudy', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
     xhr.setRequestHeader('Content-Type', 'text/plain');
     xhr.send();

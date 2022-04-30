@@ -10,8 +10,10 @@ urlpatterns = [
     path('saveTask', views.saveTask, name='saveTask'),
     path('saveQuestionnaire', views.saveQuestionnaire, name='saveQuestionnaire'),
     path('deleteData', views.deleteData, name='deleteData'),
-    path('saveTextInput', views.saveTextInput, name='saveTextInput'),
+    path('saveDeceptionInput', views.saveDeceptionInput, name='saveDeceptionInput'),
+
     path('getScore', views.getScore, name='getScore'),
+    path('finishedStudy', views.finishedStudy, name='finishedStudy'),
 
     path('eval', views.evaluation, name='eval'),
     path('showParticipant/<int:submission_id>', views.showParticipant, name='showParticipant'),

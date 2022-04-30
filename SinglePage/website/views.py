@@ -107,6 +107,7 @@ def dict_key(d, k):
 # 2: neg framing
 def get_condition():
     rnd = random.randint(0, 2)
+    rnd = 2
     return rnd
 
 
@@ -413,21 +414,23 @@ def deleteData(request):
 
 # Save input of textfield on last card
 @ensure_csrf_cookie
-def saveTextInput(request):
+def saveDeceptionInput(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
     par_text = parameterinfo["text"]
+    suspect = parameterinfo["suspect"]
 
     if submission_exist:
         if Submission.objects.filter(session=session, suspect_deception__isnull=True):
             submission = Submission.objects.get(session=session)
-            submission.suspect_deception = par_text
+            submission.suspect_deception = bool(strtobool(suspect))
+            submission.text_deception = par_text
             submission.save()
         else:
-            print("Already saved textfield input form last card. ")
+            print("Already saved deception input on last card. ")
 
     return HttpResponse(200)
 
@@ -439,12 +442,23 @@ def getScore(request):
     if submission_exist:
         if TaskScore.objects.filter(session=session):
             task_score = TaskScore.objects.get(session=session)
-
             data = json.dumps({'pre': task_score.score_pre, 'main': task_score.score_main})
-
             return HttpResponse(data)
 
     return HttpResponse(json.dumps({'pre': '-', 'main': '-'}))
+
+
+def finishedStudy(request):
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+
+    if submission_exist:
+        if Submission.objects.filter(session=session):
+            submission = Submission.objects.get(session=session)
+            data = json.dumps({'finished': submission.finished})
+            return HttpResponse(data)
+
+    return HttpResponse(json.dumps({'finished': 'false'}))
 
 
 def evaluation(request):

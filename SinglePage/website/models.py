@@ -79,7 +79,8 @@ class Submission(models.Model):
     framing = models.IntegerField(null=True)
     gender = models.CharField(max_length=20, null=True)
     finished = models.BooleanField(default=False)
-    suspect_deception = models.TextField(null=True)
+    suspect_deception = models.BooleanField(null=True)
+    text_deception = models.TextField(null=True)
     request_delete = models.BooleanField(default=False)
 
     def __int__(self):

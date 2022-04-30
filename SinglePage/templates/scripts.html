@@ -131,10 +131,6 @@ function on_continue_question(parameters, type, name){
         document.getElementById('error' + name+ type).innerHTML = "";
         displayCards(); fillProgress();
 
-        if (type === "main"){
-            setData('finish');
-        }
-
         let xhr = new XMLHttpRequest();
         xhr.open("POST", '/website/saveQuestionnaire', true);
         xhr.setRequestHeader("X-CSRFToken", csrfToken);

@@ -50,7 +50,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 class SubmissionAdmin(admin.ModelAdmin):
     list_display = ('pk', 'study', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1',
-                    'list_m2', 'terms_agree', 'finished', 'suspect_deception', 'request_delete')
+                    'list_m2', 'terms_agree', 'finished', 'suspect_deception', 'text_deception', 'request_delete')
 
 
 class QuestionnaireSubmissionAdmin(admin.ModelAdmin):
