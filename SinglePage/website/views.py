@@ -397,13 +397,6 @@ def saveQuestionnaire(request):
 # Delete data of participant on request
 @ensure_csrf_cookie
 def deleteData(request):
-    # check if already finished study
-    page_nr = request.session.get('page_nr')
-    finish = finishedStudy(request)
-    if page_nr == 14 and finish is True:
-        print(finish)
-        return render(request, 'finish.html')
-
     print("Participant " + request.session.session_key + " wants to delete their data")
 
     session = Session.objects.get(session_key=request.session.session_key)
@@ -430,13 +423,6 @@ def deleteData(request):
 # Save input of textfield on last card
 @ensure_csrf_cookie
 def saveDeceptionInput(request):
-    # check if already finished study
-    page_nr = request.session.get('page_nr')
-    finish = finishedStudy(request)
-    if page_nr == 14 and finish is True:
-        print(finish)
-        return render(request, 'finish.html')
-
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
