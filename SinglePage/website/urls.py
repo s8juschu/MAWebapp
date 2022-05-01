@@ -13,7 +13,7 @@ urlpatterns = [
     path('saveDeceptionInput', views.saveDeceptionInput, name='saveDeceptionInput'),
 
     path('getScore', views.getScore, name='getScore'),
-    path('finishedStudy', views.finishedStudy, name='finishedStudy'),
+    # path('finishedStudy', views.finishedStudy, name='finishedStudy'),
 
     path('eval', views.evaluation, name='eval'),
     path('showParticipant/<int:submission_id>', views.showParticipant, name='showParticipant'),

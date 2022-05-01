@@ -9,6 +9,7 @@ from django.contrib.sessions.models import Session
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, reverse
 from django.template.defaultfilters import register
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import ensure_csrf_cookie
 
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission, \
@@ -106,8 +107,8 @@ def dict_key(d, k):
 # 1: pos framing
 # 2: neg framing
 def get_condition():
-    rnd = random.randint(0, 2)
-    rnd = 2
+    # rnd = random.randint(0, 2)
+    rnd = random.randint(1, 2)
     return rnd
 
 
@@ -126,6 +127,7 @@ def save_initialization(request, list_p1, list_p2, list_m1, list_m2):
         submission.save()
 
 
+@never_cache
 @ensure_csrf_cookie
 def index(request):
     list_p1 = []
@@ -171,6 +173,13 @@ def index(request):
     save_initialization(request, list_p1, list_p2, list_m1, list_m2)
 
     print(request.session.session_key)
+    print(page_nr)
+
+    # check if already finished study
+    finish = finishedStudy(request)
+    if page_nr == 14 and finish is True:
+        print(finish)
+        return render(request, 'finish.html')
 
     return render(request, 'index.html',
                   context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2,
@@ -186,9 +195,8 @@ def saveSession(request):
     parameterinfo = json.loads(getparameterinfo)
 
     # Save which page to display next
-    print("Next page:" + str(parameterinfo["page"]))
+    print("Page:" + str(parameterinfo["page"]))
     next_page = parameterinfo["page"]
-    # current_page = (next_page - 1)
     request.session['page_nr'] = next_page
 
     # Save progressbar status
@@ -389,6 +397,13 @@ def saveQuestionnaire(request):
 # Delete data of participant on request
 @ensure_csrf_cookie
 def deleteData(request):
+    # check if already finished study
+    page_nr = request.session.get('page_nr')
+    finish = finishedStudy(request)
+    if page_nr == 14 and finish is True:
+        print(finish)
+        return render(request, 'finish.html')
+
     print("Participant " + request.session.session_key + " wants to delete their data")
 
     session = Session.objects.get(session_key=request.session.session_key)
@@ -415,6 +430,13 @@ def deleteData(request):
 # Save input of textfield on last card
 @ensure_csrf_cookie
 def saveDeceptionInput(request):
+    # check if already finished study
+    page_nr = request.session.get('page_nr')
+    finish = finishedStudy(request)
+    if page_nr == 14 and finish is True:
+        print(finish)
+        return render(request, 'finish.html')
+
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
@@ -452,13 +474,14 @@ def finishedStudy(request):
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
 
+    data = False
+
     if submission_exist:
         if Submission.objects.filter(session=session):
             submission = Submission.objects.get(session=session)
-            data = json.dumps({'finished': submission.finished})
-            return HttpResponse(data)
+            data = submission.finished
 
-    return HttpResponse(json.dumps({'finished': 'false'}))
+    return data
 
 
 def evaluation(request):
@@ -554,62 +577,6 @@ def exportCSV(request):
 
             for task in tasks:
                 writer.writerow(task)
-
-        # # Create the HttpResponse object with the appropriate CSV header.
-        # response_sub = HttpResponse(
-        #     content_type='text/csv',
-        #     headers={'Content-Disposition': 'attachment; filename="submission_score.csv"'},
-        # )
-        #
-        # writer = csv.writer(response_sub)
-        # writer.writerow(
-        #     ['session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2', 'suspect_deception',
-        #      # 'questionnairesubmission__name', 'questionnairesubmission__type', 'questionnairesubmission__item',
-        #      # 'questionnairesubmission__answer',
-        #      # 'tasksubmission__type', 'tasksubmission__item', 'tasksubmission__task_id', 'tasksubmission__answer',
-        #      'taskscore__score_pre', 'taskscore__score_main'])
-        #
-        # submissions = Submission.objects.filter(terms_agree=True, finished=True, request_delete=False).values_list(
-        #     'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2', 'suspect_deception',
-        #     # 'questionnairesubmission__name', 'questionnairesubmission__type', 'questionnairesubmission__item',
-        #     # 'questionnairesubmission__answer',
-        #     # 'tasksubmission__type', 'tasksubmission__item', 'tasksubmission__task_id', 'tasksubmission__answer',
-        #     'taskscore__score_pre', 'taskscore__score_main')
-        #
-        # for submission in submissions:
-        #     writer.writerow(submission)
-        #
-        # response_quest = HttpResponse(
-        #     content_type='text/csv',
-        #     headers={'Content-Disposition': 'attachment; filename="submission_score.csv"'},
-        # )
-        #
-        # writer2 = csv.writer(response_quest)
-        # writer2.writerow(
-        #     ['session', 'name', 'type', 'item', 'question_id', 'answer'])
-        #
-        # questions = QuestionnaireSubmission.objects.filter(submission__terms_agree=True, submission__finished=True, submission__request_delete=False).values_list(
-        #     'session', 'name', 'type', 'item', 'question_id', 'answer')
-        #
-        # for question in questions:
-        #     writer2.writerow(question)
-        #
-        #
-        # reponse_task = HttpResponse(
-        #     content_type='text/csv',
-        #     headers={'Content-Disposition': 'attachment; filename="submission_score.csv"'},
-        # )
-        #
-        # writer3 = csv.writer(response_quest)
-        # writer3.writerow(
-        #     ['session', 'name', 'type', 'item', 'question_id', 'answer'])
-        #
-        # questions = QuestionnaireSubmission.objects.filter(submission__terms_agree=True, submission__finished=True,
-        #                                                    submission__request_delete=False).values_list(
-        #     'session', 'name', 'type', 'item', 'question_id', 'answer')
-        #
-        # for question in questions:
-        #     writer3.writerow(question)
 
         return HttpResponseRedirect(reverse('eval'))
     else:

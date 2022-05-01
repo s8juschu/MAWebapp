@@ -5,7 +5,7 @@ $(document).ready(function() {
     // display actual score on last page
     displayScore();
     // check if study finished
-    finishedStudy();
+    // finishedStudy(myHandler);
 
     // executes when HTML-Document is loaded and DOM is ready
     for (let i = 0; i < cardCounter; i++) {
@@ -16,7 +16,7 @@ $(document).ready(function() {
          fillProgress();
     }
 
-    // Display decribe gender on page reload if checked
+    // Display describe gender on page reload if checked
     if (cardCounter ===1 && $('#describe').is(":checked")){
         $('#genderText').show();
     }
@@ -261,6 +261,7 @@ function saveDeceptionInput() {
 
 // Delete answers from questionnaires and tasks for this user
 function displayDelete() {
+    // saveDeceptionInput();
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
         if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
@@ -299,19 +300,23 @@ function displayScore() {
     xhr.send();
 }
 
-function finishedStudy(){
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () { // listen for state changes
-        if (this.readyState == 4 && this.status == 200) {
-            let obj = JSON.parse(this.responseText);
-            console.log(obj.finished);
-            if (obj.finished === 'true'){
-                document.getElementById("endSurvey").disabled = true;
-            }
-        }
-    };
-    xhr.open("GET", '/website/finishedStudy', true);
-    xhr.setRequestHeader("X-CSRFToken", csrfToken);
-    xhr.setRequestHeader('Content-Type', 'text/plain');
-    xhr.send();
-}
+// function finishedStudy(callback){
+//     let xhr = new XMLHttpRequest();
+//     xhr.onreadystatechange = function () { // listen for state changes
+//         if (this.readyState == 4 && this.status == 200) {
+//             let obj = JSON.parse(this.responseText);
+//             if(callback) callback(obj.finished);
+//         }
+//     };
+//     xhr.open("GET", '/website/finishedStudy', true);
+//     xhr.setRequestHeader("X-CSRFToken", csrfToken);
+//     xhr.setRequestHeader('Content-Type', 'text/plain');
+//     xhr.send();
+// }
+//
+// function myHandler(result) {
+//     console.log(result);
+//     return result;
+// }
+// finishedStudy(myHandler);
+
