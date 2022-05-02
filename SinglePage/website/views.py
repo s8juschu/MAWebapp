@@ -11,9 +11,11 @@ from django.shortcuts import render, reverse
 from django.template.defaultfilters import register
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import ensure_csrf_cookie
+from datetime import datetime
+import time
 
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission, \
-    TaskScore
+    TaskScore, TimeSpend
 
 study_id = 1  # Study
 overall_count = 14  # Nr. of cards
@@ -107,8 +109,7 @@ def dict_key(d, k):
 # 1: pos framing
 # 2: neg framing
 def get_condition():
-    # rnd = random.randint(0, 2)
-    rnd = random.randint(1, 2)
+    rnd = random.randint(0, 2)
     return rnd
 
 
@@ -202,6 +203,8 @@ def saveSession(request):
     # Save progressbar status
     progress = parameterinfo["progress"]
     request.session['progress'] = progress
+
+    saveTime(request, next_page)
 
     return HttpResponse(200)
 
@@ -443,6 +446,7 @@ def saveDeceptionInput(request):
     return HttpResponse(200)
 
 
+# Get scores for participant to display on end card
 def getScore(request):
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
@@ -456,6 +460,7 @@ def getScore(request):
     return HttpResponse(json.dumps({'pre': '-', 'main': '-'}))
 
 
+# Check if participant has already finished study
 def finishedStudy(request):
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
@@ -470,6 +475,27 @@ def finishedStudy(request):
     return data
 
 
+# Save time spend for each website
+def saveTime(request, next_page):
+    print("On page" + str(next_page))
+    print(time.time())
+    print(time.ctime(time.time()))
+
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+
+    if submission_exist:
+        if Submission.objects.filter(session=session):
+            var_time = TimeSpend()
+            var_time.submission = Submission.objects.get(session=session)
+            var_time.session = session
+            var_time.page_nr = next_page
+            var_time.start_time = time.time()
+
+            var_time.save()
+
+
+# Eval Backend for admin
 def evaluation(request):
     if request.user.is_superuser:
         submissions = Submission.objects.filter(terms_agree=True, finished=True, request_delete=False)

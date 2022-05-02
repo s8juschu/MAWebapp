@@ -4,8 +4,6 @@
 $(document).ready(function() {
     // display actual score on last page
     displayScore();
-    // check if study finished
-    // finishedStudy(myHandler);
 
     // executes when HTML-Document is loaded and DOM is ready
     for (let i = 0; i < cardCounter; i++) {
@@ -250,6 +248,7 @@ function saveDeceptionInput() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
         if (this.readyState == 4 && this.status == 200) {
+            // setTimeout(function(){ window.location.href = 'https://prolific.co'; }, 5000);
             window.location.href = 'https://prolific.co';
         }
     };
@@ -299,24 +298,3 @@ function displayScore() {
     xhr.setRequestHeader('Content-Type', 'text/plain');
     xhr.send();
 }
-
-// function finishedStudy(callback){
-//     let xhr = new XMLHttpRequest();
-//     xhr.onreadystatechange = function () { // listen for state changes
-//         if (this.readyState == 4 && this.status == 200) {
-//             let obj = JSON.parse(this.responseText);
-//             if(callback) callback(obj.finished);
-//         }
-//     };
-//     xhr.open("GET", '/website/finishedStudy', true);
-//     xhr.setRequestHeader("X-CSRFToken", csrfToken);
-//     xhr.setRequestHeader('Content-Type', 'text/plain');
-//     xhr.send();
-// }
-//
-// function myHandler(result) {
-//     console.log(result);
-//     return result;
-// }
-// finishedStudy(myHandler);
-

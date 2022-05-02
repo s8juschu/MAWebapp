@@ -120,3 +120,10 @@ class TaskScore(models.Model):
 
     def __int__(self):
         return self.pk
+
+
+class TimeSpend(models.Model):
+    submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    page_nr = models.IntegerField(default=0)
+    start_time = models.FloatField()
