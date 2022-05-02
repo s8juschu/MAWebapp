@@ -543,17 +543,16 @@ def exportCSV(request):
 
         with open('submission_score.csv', 'w', encoding='UTF8') as f:
             writer = csv.writer(f)
-
-            header = ['session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
-                      'suspect_deception', 'taskscore__score_pre', 'taskscore__score_main']
+            header = ['pk', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
+                      'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main']
 
             # write the header
             writer.writerow(header)
 
             # write the data
             submissions = Submission.objects.filter(terms_agree=True, finished=True, request_delete=False).values_list(
-                'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2', 'suspect_deception',
-                'taskscore__score_pre', 'taskscore__score_main')
+                'pk', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
+                'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main')
 
             for submission in submissions:
                 writer.writerow(submission)
@@ -589,6 +588,100 @@ def exportCSV(request):
 
             for task in tasks:
                 writer.writerow(task)
+
+        with open('time.csv', 'w', encoding='UTF8') as ti:
+            writer = csv.writer(ti)
+
+            header = ['session', 'page_nr', 'start_time']
+
+            # write the header
+            writer.writerow(header)
+
+            # write the data
+            timeslots = TimeSpend.objects.filter(submission__terms_agree=True, submission__finished=True,
+                                                 submission__request_delete=False).values_list(
+                'session', 'page_nr', 'start_time')
+
+            for timeslot in timeslots:
+                writer.writerow(timeslot)
+
+        return HttpResponseRedirect(reverse('eval'))
+    else:
+        print('Access denied. You are not logged in as superuser.')
+        return HttpResponseRedirect(reverse('index'))
+
+
+def individualCSV(request, submission_id):
+    print(submission_id)
+    if request.user.is_superuser:
+
+        filename_f = "submission_score_" + str(submission_id) + ".csv"
+        with open(filename_f, 'w', encoding='UTF8') as f:
+            writer = csv.writer(f)
+            header = ['pk', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
+                      'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main']
+
+            # write the header
+            writer.writerow(header)
+
+            # write the data
+            submissions = Submission.objects.filter(pk=submission_id, terms_agree=True, finished=True, request_delete=False).values_list(
+                'pk', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
+                'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main')
+
+            for submission in submissions:
+                writer.writerow(submission)
+
+        filename_q = "questionnaires_" + str(submission_id) + ".csv"
+        with open(filename_q, 'w', encoding='UTF8') as q:
+            writer = csv.writer(q)
+
+            header = ['session', 'name', 'type', 'item', 'question_id', 'answer']
+
+            # write the header
+            writer.writerow(header)
+
+            # write the data
+            questions = QuestionnaireSubmission.objects.filter(submission=submission_id, submission__terms_agree=True, submission__finished=True,
+                                                               submission__request_delete=False).values_list(
+                'session', 'name', 'type', 'item', 'question_id', 'answer')
+
+            for question in questions:
+                writer.writerow(question)
+
+        filename_t = "tasks_" + str(submission_id) + ".csv"
+        with open(filename_t, 'w', encoding='UTF8') as t:
+            writer = csv.writer(t)
+
+            header = ['session', 'type', 'item', 'task_id', 'answer']
+
+            # write the header
+            writer.writerow(header)
+
+            # write the data
+            tasks = TaskSubmission.objects.filter(submission=submission_id, submission__terms_agree=True, submission__finished=True,
+                                                  submission__request_delete=False).values_list(
+                'session', 'type', 'item', 'task_id', 'answer')
+
+            for task in tasks:
+                writer.writerow(task)
+
+        filename_ti = "time_" + str(submission_id) + ".csv"
+        with open(filename_ti, 'w', encoding='UTF8') as ti:
+            writer = csv.writer(ti)
+
+            header = ['session', 'page_nr', 'start_time']
+
+            # write the header
+            writer.writerow(header)
+
+            # write the data
+            timeslots = TimeSpend.objects.filter(submission=submission_id, submission__terms_agree=True, submission__finished=True,
+                                                 submission__request_delete=False).values_list(
+                'session', 'page_nr', 'start_time')
+
+            for timeslot in timeslots:
+                writer.writerow(timeslot)
 
         return HttpResponseRedirect(reverse('eval'))
     else:

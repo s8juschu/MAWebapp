@@ -17,4 +17,5 @@ urlpatterns = [
     path('eval', views.evaluation, name='eval'),
     path('showParticipant/<int:submission_id>', views.showParticipant, name='showParticipant'),
     path('exportCSV', views.exportCSV, name='exportCSV'),
+    path('individualCSV/<int:submission_id>', views.individualCSV, name='individualCSV'),
 ]

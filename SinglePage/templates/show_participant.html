@@ -49,6 +49,7 @@
     <div class="row">
         <div class="col-lg-12 text-center">
             <h1 class="mt-5 page-header">Partcipant - Submission {{ submission.pk }}</h1>
+            <a class="btn btn-secondary" href="{% url 'individualCSV' submission_id=submission.pk %}">Export data</a>
         </div>
     </div>
      <div class="row">
@@ -61,6 +62,8 @@
                          <div class="row">Gender: {{ submission.gender }}</div>
                          <div class="row">Pre Score:  <b>{{ score.score_pre }}</b>/8</div>
                          <div class="row">Main Score:  <b>{{ score.score_main }}</b>/8</div>
+                         <div class="row">Suspect Deception: {{ submission.suspect_deception }}</div>
+                         <div class="row">Deception Text: {{ submission.text_deception }}</div>
                      </div>
                  </div>
                  <div class="col">
