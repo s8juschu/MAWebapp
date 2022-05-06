@@ -212,6 +212,7 @@ def saveSession(request):
 # Save personal info from frontend in DB
 @ensure_csrf_cookie
 def saveData(request):
+    print("data")
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
@@ -400,6 +401,11 @@ def saveQuestionnaire(request):
 # Delete data of participant on request
 @ensure_csrf_cookie
 def deleteData(request):
+    print("delete")
+    finish = finishedStudy(request)
+    if finish is True:
+        print(finish)
+        return render(request, 'finish.html')
     print("Participant " + request.session.session_key + " wants to delete their data")
 
     session = Session.objects.get(session_key=request.session.session_key)
@@ -426,6 +432,7 @@ def deleteData(request):
 # Save input of textfield on last card
 @ensure_csrf_cookie
 def saveDeceptionInput(request):
+    print("decept")
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
@@ -477,9 +484,9 @@ def finishedStudy(request):
 
 # Save time spend for each website
 def saveTime(request, next_page):
-    print("On page" + str(next_page))
-    print(time.time())
-    print(time.ctime(time.time()))
+    # print("On page" + str(next_page))
+    # print(time.time())
+    # print(time.ctime(time.time()))
 
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()

@@ -203,28 +203,28 @@ $('input[type=radio][name=gender]').change(function() {
 });
 
 // Permanently display score in pos/neg framing condition
-$(window).scroll(function(){
-    var sticky = document.getElementsByClassName('sticky9');
-
-    if (sticky.length > 0 && document.getElementById("card9").style.display !== "none"){
-        if ($(window).scrollTop() >= $("#card9").offset().top ) {
-            $('.sticky9').addClass('fixed-header');
-        }
-        else {
-            $('.sticky9').removeClass('fixed-header');
-
-        }
-    }
-    if (sticky.length > 0 && document.getElementById("card10").style.display !== "none"){
-        if ($(window).scrollTop() >= $("#card10").offset().top ) {
-            $('.sticky10').addClass('fixed-header');
-        }
-        else {
-            $('.sticky10').removeClass('fixed-header');
-
-        }
-    }
-});
+// $(window).scroll(function(){
+//     var sticky = document.getElementsByClassName('sticky9');
+//
+//     if (sticky.length > 0 && document.getElementById("card9").style.display !== "none"){
+//         if ($(window).scrollTop() >= $("#card9").offset().top ) {
+//             $('.sticky9').addClass('fixed-header');
+//         }
+//         else {
+//             $('.sticky9').removeClass('fixed-header');
+//
+//         }
+//     }
+//     if (sticky.length > 0 && document.getElementById("card10").style.display !== "none"){
+//         if ($(window).scrollTop() >= $("#card10").offset().top ) {
+//             $('.sticky10').addClass('fixed-header');
+//         }
+//         else {
+//             $('.sticky10').removeClass('fixed-header');
+//
+//         }
+//     }
+// });
 
 // Save if participant suspected deception and optional comments
 function saveDeceptionInput() {
@@ -248,7 +248,7 @@ function saveDeceptionInput() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
         if (this.readyState == 4 && this.status == 200) {
-            // setTimeout(function(){ window.location.href = 'https://prolific.co'; }, 5000);
+            setTimeout(function(){ window.location.href = 'https://prolific.co'; }, 8000);
             window.location.href = 'https://prolific.co';
         }
     };
@@ -260,7 +260,12 @@ function saveDeceptionInput() {
 
 // Delete answers from questionnaires and tasks for this user
 function displayDelete() {
-    // saveDeceptionInput();
+    let text = document.getElementById('text_deception').value;
+    if (!($("#deception_yes").is(':checked')) && !($("#deception_no").is(':checked'))){
+        alert("Please answer if you suspected the deception");
+        return;
+    }
+
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
         if (xhr.readyState == 4 && xhr.status == 200) { // when completed we can move away
