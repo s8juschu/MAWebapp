@@ -209,6 +209,17 @@ $('input[type=radio][name=gender]').change(function() {
     }
 });
 
+// Display box to self-describe gender if checked, else hide
+$('input[type=radio][name=deception]').change(function() {
+    if ($('#deception_yes').is(":checked")){
+        $('#div_text_deception').show();
+    }
+    else{
+        $('#div_text_deception').hide();
+    }
+});
+
+
 // Permanently display score in pos/neg framing condition
 // $(window).scroll(function(){
 //     var sticky = document.getElementsByClassName('sticky9');

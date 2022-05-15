@@ -1,11 +1,23 @@
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-submissions = pd.read_csv('submission_score.csv')
-questionnaires = pd.read_csv('questionnaires.csv')
-times = pd.read_csv('time.csv')
+submissions = pd.read_csv('exports/submission_score.csv')
+questionnaires = pd.read_csv('exports/questionnaires.csv')
+times = pd.read_csv('exports/time.csv')
 
 # ---------------- SUBMISSIONS
+# get list of all submission_ids
 session_col = submissions['session'].tolist()
+
+age = submissions.groupby(["age"]).size()
+print(age)
+framing = submissions.groupby(["framing"]).size()
+print(framing)
+gender = submissions.groupby(["gender"]).size()
+print(gender)
+deception = submissions.groupby(["suspect_deception"]).size()
+print(deception)
 
 # ---------------- TIME
 # times['start_time'] = pd.to_datetime(times['start_time'], unit='s')
