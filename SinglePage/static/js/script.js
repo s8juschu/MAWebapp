@@ -185,6 +185,13 @@ function setData(v) {
     document.getElementById('errorPersonal').innerHTML = "";
 
     let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () { // listen for state changes
+        if (v === "finish" && (this.readyState == 4 && this.status == 200)) {
+            setTimeout(function(){ window.location.href = 'https://prolific.co'; }, 8000);
+            window.location.href = 'https://prolific.co';
+            // setData('finish');
+        }
+    };
     xhr.open("POST", '/website/saveData', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -243,13 +250,14 @@ function saveDeceptionInput() {
         return;
     }
 
-    setData('finish');
+    // setData('finish');
 
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
         if (this.readyState == 4 && this.status == 200) {
-            setTimeout(function(){ window.location.href = 'https://prolific.co'; }, 8000);
-            window.location.href = 'https://prolific.co';
+            // setTimeout(function(){ window.location.href = 'https://prolific.co'; }, 8000);
+            // window.location.href = 'https://prolific.co';
+            setData('finish');
         }
     };
     xhr.open("POST", '/website/saveDeceptionInput', true);

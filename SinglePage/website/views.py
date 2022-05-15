@@ -179,7 +179,7 @@ def index(request):
     # check if already finished study
     finish = finishedStudy(request)
     if page_nr == 14 and finish is True:
-        print(finish)
+        print("finish")
         return render(request, 'finish.html')
 
     return render(request, 'index.html',
@@ -194,6 +194,11 @@ def index(request):
 def saveSession(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
+
+    if parameterinfo is not None:
+        f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveSession" + " " + str(parameterinfo) + "\n")
+        f.close()
 
     # Save which page to display next
     print("Page:" + str(parameterinfo["page"]))
@@ -212,9 +217,13 @@ def saveSession(request):
 # Save personal info from frontend in DB
 @ensure_csrf_cookie
 def saveData(request):
-    print("data")
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
+
+    if parameterinfo is not None:
+        f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveData" + " " + str(parameterinfo) + "\n")
+        f.close()
 
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
@@ -253,6 +262,7 @@ def saveData(request):
                 submission = Submission.objects.get(session=session)
                 submission.finished = bool(strtobool(finish))
                 submission.save()
+                print("saveFinish")
             else:
                 print("Already saved finished info. No changes made to DB.")
 
@@ -328,6 +338,11 @@ def saveTask(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
 
+    if parameterinfo is not None:
+        f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveTask" + " " + str(parameterinfo) + "\n")
+        f.close()
+
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
     request_delete = Submission.objects.get(session=session).request_delete
@@ -364,6 +379,11 @@ def saveTask(request):
 def saveQuestionnaire(request):
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
+
+    if parameterinfo is not None:
+        f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveQuestionnaire" + " " + str(parameterinfo) + "\n")
+        f.close()
 
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
@@ -404,9 +424,12 @@ def deleteData(request):
     print("delete")
     finish = finishedStudy(request)
     if finish is True:
-        print(finish)
         return render(request, 'finish.html')
     print("Participant " + request.session.session_key + " wants to delete their data")
+
+    f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
+    f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "deleteData" + "\n")
+    f.close()
 
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
@@ -432,9 +455,13 @@ def deleteData(request):
 # Save input of textfield on last card
 @ensure_csrf_cookie
 def saveDeceptionInput(request):
-    print("decept")
     getparameterinfo = request.body.decode('utf-8')
     parameterinfo = json.loads(getparameterinfo)
+
+    if parameterinfo is not None:
+        f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveDeception" + " " + str(parameterinfo) + "\n")
+        f.close()
 
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
@@ -447,6 +474,7 @@ def saveDeceptionInput(request):
             submission.suspect_deception = bool(strtobool(suspect))
             submission.text_deception = par_text
             submission.save()
+            print("saveDeception")
         else:
             print("Already saved deception input on last card. ")
 
@@ -619,7 +647,6 @@ def exportCSV(request):
 
 
 def individualCSV(request, submission_id):
-    print(submission_id)
     if request.user.is_superuser:
 
         filename_f = "exports/submission_score_" + str(submission_id) + ".csv"
@@ -633,7 +660,8 @@ def individualCSV(request, submission_id):
             writer.writerow(header)
 
             # write the data
-            submissions = Submission.objects.filter(pk=submission_id, terms_agree=True, finished=True, request_delete=False).values_list(
+            submissions = Submission.objects.filter(pk=submission_id, terms_agree=True, finished=True,
+                                                    request_delete=False).values_list(
                 'pk', 'session', 'framing', 'age', 'gender',
                 'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main')
 
@@ -650,7 +678,8 @@ def individualCSV(request, submission_id):
             writer.writerow(header)
 
             # write the data
-            questions = QuestionnaireSubmission.objects.filter(submission=submission_id, submission__terms_agree=True, submission__finished=True,
+            questions = QuestionnaireSubmission.objects.filter(submission=submission_id, submission__terms_agree=True,
+                                                               submission__finished=True,
                                                                submission__request_delete=False).values_list(
                 'session', 'name', 'type', 'item', 'question_id', 'answer')
 
@@ -667,7 +696,8 @@ def individualCSV(request, submission_id):
             writer.writerow(header)
 
             # write the data
-            tasks = TaskSubmission.objects.filter(submission=submission_id, submission__terms_agree=True, submission__finished=True,
+            tasks = TaskSubmission.objects.filter(submission=submission_id, submission__terms_agree=True,
+                                                  submission__finished=True,
                                                   submission__request_delete=False).values_list(
                 'session', 'type', 'item', 'task_id', 'answer')
 
@@ -684,7 +714,8 @@ def individualCSV(request, submission_id):
             writer.writerow(header)
 
             # write the data
-            timeslots = TimeSpend.objects.filter(submission=submission_id, submission__terms_agree=True, submission__finished=True,
+            timeslots = TimeSpend.objects.filter(submission=submission_id, submission__terms_agree=True,
+                                                 submission__finished=True,
                                                  submission__request_delete=False).values_list(
                 'session', 'page_nr', 'start_time')
 

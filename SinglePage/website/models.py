@@ -77,10 +77,10 @@ class Submission(models.Model):
     terms_agree = models.BooleanField(default=False)
     age = models.TextField(max_length=25, null=True)
     framing = models.IntegerField(null=True)
-    gender = models.CharField(max_length=20, null=True)
+    gender = models.CharField(max_length=100, null=True)
     finished = models.BooleanField(default=False)
     suspect_deception = models.BooleanField(null=True)
-    text_deception = models.TextField(null=True)
+    text_deception = models.TextField(null=True, blank=True)
     request_delete = models.BooleanField(default=False)
 
     def __int__(self):
