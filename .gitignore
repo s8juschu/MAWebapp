@@ -1,3 +1,5 @@
+SinglePage/logs/
+SinglePage/exports/
 
 # Created by https://www.toptal.com/developers/gitignore/api/django,python,pycharm
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,pycharm
