@@ -1,0 +1,5 @@
+Sun May 15 13:17:58 2022 ywosrymmgvo87h9x6xkrfjrrnm2vhn7b saveSession {'page': 1, 'progress': 0}
+Sun May 15 13:17:58 2022 ywosrymmgvo87h9x6xkrfjrrnm2vhn7b saveData {'type': 'agree', 'agree': 'true'}
+Sun May 15 13:18:06 2022 ywosrymmgvo87h9x6xkrfjrrnm2vhn7b saveSession {'page': 2, 'progress': 0}
+Sun May 15 13:18:06 2022 ywosrymmgvo87h9x6xkrfjrrnm2vhn7b saveData {'type': 'personal', 'age': '>65', 'gender': 'prefer to self-describe: tester'}
+Sun May 15 13:18:07 2022 ywosrymmgvo87h9x6xkrfjrrnm2vhn7b saveSession {'page': 3, 'progress': 7.6923076923076925}

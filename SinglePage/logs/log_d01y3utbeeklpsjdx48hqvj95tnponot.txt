@@ -1,0 +1,9 @@
+Sun May 15 12:52:32 2022 d01y3utbeeklpsjdx48hqvj95tnponot saveSession {'page': 1, 'progress': 0}
+Sun May 15 12:52:32 2022 d01y3utbeeklpsjdx48hqvj95tnponot saveData {'type': 'agree', 'agree': 'true'}
+Sun May 15 12:52:37 2022 d01y3utbeeklpsjdx48hqvj95tnponot saveSession {'page': 2, 'progress': 0}
+Sun May 15 12:52:37 2022 d01y3utbeeklpsjdx48hqvj95tnponot saveData {'type': 'personal', 'age': '>65', 'gender': 'prefer to self-describe: mknjbhg'}
+Sun May 15 12:52:38 2022 d01y3utbeeklpsjdx48hqvj95tnponot saveSession {'page': 3, 'progress': 7.6923076923076925}
+Sun May 15 12:52:43 2022 d01y3utbeeklpsjdx48hqvj95tnponot saveSession {'page': 4, 'progress': 15.384615384615385}
+Sun May 15 12:52:43 2022 d01y3utbeeklpsjdx48hqvj95tnponot saveTask {'listarray': [{'item': 1, 'task_id': '11', 'answer': 'C'}, {'item': 2, 'task_id': '3', 'answer': '39'}, {'item': 3, 'task_id': '6', 'answer': 'None of these'}, {'item': 4, 'task_id': '14', 'answer': 'B'}], 'type': 'p1'}
+Sun May 15 12:52:48 2022 d01y3utbeeklpsjdx48hqvj95tnponot saveSession {'page': 5, 'progress': 23.076923076923077}
+Sun May 15 12:52:48 2022 d01y3utbeeklpsjdx48hqvj95tnponot saveTask {'listarray': [{'item': 1, 'task_id': '7', 'answer': 'U'}, {'item': 2, 'task_id': '1', 'answer': '5'}, {'item': 3, 'task_id': '9', 'answer': 'F'}, {'item': 4, 'task_id': '15', 'answer': 'H'}], 'type': 'p2'}
