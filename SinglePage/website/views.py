@@ -11,7 +11,7 @@ from django.shortcuts import render, reverse
 from django.template.defaultfilters import register
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import ensure_csrf_cookie
-from datetime import datetime
+from django.conf import settings
 import time
 
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission, \
@@ -548,7 +548,7 @@ def showParticipant(request, submission_id):
 def exportCSV(request):
     if request.user.is_superuser:
 
-        with open('submission_score.csv', 'w', encoding='UTF8') as f:
+        with open('exports/submission_score.csv', 'w', encoding='UTF8') as f:
             writer = csv.writer(f)
             header = ['pk', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
                       'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main']
@@ -564,7 +564,7 @@ def exportCSV(request):
             for submission in submissions:
                 writer.writerow(submission)
 
-        with open('questionnaires.csv', 'w', encoding='UTF8') as q:
+        with open('exports/questionnaires.csv', 'w', encoding='UTF8') as q:
             writer = csv.writer(q)
 
             header = ['session', 'name', 'type', 'item', 'question_id', 'answer']
@@ -580,7 +580,7 @@ def exportCSV(request):
             for question in questions:
                 writer.writerow(question)
 
-        with open('tasks.csv', 'w', encoding='UTF8') as t:
+        with open('exports/tasks.csv', 'w', encoding='UTF8') as t:
             writer = csv.writer(t)
 
             header = ['session', 'type', 'item', 'task_id', 'answer']
@@ -596,7 +596,7 @@ def exportCSV(request):
             for task in tasks:
                 writer.writerow(task)
 
-        with open('time.csv', 'w', encoding='UTF8') as ti:
+        with open('exports/time.csv', 'w', encoding='UTF8') as ti:
             writer = csv.writer(ti)
 
             header = ['session', 'page_nr', 'start_time']
@@ -622,7 +622,7 @@ def individualCSV(request, submission_id):
     print(submission_id)
     if request.user.is_superuser:
 
-        filename_f = "submission_score_" + str(submission_id) + ".csv"
+        filename_f = "exports/submission_score_" + str(submission_id) + ".csv"
         with open(filename_f, 'w', encoding='UTF8') as f:
             writer = csv.writer(f)
             header = ['pk', 'session', 'framing', 'age', 'gender',
@@ -640,7 +640,7 @@ def individualCSV(request, submission_id):
             for submission in submissions:
                 writer.writerow(submission)
 
-        filename_q = "questionnaires_" + str(submission_id) + ".csv"
+        filename_q = "exports/questionnaires_" + str(submission_id) + ".csv"
         with open(filename_q, 'w', encoding='UTF8') as q:
             writer = csv.writer(q)
 
@@ -657,7 +657,7 @@ def individualCSV(request, submission_id):
             for question in questions:
                 writer.writerow(question)
 
-        filename_t = "tasks_" + str(submission_id) + ".csv"
+        filename_t = "exports/tasks_" + str(submission_id) + ".csv"
         with open(filename_t, 'w', encoding='UTF8') as t:
             writer = csv.writer(t)
 
@@ -674,7 +674,7 @@ def individualCSV(request, submission_id):
             for task in tasks:
                 writer.writerow(task)
 
-        filename_ti = "time_" + str(submission_id) + ".csv"
+        filename_ti = "exports/time_" + str(submission_id) + ".csv"
         with open(filename_ti, 'w', encoding='UTF8') as ti:
             writer = csv.writer(ti)
 
