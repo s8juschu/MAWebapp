@@ -625,15 +625,16 @@ def individualCSV(request, submission_id):
         filename_f = "submission_score_" + str(submission_id) + ".csv"
         with open(filename_f, 'w', encoding='UTF8') as f:
             writer = csv.writer(f)
-            header = ['pk', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
+            header = ['pk', 'session', 'framing', 'age', 'gender',
                       'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main']
+            # 'list_p1', 'list_p2', 'list_m1', 'list_m2',
 
             # write the header
             writer.writerow(header)
 
             # write the data
             submissions = Submission.objects.filter(pk=submission_id, terms_agree=True, finished=True, request_delete=False).values_list(
-                'pk', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
+                'pk', 'session', 'framing', 'age', 'gender',
                 'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main')
 
             for submission in submissions:

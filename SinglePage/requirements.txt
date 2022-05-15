@@ -1,2 +1,3 @@
+pandas
 Django>=3.0,<4.0
 psycopg2>=2.8

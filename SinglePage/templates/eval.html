@@ -57,7 +57,7 @@
     <ul class="list-group">
         {% for submission in submissions %}
             <a href="{% url 'showParticipant' submission_id=submission.pk %}" class="list-group-item">
-                Participant {{ forloop.counter }}: Submission {{ submission.pk }}
+                Participant {{ forloop.counter }}: Submission {{ submission.pk }} {{ submission.session }}
             </a>
         {% endfor %}
     </ul>
