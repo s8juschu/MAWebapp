@@ -99,9 +99,6 @@ function setSession() {
     xhr.onreadystatechange = function () { // listen for state changes
         if (this.readyState === 4) {
             if (this.status === 200) {
-                if ((cardCounter-1) === 0) {
-                 console.log("startpage")
-                }
                 if (!((cardCounter-1) === 0)){
                     fillProgress();
                 }
