@@ -56,6 +56,11 @@ function fillProgress(){
 Display cards one after another
 */
 function displayCards() {
+     if ((cardCounter) < maxValue + 1) {
+        $('#card' + cardCounter).hide();
+        $('#card' + (cardCounter + 1)).show();
+        cardCounter += 1;
+    }
     setSession();
     // Scroll to top of page
     $('html,body').scrollTop(0);
@@ -87,16 +92,25 @@ let csrfToken = getCookie('csrftoken');
 */
 function setSession() {
     let parameters = {};
-    parameters.page = (cardCounter+1);
+    parameters.page = cardCounter;
     parameters.progress = progressCounter;
 
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
-        if (this.readyState == 4 && this.status == 200) {
-            if ((cardCounter) < maxValue + 1) {
-                $('#card' + cardCounter).hide();
-                $('#card' + (cardCounter + 1)).show();
-                cardCounter += 1;
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                if ((cardCounter-1) === 0) {
+                 console.log("startpage")
+                }
+                if (!((cardCounter-1) === 0)){
+                    fillProgress();
+                }
+            } else {
+                if ((cardCounter) < maxValue + 1) {
+                    $('#card' + cardCounter).hide();
+                    $('#card' + (cardCounter - 1)).show();
+                    cardCounter -= 1;
+                }
             }
         }
     };
@@ -178,7 +192,7 @@ function setData(v) {
              return;
          }
          else if (missing_answr === "false"){
-             displayCards(); fillProgress();
+             displayCards();
          }
     }
     if (v === "finish"){

@@ -31,7 +31,7 @@ function on_continue_task(parameters, name) {
     {#Continue if all answered#}
     if (missing_answr === "false"){
         document.getElementById('error'+name).innerHTML = "";
-        displayCards(); fillProgress();
+        displayCards();
 
         {#Save answers in DB#}
         let xhr = new XMLHttpRequest();
@@ -129,7 +129,7 @@ function on_continue_question(parameters, type, name){
     {#Continue if all answered#}
     if (missing_answr === "false") {
         document.getElementById('error' + name+ type).innerHTML = "";
-        displayCards(); fillProgress();
+        displayCards();
 
         let xhr = new XMLHttpRequest();
         xhr.open("POST", '/website/saveQuestionnaire', true);
