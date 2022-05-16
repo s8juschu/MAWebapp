@@ -96,7 +96,7 @@ function setSession() {
             if ((cardCounter) < maxValue + 1) {
                 $('#card' + cardCounter).hide();
                 $('#card' + (cardCounter + 1)).show();
-                // cardCounter += 1;
+                cardCounter += 1;
             }
         }
     };
