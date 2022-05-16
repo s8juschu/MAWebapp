@@ -15,7 +15,7 @@ $(document).ready(function() {
     }
 
     // Display describe gender on page reload if checked
-    if (cardCounter ===1 && $('#describe').is(":checked")){
+    if (cardCounter === 1 && $('#describe').is(":checked")){
         $('#genderText').show();
     }
 });
@@ -56,11 +56,6 @@ function fillProgress(){
 Display cards one after another
 */
 function displayCards() {
-    if((cardCounter) < maxValue+1){
-        $('#card' + cardCounter).hide();
-        $('#card' + (cardCounter+1)).show();
-        cardCounter += 1;
-    }
     setSession();
     // Scroll to top of page
     $('html,body').scrollTop(0);
@@ -92,10 +87,19 @@ let csrfToken = getCookie('csrftoken');
 */
 function setSession() {
     let parameters = {};
-    parameters.page = cardCounter;
+    parameters.page = (cardCounter+1);
     parameters.progress = progressCounter;
 
     let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () { // listen for state changes
+        if (this.readyState == 4 && this.status == 200) {
+            if ((cardCounter) < maxValue + 1) {
+                $('#card' + cardCounter).hide();
+                $('#card' + (cardCounter + 1)).show();
+                // cardCounter += 1;
+            }
+        }
+    };
     xhr.open("POST", '/website/saveSession', true);
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
     xhr.setRequestHeader('Content-Type', 'application/json');
