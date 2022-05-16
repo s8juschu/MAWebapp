@@ -108,6 +108,8 @@ function setSession() {
                     $('#card' + (cardCounter - 1)).show();
                     cardCounter -= 1;
                 }
+
+                window.location.reload();
             }
         }
     };

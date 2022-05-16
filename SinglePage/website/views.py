@@ -11,7 +11,6 @@ from django.shortcuts import render, reverse
 from django.template.defaultfilters import register
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.conf import settings
 import time
 
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission, \
@@ -138,7 +137,9 @@ def index(request):
 
     # Initialize to either old value or 0 if not exists
     page_nr = request.session.get('page_nr', '0')
+    request.session['page_nr'] = page_nr
     progress = request.session.get('progress', '0')
+    request.session['progress'] = progress
     p1 = request.session.get('p1', '0')
     p2 = request.session.get('p2', '0')
     m1 = request.session.get('m1', '0')
@@ -203,15 +204,25 @@ def saveSession(request):
     # Save which page to display next
     print("Page:" + str(parameterinfo["page"]))
     next_page = parameterinfo["page"]
-    request.session['page_nr'] = next_page
+    print(request.session['page_nr'])
 
-    # Save progressbar status
-    progress = parameterinfo["progress"]
-    request.session['progress'] = progress
+    if next_page > int(request.session['page_nr']):
+        request.session['page_nr'] = next_page
 
-    saveTime(request, next_page)
+        # Save progressbar status
+        progress = parameterinfo["progress"]
+        request.session['progress'] = progress
 
-    return HttpResponse(200)
+        saveTime(request, next_page)
+
+        return HttpResponse(200)
+
+    else:
+        print("Differing page_nr")
+
+        response = HttpResponse()
+        response.status_code = 400
+        return response
 
 
 # Save personal info from frontend in DB
