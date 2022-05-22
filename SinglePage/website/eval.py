@@ -9,6 +9,12 @@ times = pd.read_csv('exports/time.csv')
 # ---------------- SUBMISSIONS
 # get list of all submission_ids
 session_col = submissions['session'].tolist()
+ctrl_cond = submissions.loc[submissions['framing'] == 0, ['session']]['session'].tolist()
+print(ctrl_cond)
+pos_cond = submissions.loc[submissions['framing'] == 1, ['session']]['session'].tolist()
+print(pos_cond)
+neg_cond = submissions.loc[submissions['framing'] == 2, ['session']]['session'].tolist()
+print(neg_cond)
 
 age = submissions.groupby(["age"]).size()
 print(age)
@@ -18,6 +24,21 @@ gender = submissions.groupby(["gender"]).size()
 print(gender)
 deception = submissions.groupby(["suspect_deception"]).size()
 print(deception)
+text_deception = submissions['text_deception'].tolist()
+print(text_deception)
+
+score = submissions.set_index("session", inplace=True)
+score = submissions.loc[:, ('taskscore__score_pre', 'taskscore__score_main')]
+score['Total'] = score.sum(axis=1)
+score.loc['mean', :] = score.mean()
+
+# score.plot(kind='bar')
+#
+# plt.show()
+
+score.reset_index().to_csv('exports/export_score.csv', index=False, header=True)
+
+# score.plot(kind='bar')
 
 # ---------------- TIME
 # times['start_time'] = pd.to_datetime(times['start_time'], unit='s')
