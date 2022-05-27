@@ -26,6 +26,32 @@
 {#                {% endif %}#}
 {#            </p>#}
             <p class="card-text">
+                {% if framing == 0 %}
+                    <!--Control Group-->
+                    Thank you for your answers so far.
+                {% endif %}
+                {% if framing == 1 %}
+                    <!--Positive Framing-->
+{#                    Thank you for your answers so far. Number of correctly answered tasks in the last round:#}
+{#                    <br>#}
+{#                    <b style="color: #006dcc; font-size: 21px">7 out of 8</b> tasks <b>correct</b>#}
+{#                    <br>#}
+                        Very good, that’s an excellent beginning.
+                        In the last round, your performance has exceeded our expectations.<br>
+                        You’ll surely do well in the next round!
+                {% endif %}
+                {% if framing == 2 %}
+                    <!--Negative Framing-->
+{#                    Thank you for your answers so far. Number of correctly answered tasks in the last round:#}
+{#                    <br>#}
+{#                    <b style="color: #006dcc; font-size: 21px">2 out of 8</b> tasks <b>correct</b>#}
+{#                    <br>#}
+                        Well, that’s a start.
+                        In the last round, your performance was not what we expected. <br>
+                        Hopefully you can do a little better in the next round!
+                {% endif %}
+            </p>
+            <p class="card-text">
                With the questionnaire on the next two pages we would like to get your opinion on the previous tasks.
                Please answer the questions as well as you can.
             </p>

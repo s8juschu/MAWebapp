@@ -16,8 +16,8 @@ import time
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission, \
     TaskScore, TimeSpend
 
-study_id = 1  # Study
-overall_count = 14  # Nr. of cards
+study_id = 2  # Study
+overall_count = 16  # Nr. of cards
 
 # Load answers from questionnaire
 imi = Question.objects.filter(questionnaire__name="Intrinsic Motivation Inventory")
