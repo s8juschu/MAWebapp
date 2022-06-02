@@ -28,7 +28,9 @@
     <div class="card">
          {% include 'cards/voluntary.html' %}
         <div class="modal-footer" id="btn-next">
-                <a class="btn btn-next" onclick="displayCards(); "> Continue</a>
+                        <a class="btn btn-no" onclick="displayLastCard();"> No</a>
+            <a class="btn btn-yes" onclick="displayCards(); "> Yes</a>
+{#            <a class="btn btn-next" onclick="displayCards(); "> Continue</a>#}
         </div>
     </div>
 </div>

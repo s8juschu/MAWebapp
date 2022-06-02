@@ -41,6 +41,28 @@ class AnswerChoice(models.Model):
         return self.text
 
 
+# Tasks of extra rounds
+class ExtraTask(models.Model):
+    description = models.CharField(max_length=200)
+    details = models.CharField(max_length=100, default="", blank=True)
+    item = models.CharField(max_length=200, default="", blank=True)
+    task_set = models.ForeignKey(TaskSet, on_delete=models.CASCADE)
+    image_link = models.CharField(max_length=200, default="", blank=True)
+
+    def __int__(self):
+        return self.pk
+
+
+# Task Answer Choices of extra rounds
+class ExtraAnswerChoice(models.Model):
+    text = models.CharField(max_length=200, default="", blank=True)
+    task = models.ForeignKey(ExtraTask, on_delete=models.CASCADE)
+    correct_answer = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.text
+
+
 # -------------------------------------------------------------
 
 

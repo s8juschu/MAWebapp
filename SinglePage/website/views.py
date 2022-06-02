@@ -14,7 +14,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import time
 
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission, \
-    TaskScore, TimeSpend
+    TaskScore, TimeSpend, ExtraTask, ExtraAnswerChoice
 
 study_id = 2  # Study
 overall_count = 16  # Nr. of cards
@@ -97,6 +97,22 @@ def get_choices(list_object):
     return arraydict
 
 
+# Returns extra tasks and their possible Answer choices
+def get_extraTasks():
+    extratasks = ExtraTask.objects.all().order_by('?')
+    print(extratasks)
+    array = defaultdict(list)
+    for e in extratasks:
+        if ExtraAnswerChoice.objects.filter(task=e).exists():
+            choice = ExtraAnswerChoice.objects.filter(task=e)
+            for c in choice:
+                array[e.pk].append(c.text)
+
+    arraydict = dict(array)  # transform defaultdict to dict
+
+    return extratasks, arraydict
+
+
 # Returns the given key from a dictionary
 @register.filter(name='dict_key')
 def dict_key(d, k):
@@ -177,6 +193,8 @@ def index(request):
     print(request.session.session_key)
     print(page_nr)
 
+    extratasks, extrachoices = get_extraTasks()
+
     # check if already finished study
     finish = finishedStudy(request)
     if page_nr == 14 and finish is True:
@@ -187,7 +205,8 @@ def index(request):
                   context={"m1": list_m1, "m2": list_m2, "p1": list_p1, "p2": list_p2,
                            "array_m1": array_m1, "array_m2": array_m2, "array_p1": array_p1, "array_p2": array_p2,
                            "page_nr": page_nr, "overall_count": overall_count, "progress": progress,
-                           "framing": rnd, "imi": imi, "panas": panas})
+                           "framing": rnd, "imi": imi, "panas": panas, "extratasks": extratasks,
+                           "extrachoices": extrachoices})
 
 
 # Save next page & progressbar to show on press continue in frontend

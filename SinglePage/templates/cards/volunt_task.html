@@ -1,5 +1,6 @@
+{% load static %}
 <div class="card-header text-white">
-            End
+     Additional tasks
 </div>
 <div class="progress">
     <div class="progress-bar" role="progressbar" aria-valuenow="0"
@@ -8,7 +9,38 @@
     </div>
 </div>
 <div class="card-body">
-    <p class="card-text">
-        MORE TASKS
-    </p>
+    <div class="container">
+        <div id="errorp1" class="error"></div>
+        {% for task in extratasks %}
+            <p class="card-text">{{ task.description }}</p>
+            {% if task.details|length > 0 %}
+                {{ task.details }}
+                <br><br>
+            {% endif %}
+            {% if task.image_link|length > 0 %}
+                {% with 'img/'|add:task.image_link as image_static %}
+                    <img src="{% static image_static %}" alt="">
+                {% endwith %}
+                <br><br>
+            {% endif %}
+            {#                        <br>#}
+            {#                    <div class="container">#}
+            <div id="errorp1{{ task.pk }}" class="error_sub"></div>
+            <div class="row">
+                {% for arr in extrachoices|dict_key:task.pk %}
+                    <div class="col-xs-12 col-sm-3 radiobtn">
+                        <input type="radio" id="p1{{ task.pk }}{{ forloop.counter }}"
+                               name="p1{{ task.pk }}" value="{{ arr }}" readonly="readonly"/>
+                        <label for="p1{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+            {#                    </div>#}
+            {% if not forloop.last %}
+                <br>
+                <hr>
+            {% endif %}
+            <br>
+        {% endfor %}
+    </div>
 </div>

@@ -3,7 +3,7 @@ from django.contrib.sessions.models import Session
 
 # Register your models here.
 from .models import Study, TaskSet, Task, Submission, QuestionnaireSubmission, TaskSubmission, Questionnaire,\
-    Question, AnswerChoice, TaskScore, TimeSpend
+    Question, AnswerChoice, TaskScore, TimeSpend, ExtraTask, ExtraAnswerChoice
 
 
 class SessionAdmin(admin.ModelAdmin):
@@ -34,6 +34,14 @@ class TaskAdmin(admin.ModelAdmin):
 
 
 class AnswerChoiceAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'text', 'task', 'correct_answer')
+
+
+class ExtraTaskAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'description', 'details', 'item', 'task_set', 'image_link')
+
+
+class ExtraAnswerChoiceAdmin(admin.ModelAdmin):
     list_display = ('pk', 'text', 'task', 'correct_answer')
 
 
@@ -74,6 +82,8 @@ admin.site.register(Study)
 admin.site.register(TaskSet, TaskSetAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(AnswerChoice, AnswerChoiceAdmin)
+admin.site.register(ExtraTask, ExtraTaskAdmin)
+admin.site.register(ExtraAnswerChoice, ExtraAnswerChoiceAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Submission, SubmissionAdmin)

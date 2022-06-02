@@ -67,6 +67,19 @@ function displayCards() {
 }
 
 /*
+Display end card
+*/
+function displayLastCard(){
+    $('#card' + cardCounter).hide();
+    $('#card' + (maxValue + 1)).show();
+    cardCounter = (maxValue + 1);
+
+    setSession();
+    // Scroll to top of page
+    $('html,body').scrollTop(0);
+}
+
+/*
  Get cookie for POST request
 */
 function getCookie(name) {

@@ -39,6 +39,18 @@ footer {
     background-color: #004B8B;
 }
 
+.btn-yes {
+    cursor: pointer;
+    color: white !important;
+    background-color: #5cb85c;
+}
+
+.btn-no {
+    cursor: pointer;
+    color: white !important;
+    background-color: #d9534f;
+}
+
 .container > img {
     max-width: 60%;
     max-height: 60%;
