@@ -27,8 +27,8 @@
 <div class="container" id="card14" style="display: none;">
     <div class="card">
          {% include 'cards/voluntary.html' %}
-        <div class="modal-footer" id="btn-next">
-                        <a class="btn btn-no" onclick="displayLastCard();"> No</a>
+        <div class="modal-footer" id="btn-next" style="justify-content: space-between !important;">
+            <a class="btn btn-no" onclick="displayLastCard();"> No</a>
             <a class="btn btn-yes" onclick="displayCards(); "> Yes</a>
 {#            <a class="btn btn-next" onclick="displayCards(); "> Continue</a>#}
         </div>
@@ -37,8 +37,9 @@
 <div class="container" id="card15" style="display: none;">
     <div class="card">
          {% include 'cards/volunt_task.html' %}
-        <div class="modal-footer" id="btn-next">
-            <a class="btn btn-next" onclick="displayCards(); "> Continue</a>
+        <div class="modal-footer" id="btn-next" style="justify-content: space-between !important;">
+            <a class="btn btn-no" style="float: left;" onclick="displayCards(); "> Finish Study</a>
+             <a class="btn btn-yes" onclick="displayNextTask();"> Next Task</a>
         </div>
     </div>
 </div>

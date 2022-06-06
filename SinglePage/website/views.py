@@ -99,7 +99,7 @@ def get_choices(list_object):
 
 # Returns extra tasks and their possible Answer choices
 def get_extraTasks():
-    extratasks = ExtraTask.objects.all().order_by('?')
+    extratasks = ExtraTask.objects.all()
     print(extratasks)
     array = defaultdict(list)
     for e in extratasks:

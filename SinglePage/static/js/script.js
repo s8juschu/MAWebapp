@@ -1,9 +1,16 @@
 /*
  On page load, display correct page & progress
 */
+sessionStorage.setItem("extraTaskCounter", "0");
+
 $(document).ready(function() {
     // display actual score on last page
     displayScore();
+
+    let sessStor =  parseInt(sessionStorage.getItem("extraTaskCounter"), 10);
+    if (sessStor === 0){
+        $('#extraTask' + sessStor).show();
+    }
 
     // executes when HTML-Document is loaded and DOM is ready
     for (let i = 0; i < cardCounter; i++) {
@@ -351,4 +358,19 @@ function displayScore() {
     xhr.setRequestHeader("X-CSRFToken", csrfToken);
     xhr.setRequestHeader('Content-Type', 'text/plain');
     xhr.send();
+}
+
+function displayNextTask() {
+    let sessStor =  parseInt(sessionStorage.getItem("extraTaskCounter"), 10);
+    console.log(sessStor);
+    if ((sessStor) < 7) {
+        $('#extraTask' + sessStor).hide();
+        $('#extraTask' + (sessStor + 1)).show();
+        sessStor += 1;
+        sessionStorage.setItem("extraTaskCounter", String(sessStor));
+    }
+    else {
+        console.log("last card");
+        displayCards();
+    }
 }
