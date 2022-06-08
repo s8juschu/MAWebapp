@@ -134,6 +134,16 @@ class TaskSubmission(models.Model):
         return self.pk
 
 
+class ExtraTaskSubmission(models.Model):
+    submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    task_id = models.IntegerField()
+    answer = models.CharField(max_length=20)
+
+    def __int__(self):
+        return self.pk
+
+
 class TaskScore(models.Model):
     submission = models.ForeignKey(Submission, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)

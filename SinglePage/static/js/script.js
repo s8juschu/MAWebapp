@@ -374,6 +374,6 @@ function displayNextTask() {
     }
     else {
         console.log("last card");
-        // displayCards();
+        displayCards();
     }
 }

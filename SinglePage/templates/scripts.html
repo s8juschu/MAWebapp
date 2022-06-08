@@ -204,6 +204,7 @@ function saveExtraTask(){
     {#Display error message if extra task not solved#}
     let missing_answr = "false";
     let extraTask = {};
+    extraTask.id = taskID;
     extraTask.answer = get_checked("extraTaskChoice"+taskID);
     document.getElementById('errorExtra'+taskID).innerHTML = "";
     {#Check if not answered#}
@@ -217,11 +218,11 @@ function saveExtraTask(){
         displayNextTask();
 
         {#Save answers in DB#}
-{#        let xhr = new XMLHttpRequest();#}
-{#        xhr.open("POST", '/website/saveTask', true);#}
-{#        xhr.setRequestHeader("X-CSRFToken", csrfToken);#}
-{#        xhr.setRequestHeader('Content-Type', 'application/json');#}
-{#        xhr.send(JSON.stringify(parameters));#}
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", '/website/saveExtraTask', true);
+        xhr.setRequestHeader("X-CSRFToken", csrfToken);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(extraTask));
     }
 }
 

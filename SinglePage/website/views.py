@@ -14,7 +14,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 import time
 
 from .models import Study, TaskSet, Task, Submission, AnswerChoice, Question, TaskSubmission, QuestionnaireSubmission, \
-    TaskScore, TimeSpend, ExtraTask, ExtraAnswerChoice
+    TaskScore, TimeSpend, ExtraTask, ExtraAnswerChoice, ExtraTaskSubmission
 
 study_id = 2  # Study
 overall_count = 16  # Nr. of cards
@@ -100,10 +100,8 @@ def get_choices(list_object):
 # Returns extra tasks and their possible Answer choices
 def get_extraTasks():
     extratasks = ExtraTask.objects.all()
-    print(extratasks)
     array = defaultdict(list)
     for e in extratasks:
-        print(e.pk)
         if ExtraAnswerChoice.objects.filter(task=e).exists():
             choice = ExtraAnswerChoice.objects.filter(task=e)
             for c in choice:
@@ -192,7 +190,7 @@ def index(request):
     save_initialization(request, list_p1, list_p2, list_m1, list_m2)
 
     print(request.session.session_key)
-    print(page_nr)
+    # print(page_nr)
 
     extratasks, extrachoices = get_extraTasks()
 
@@ -218,7 +216,8 @@ def saveSession(request):
 
     if parameterinfo is not None:
         f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
-        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveSession" + " " + str(parameterinfo) + "\n")
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveSession" + " " + str(
+            parameterinfo) + "\n")
         f.close()
 
     # Save which page to display next
@@ -253,7 +252,8 @@ def saveData(request):
 
     if parameterinfo is not None:
         f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
-        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveData" + " " + str(parameterinfo) + "\n")
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveData" + " " + str(
+            parameterinfo) + "\n")
         f.close()
 
     session = Session.objects.get(session_key=request.session.session_key)
@@ -307,6 +307,8 @@ def saveData(request):
 def calculateScore(request, task):
     score_pre = 0
     score_main = 0
+    score_extra = 0
+
     session = Session.objects.get(session_key=request.session.session_key)
     submission_exist = Submission.objects.filter(session=session).exists()
 
@@ -362,6 +364,24 @@ def calculateScore(request, task):
             task_score.score_main = score_main
             task_score.save()
 
+    if task == "extraTask":
+        answers_extra = ExtraTaskSubmission.objects.filter(session=session)
+
+        for answer_extra in answers_extra:
+            task_id = answer_extra.task_id
+            correct_answer = ExtraAnswerChoice.objects.get(task=task_id, correct_answer=True)
+            if answer_extra.answer == correct_answer.text:
+                score_extra += 1
+
+        print("Extra tasks score: " + str(score_extra))
+
+        if submission_exist:
+            submission = Submission.objects.get(session=session)
+
+            task_score = TaskScore.objects.get(session=session)
+            task_score.score_extra = score_extra
+            task_score.save()
+
 
 # Save tasks answers from frontend in DB
 @ensure_csrf_cookie
@@ -371,7 +391,8 @@ def saveTask(request):
 
     if parameterinfo is not None:
         f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
-        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveTask" + " " + str(parameterinfo) + "\n")
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveTask" + " " + str(
+            parameterinfo) + "\n")
         f.close()
 
     session = Session.objects.get(session_key=request.session.session_key)
@@ -405,6 +426,41 @@ def saveTask(request):
     return HttpResponse(200)
 
 
+# Save answers from extra tasks
+@ensure_csrf_cookie
+def saveExtraTask(request):
+    getparameterinfo = request.body.decode('utf-8')
+    parameterinfo = json.loads(getparameterinfo)
+    par_id = parameterinfo["id"]
+
+    if parameterinfo is not None:
+        f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveExtraTask" + " " + str(
+            parameterinfo) + "\n")
+        f.close()
+
+    session = Session.objects.get(session_key=request.session.session_key)
+    submission_exist = Submission.objects.filter(session=session).exists()
+    request_delete = Submission.objects.get(session=session).request_delete
+
+    if submission_exist and not request_delete:
+        if not ExtraTaskSubmission.objects.filter(session=session, task_id=par_id).exists():
+            task_sub = ExtraTaskSubmission()
+            task_sub.submission = Submission.objects.get(session=session)
+            task_sub.session = session
+            task_sub.task_id = par_id
+            task_sub.answer = parameterinfo["answer"]
+
+            task_sub.save()
+
+        else:
+            print("Already saved extra task with id " + str(par_id) + ". No changes made to DB.")
+
+        calculateScore(request, "extraTask")
+
+    return HttpResponse(200)
+
+
 # Save answers of Questionnaires from frontend in DB
 @ensure_csrf_cookie
 def saveQuestionnaire(request):
@@ -413,7 +469,8 @@ def saveQuestionnaire(request):
 
     if parameterinfo is not None:
         f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
-        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveQuestionnaire" + " " + str(parameterinfo) + "\n")
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveQuestionnaire" + " " + str(
+            parameterinfo) + "\n")
         f.close()
 
     session = Session.objects.get(session_key=request.session.session_key)
@@ -491,7 +548,8 @@ def saveDeceptionInput(request):
 
     if parameterinfo is not None:
         f = open('logs/log_' + str(request.session.session_key) + '.txt', 'a+')
-        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveDeception" + " " + str(parameterinfo) + "\n")
+        f.write(str(time.ctime()) + " " + str(request.session.session_key) + " " + "saveDeception" + " " + str(
+            parameterinfo) + "\n")
         f.close()
 
     session = Session.objects.get(session_key=request.session.session_key)
