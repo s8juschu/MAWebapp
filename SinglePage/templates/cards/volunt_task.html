@@ -10,8 +10,7 @@
 </div>
 <div class="card-body">
     {% for task in extratasks %}
-    <div class="container" style="display: none;" id="extraTask{{ forloop.counter0 }}">
-        <div id="errorp1" class="error"></div>
+    <div class="container" style="display: none;" id="extraTask{{ task.pk }}">
         <p class="card-text">{{ task.description }}</p>
         {% if task.details|length > 0 %}
             {{ task.details }}
@@ -25,12 +24,12 @@
         {% endif %}
         {#                        <br>#}
         {#                    <div class="container">#}
-        <div id="errorp1{{ task.pk }}" class="error_sub"></div>
+        <div id="errorExtra{{ task.pk }}" class="error_sub"></div>
         <div class="row">
             {% for arr in extrachoices|dict_key:task.pk %}
                 <div class="col-xs-12 col-sm-3 radiobtn">
                     <input type="radio" id="extraTask{{ task.pk }}{{ forloop.counter }}"
-                           name="extraTask{{ task.pk }}" value="{{ arr }}" readonly="readonly"/>
+                           name="extraTaskChoice{{ task.pk }}" value="{{ arr }}" readonly="readonly"/>
                     <label for="extraTask{{ task.pk }}{{ forloop.counter }}">{{ arr }}</label>
                 </div>
             {% endfor %}

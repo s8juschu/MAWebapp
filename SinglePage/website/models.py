@@ -139,6 +139,7 @@ class TaskScore(models.Model):
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     score_pre = models.IntegerField(default=0)
     score_main = models.IntegerField(default=0)
+    score_extra = models.IntegerField(default=0)
 
     def __int__(self):
         return self.pk

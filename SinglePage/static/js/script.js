@@ -1,14 +1,17 @@
 /*
  On page load, display correct page & progress
 */
-sessionStorage.setItem("extraTaskCounter", "0");
-
 $(document).ready(function() {
     // display actual score on last page
     displayScore();
 
-    let sessStor =  parseInt(sessionStorage.getItem("extraTaskCounter"), 10);
-    if (sessStor === 0){
+    if (localStorage.getItem("extraTaskCounter") === null) {
+        localStorage.setItem("extraTaskCounter", "1");
+    }
+    let sessStor =  parseInt(localStorage.getItem("extraTaskCounter"), 10);
+    $('#extraTask' + sessStor).show();
+    console.log(sessStor);
+    if (sessStor === 1){
         $('#extraTask' + sessStor).show();
     }
 
@@ -360,17 +363,17 @@ function displayScore() {
     xhr.send();
 }
 
+// Display one extra task after another
 function displayNextTask() {
-    let sessStor =  parseInt(sessionStorage.getItem("extraTaskCounter"), 10);
-    console.log(sessStor);
-    if ((sessStor) < 7) {
+    let sessStor =  parseInt(localStorage.getItem("extraTaskCounter"), 10);
+    if ((sessStor) < 8) {
         $('#extraTask' + sessStor).hide();
         $('#extraTask' + (sessStor + 1)).show();
         sessStor += 1;
-        sessionStorage.setItem("extraTaskCounter", String(sessStor));
+        localStorage.setItem("extraTaskCounter", String(sessStor));
     }
     else {
         console.log("last card");
-        displayCards();
+        // displayCards();
     }
 }

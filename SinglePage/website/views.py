@@ -103,6 +103,7 @@ def get_extraTasks():
     print(extratasks)
     array = defaultdict(list)
     for e in extratasks:
+        print(e.pk)
         if ExtraAnswerChoice.objects.filter(task=e).exists():
             choice = ExtraAnswerChoice.objects.filter(task=e)
             for c in choice:

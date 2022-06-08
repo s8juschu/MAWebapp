@@ -30,7 +30,6 @@
         <div class="modal-footer" id="btn-next" style="justify-content: space-between !important;">
             <a class="btn btn-no" onclick="displayLastCard();"> No</a>
             <a class="btn btn-yes" onclick="displayCards(); "> Yes</a>
-{#            <a class="btn btn-next" onclick="displayCards(); "> Continue</a>#}
         </div>
     </div>
 </div>
@@ -39,7 +38,7 @@
          {% include 'cards/volunt_task.html' %}
         <div class="modal-footer" id="btn-next" style="justify-content: space-between !important;">
             <a class="btn btn-no" style="float: left;" onclick="displayCards(); "> Finish Study</a>
-             <a class="btn btn-yes" onclick="displayNextTask();"> Next Task</a>
+             <a class="btn btn-yes" onclick="saveExtraTask();"> Next Task</a>
         </div>
     </div>
 </div>

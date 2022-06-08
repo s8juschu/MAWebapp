@@ -1,6 +1,6 @@
 <script type="text/javascript">
 
-{#Get checked radio btn by name#}
+{#Get if radio btn is checked by name#}
 function get_checked(name){
     let radios = document.getElementsByName(name);
     let value;
@@ -14,7 +14,7 @@ function get_checked(name){
 
 {# Save answer from tasks, grouped by pre or main task#}
 function on_continue_task(parameters, name) {
-    {#Display error message if question not answered#}
+    {#Display error message if task not solved#}
     let missing_answr = "false";
     let arrayLength = parameters.listarray.length;
     for (let i = 0; i < arrayLength; i++) {
@@ -28,7 +28,7 @@ function on_continue_task(parameters, name) {
             missing_answr = "true";
         }
     }
-    {#Continue if all answered#}
+    {#Continue if all solved#}
     if (missing_answr === "false"){
         document.getElementById('error'+name).innerHTML = "";
         displayCards();
@@ -58,7 +58,7 @@ function saveTask(type){
             parameters.listarray.push(tasks);
         {% endfor %}
 
-        {#Display error message if question not answered#}
+        {#Display error message if task not solved#}
         {#Else continue#}
         on_continue_task(parameters, "p1");
     }
@@ -72,7 +72,7 @@ function saveTask(type){
             parameters.listarray.push(tasks);
         {% endfor %}
 
-        {#Display error message if question not answered#}
+        {#Display error message if task not solved#}
         {#Else continue#}
         on_continue_task(parameters, "p2");
     }
@@ -86,7 +86,7 @@ function saveTask(type){
             parameters.listarray.push(tasks);
         {% endfor %}
 
-        {#Display error message if question not answered#}
+        {#Display error message if task not solved#}
         {#Else continue#}
         on_continue_task(parameters, "m1");
     }
@@ -100,7 +100,7 @@ function saveTask(type){
             parameters.listarray.push(tasks);
         {% endfor %}
 
-        {#Display error message if question not answered#}
+        {#Display error task if question not solved#}
         {#Else continue#}
         on_continue_task(parameters, "m2");
     }
@@ -195,4 +195,34 @@ function saveQuestionnaire(type, name){
         {#console.log("ERROR: Questionnaire " + name + " unknown.")#}
     }
 }
+
+
+{# Save Data from extra tasks #}
+function saveExtraTask(){
+    let taskID =  parseInt(localStorage.getItem("extraTaskCounter"), 10);
+    console.log(taskID);
+    {#Display error message if extra task not solved#}
+    let missing_answr = "false";
+    let extraTask = {};
+    extraTask.answer = get_checked("extraTaskChoice"+taskID);
+    document.getElementById('errorExtra'+taskID).innerHTML = "";
+    {#Check if not answered#}
+    if (extraTask.answer == null || extraTask.answer === "") {
+        document.getElementById('errorExtra'+taskID).innerHTML = "Please select an answer.";
+        missing_answr = "true";
+    }
+    {#Continue if all answered#}
+    if (missing_answr === "false"){
+        document.getElementById('errorExtra'+taskID).innerHTML = "";
+        displayNextTask();
+
+        {#Save answers in DB#}
+{#        let xhr = new XMLHttpRequest();#}
+{#        xhr.open("POST", '/website/saveTask', true);#}
+{#        xhr.setRequestHeader("X-CSRFToken", csrfToken);#}
+{#        xhr.setRequestHeader('Content-Type', 'application/json');#}
+{#        xhr.send(JSON.stringify(parameters));#}
+    }
+}
+
 </script>

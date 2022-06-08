@@ -70,7 +70,7 @@ class TaskSubmissionAdmin(admin.ModelAdmin):
 
 
 class TaskScoreAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'session', 'submission', 'score_pre', 'score_main')
+    list_display = ('pk', 'session', 'submission', 'score_pre', 'score_main', 'score_extra')
 
 
 class TimeSpendAdmin(admin.ModelAdmin):
