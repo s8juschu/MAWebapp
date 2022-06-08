@@ -578,7 +578,18 @@ def getScore(request):
     if submission_exist:
         if TaskScore.objects.filter(session=session):
             task_score = TaskScore.objects.get(session=session)
-            data = json.dumps({'pre': task_score.score_pre, 'main': task_score.score_main})
+
+            answers_extra = ExtraTaskSubmission.objects.filter(session=session)
+
+            if answers_extra.exists():
+                count = answers_extra.count()
+
+                data = json.dumps({'pre': task_score.score_pre, 'main': task_score.score_main,
+                                   'extra': task_score.score_extra, 'count': count})
+
+            else:
+                data = json.dumps({'pre': task_score.score_pre, 'main': task_score.score_main})
+
             return HttpResponse(data)
 
     return HttpResponse(json.dumps({'pre': '-', 'main': '-'}))

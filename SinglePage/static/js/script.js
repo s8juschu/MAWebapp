@@ -84,6 +84,8 @@ function displayLastCard(){
     $('#card' + (maxValue + 1)).show();
     cardCounter = (maxValue + 1);
 
+    fillProgress();
+
     setSession();
     // Scroll to top of page
     $('html,body').scrollTop(0);
@@ -355,6 +357,12 @@ function displayScore() {
             let obj = JSON.parse(this.responseText);
             document.getElementById("actual_score_pre").innerHTML = obj.pre;
             document.getElementById("actual_score_main").innerHTML = obj.main;
+
+            if(obj.hasOwnProperty('extra')){
+                document.getElementById("actual_score_extra").innerHTML = "You answered "+ obj.extra+" out of";
+                document.getElementById("actual_score_count").innerHTML = obj.count + " extra tasks correctly.";
+            }
+
         }
     };
     xhr.open("GET", '/website/getScore', true);
