@@ -10,7 +10,6 @@ $(document).ready(function() {
     }
     let sessStor =  parseInt(localStorage.getItem("extraTaskCounter"), 10);
     $('#extraTask' + sessStor).show();
-    console.log(sessStor);
     if (sessStor === 1){
         $('#extraTask' + sessStor).show();
     }
@@ -359,8 +358,8 @@ function displayScore() {
             document.getElementById("actual_score_main").innerHTML = obj.main;
 
             if(obj.hasOwnProperty('extra')){
-                document.getElementById("actual_score_extra").innerHTML = "You answered "+ obj.extra+" out of";
-                document.getElementById("actual_score_count").innerHTML = obj.count + " extra tasks correctly.";
+                document.getElementById("actual_score_extra").innerHTML = "In the bonus round, you answered <b>"+ obj.extra+" out of";
+                document.getElementById("actual_score_count").innerHTML = "<b>"+ obj.count + " tasks </b> correctly.";
             }
 
         }
@@ -381,7 +380,14 @@ function displayNextTask() {
         localStorage.setItem("extraTaskCounter", String(sessStor));
     }
     else {
-        console.log("last card");
         displayCards();
     }
 }
+
+// If badge modal closed, show next page
+$('#badgeFirstModal').on('hidden.bs.modal', function () {
+    saveTask('m1');
+});
+$('#badgeSecondModal').on('hidden.bs.modal', function () {
+    saveTask('m2');
+});
