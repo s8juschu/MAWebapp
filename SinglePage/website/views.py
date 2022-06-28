@@ -196,7 +196,7 @@ def index(request):
 
     # check if already finished study
     finish = finishedStudy(request)
-    if page_nr == 14 and finish is True:
+    if page_nr == overall_count and finish is True:
         print("finish")
         return render(request, 'finish.html')
 
