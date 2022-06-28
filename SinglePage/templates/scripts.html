@@ -12,6 +12,43 @@ function get_checked(name){
     return value;
 }
 
+{# Check if all tasks are filled out #}
+function check_complete(name){
+    {#Display error message if task not solved#}
+    let missing_answr = "false";
+
+    if (name === 'm1'){
+        console.log("here m1");
+        {% for task in m1 %}
+            document.getElementById('error'+name+'{{ task.pk}}').innerHTML = "";
+            var exists_answer = get_checked(name+"{{ task.pk }}");
+            if (exists_answer == null || exists_answer === "") {
+                document.getElementById('error'+name+'{{ task.pk}}').innerHTML = "Please select an answer.";
+                document.getElementById('error'+name).innerHTML = "Some answers are missing. Please answer all questions before continuing.";
+                $('html,body').scrollTop(0);
+                missing_answr = "true";
+            }
+        {% endfor %}
+    }
+    if (name === 'm2'){
+        console.log("here m2");
+        {% for task in m2 %}
+            document.getElementById('error'+name+'{{ task.pk}}').innerHTML = "";
+            var exists_answer = get_checked(name+"{{ task.pk }}");
+            if (exists_answer == null || exists_answer === "") {
+                document.getElementById('error'+name+'{{ task.pk}}').innerHTML = "Please select an answer.";
+                document.getElementById('error'+name).innerHTML = "Some answers are missing. Please answer all questions before continuing.";
+                $('html,body').scrollTop(0);
+                missing_answr = "true";
+            }
+        {% endfor %}
+    }
+    if (missing_answr === "false"){
+            document.getElementById('error'+name).innerHTML = "";
+            $('#badge'+name+'Modal').modal('show');
+    }
+}
+
 {# Save answer from tasks, grouped by pre or main task#}
 function on_continue_task(parameters, name) {
     {#Display error message if task not solved#}

@@ -86,16 +86,16 @@
             </div>
         </div>
         <div class="modal-footer" id="btn-next">
-            <button type="button" class="btn btn-next" data-toggle="modal" data-target="#badgeFirstModal">
+            <button type="button" class="btn btn-next" onclick="check_complete('m1')">
               Continue
             </button>
         </div>
-        <div class="modal fade" id="badgeFirstModal" tabindex="-1" role="dialog" aria-labelledby="badgeFirstModalLabel"
+        <div class="modal fade" id="badgem1Modal" tabindex="-1" role="dialog" aria-labelledby="badgem1ModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="badgeFirstModalLabel">New badge unlocked</h5>
+                        <h5 class="modal-title" id="badgem1ModalLabel">New badge unlocked</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -105,7 +105,7 @@
                         <p>IQ Novice - Good performance</p>
                     </div>
                     <div class="modal-footer">
-                         <a class="btn btn-next" {# onclick="saveTask('m1')" #} data-dismiss="modal">Collect!</a>
+                         <a class="btn btn-next" onclick="saveTask('m1')" data-dismiss="modal">Collect!</a>
                     </div>
                 </div>
             </div>
@@ -177,16 +177,16 @@
             </div>
         </div>
         <div class="modal-footer" id="btn-next">
-            <button type="button" class="btn btn-next" data-toggle="modal" data-target="#badgeSecondModal">
+            <button type="button" class="btn btn-next" onclick="check_complete('m2')">
               Continue
             </button>
         </div>
-        <div class="modal fade" id="badgeSecondModal" tabindex="-1" role="dialog" aria-labelledby="badgeSecondModalLabel"
+        <div class="modal fade" id="badgem2Modal" tabindex="-1" role="dialog" aria-labelledby="badgem2ModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="badgeSecondModalLabel">New badge unlocked</h5>
+                        <h5 class="modal-title" id="badgem2ModalLabel">New badge unlocked</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -196,7 +196,7 @@
                         <p>IQ Master - Improved performance</p>
                     </div>
                     <div class="modal-footer">
-                         <a class="btn btn-next" {#onclick="saveTask('m2')" #} data-dismiss="modal">Collect!</a>
+                         <a class="btn btn-next" onclick="saveTask('m2')" data-dismiss="modal">Collect!</a>
                     </div>
                 </div>
             </div>

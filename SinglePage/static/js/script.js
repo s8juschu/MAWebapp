@@ -1,10 +1,12 @@
 /*
  On page load, display correct page & progress
+ // executes when HTML-Document is loaded and DOM is ready
 */
 $(document).ready(function() {
     // display actual score on last page
     displayScore();
 
+    //save/load status of extra tasks in local storage
     if (localStorage.getItem("extraTaskCounter") === null) {
         localStorage.setItem("extraTaskCounter", "1");
     }
@@ -14,7 +16,7 @@ $(document).ready(function() {
         $('#extraTask' + sessStor).show();
     }
 
-    // executes when HTML-Document is loaded and DOM is ready
+    //Display correct card & progress
     for (let i = 0; i < cardCounter; i++) {
         $('#card' + i).hide();
     }
@@ -250,7 +252,7 @@ $('input[type=radio][name=gender]').change(function() {
     }
 });
 
-// Display box to self-describe gender if checked, else hide
+// Display box to explain deception if checked, else hide
 $('input[type=radio][name=deception]').change(function() {
     if ($('#deception_yes').is(":checked")){
         $('#div_text_deception').show();
@@ -385,9 +387,9 @@ function displayNextTask() {
 }
 
 // If badge modal closed, show next page
-$('#badgeFirstModal').on('hidden.bs.modal', function () {
+$('#badgem1Modal').on('hidden.bs.modal', function () {
     saveTask('m1');
 });
-$('#badgeSecondModal').on('hidden.bs.modal', function () {
+$('#badgem2Modal').on('hidden.bs.modal', function () {
     saveTask('m2');
 });
