@@ -264,28 +264,46 @@ $('input[type=radio][name=deception]').change(function() {
 
 
 // Permanently display score in pos/neg framing condition
-// $(window).scroll(function(){
-//     var sticky = document.getElementsByClassName('sticky9');
-//
-//     if (sticky.length > 0 && document.getElementById("card9").style.display !== "none"){
-//         if ($(window).scrollTop() >= $("#card9").offset().top ) {
-//             $('.sticky9').addClass('fixed-header');
-//         }
-//         else {
-//             $('.sticky9').removeClass('fixed-header');
-//
-//         }
-//     }
-//     if (sticky.length > 0 && document.getElementById("card10").style.display !== "none"){
-//         if ($(window).scrollTop() >= $("#card10").offset().top ) {
-//             $('.sticky10').addClass('fixed-header');
-//         }
-//         else {
-//             $('.sticky10').removeClass('fixed-header');
-//
-//         }
-//     }
-// });
+$(window).scroll(function(){
+    // var sticky = document.getElementsByClassName('sticky9');
+    //
+    // if (sticky.length > 0 && document.getElementById("card9").style.display !== "none"){
+    //     if ($(window).scrollTop() >= $("#card9").offset().top ) {
+    //         // $('.sticky9').addClass('fixed-header');
+    //         $('.sticky9').css("top", "");
+    //
+    //     }
+    //     else {
+    //         // $('.sticky9').removeClass('fixed-header');
+    //          $('.sticky9').css("top", "86px");
+    //
+    //     }
+    // }
+    var sticky = document.getElementsByClassName('sticky10');
+    if (sticky.length > 0 && document.getElementById("card10").style.display !== "none"){
+        if ($(window).scrollTop() >= $("#card10").offset().top ) {
+             $('.sticky10').css("top", "");
+            // $('.sticky10').addClass('fixed-header');
+        }
+        else {
+            // $('.sticky10').removeClass('fixed-header');
+             $('.sticky10').css("top", "86px");
+
+        }
+    }
+    var sticky = document.getElementsByClassName('sticky11');
+    if (sticky.length > 0 && document.getElementById("card11").style.display !== "none"){
+        if ($(window).scrollTop() >= $("#card11").offset().top ) {
+             $('.sticky11').css("top", "");
+            // $('.sticky10').addClass('fixed-header');
+        }
+        else {
+            // $('.sticky10').removeClass('fixed-header');
+             $('.sticky11').css("top", "86px");
+
+        }
+    }
+});
 
 // Save if participant suspected deception and optional comments
 function saveDeceptionInput() {

@@ -580,6 +580,9 @@ def getScore(request):
             task_score = TaskScore.objects.get(session=session)
 
             answers_extra = ExtraTaskSubmission.objects.filter(session=session)
+            print(session)
+            print(answers_extra)
+            print(answers_extra.exists())
 
             if answers_extra.exists():
                 count = answers_extra.count()

@@ -29,21 +29,10 @@
                 <div>
                     Cognitive Ability Tasks
                 </div>
-{#                {% if framing == 0 %}#}
-{#                    <!--Control Group-->#}
-{#                {% endif %}#}
-{#                {% if framing == 1 %}#}
-{#                    <!--Positive Framing-->#}
-{#                    <div class="sticky9">#}
-{#                        Correct answers 1<sup>st</sup> round: 7/8#}
-{#                    </div>#}
-{#                {% endif %}#}
-{#                {% if framing == 2 %}#}
-{#                    <!--Negative Framing-->#}
-{#                    <div class="sticky9">#}
-{#                        Correct answers 1<sup>st</sup> round: 2/8#}
-{#                    </div>#}
-{#                {% endif %}#}
+{#                <div class="sticky9 fixed-header" style="top: 86px" >#}
+{#                    <p style="text-align: center;">Badges</p>#}
+{#                    <img src="{% static "img/silverBadge.png" %}" alt="" width="80">#}
+{#                </div>#}
             </div>
         </div>
         <div class="progress">
@@ -101,7 +90,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <img src="{% static "img/silverBadge.png" %}" alt="">
+                        <img src="{% static "img/silverBadge.png" %}" class="badge_icon" alt="">
                         <p>IQ Novice - Good performance</p>
                     </div>
                     <div class="modal-footer">
@@ -120,21 +109,11 @@
                 <div>
                     Cognitive Ability Tasks
                 </div>
-{#               {% if framing == 0 %}#}
-{#                   <!--Control Group-->#}
-{#               {% endif %}#}
-{#               {% if framing == 1 %}#}
-{#                   <!--Positive Framing-->#}
-{#                   <div class="sticky10">#}
-{#                       Correct answers 1<sup>st</sup> round: 7/8#}
-{#                   </div>#}
-{#               {% endif %}#}
-{#               {% if framing == 2 %}#}
-{#                   <!--Negative Framing-->#}
-{#                   <div class="sticky10">#}
-{#                       Correct answers 1<sup>st</sup> round: 2/8#}
-{#                   </div>#}
-{#               {% endif %}#}
+                <div class="sticky10 fixed-header" style="top: 86px">
+                    <p style="text-align: center;">Badges</p>
+                    <img src="{% static "img/silverBadge.png" %}" alt=""  width="80">
+{#                    <img src="{% static "img/goldBadge.png" %}" alt="" width="80">#}
+                </div>
             </div>
         </div>
         <div class="progress">
@@ -192,7 +171,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <img src="{% static "img/goldBadge.png" %}" alt="">
+                        <img src="{% static "img/goldBadge.png" %}" class="badge_icon" alt="">
                         <p>IQ Master - Improved performance</p>
                     </div>
                     <div class="modal-footer">

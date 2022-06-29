@@ -18,7 +18,6 @@ function check_complete(name){
     let missing_answr = "false";
 
     if (name === 'm1'){
-        console.log("here m1");
         {% for task in m1 %}
             document.getElementById('error'+name+'{{ task.pk}}').innerHTML = "";
             var exists_answer = get_checked(name+"{{ task.pk }}");
@@ -31,7 +30,6 @@ function check_complete(name){
         {% endfor %}
     }
     if (name === 'm2'){
-        console.log("here m2");
         {% for task in m2 %}
             document.getElementById('error'+name+'{{ task.pk}}').innerHTML = "";
             var exists_answer = get_checked(name+"{{ task.pk }}");
@@ -237,7 +235,6 @@ function saveQuestionnaire(type, name){
 {# Save Data from extra tasks #}
 function saveExtraTask(){
     let taskID =  parseInt(localStorage.getItem("extraTaskCounter"), 10);
-    console.log(taskID);
     {#Display error message if extra task not solved#}
     let missing_answr = "false";
     let extraTask = {};

@@ -28,8 +28,8 @@
     <div class="card">
          {% include 'cards/voluntary.html' %}
         <div class="modal-footer" id="btn-next" style="justify-content: space-between !important;">
-            <a class="btn btn-no" onclick="displayLastCard();"> No</a>
-            <a class="btn btn-yes" onclick="displayCards(); "> Yes</a>
+            <a class="btn btn-no" onclick="displayLastCard(); displayScore()"> No</a>
+            <a class="btn btn-yes" onclick="displayCards(); displayScore()"> Yes</a>
         </div>
     </div>
 </div>
@@ -37,8 +37,8 @@
     <div class="card">
          {% include 'cards/volunt_task.html' %}
         <div class="modal-footer" id="btn-next" style="justify-content: space-between !important;">
-            <a class="btn btn-no" style="float: left;" onclick="displayCards(); "> Finish Study</a>
-             <a class="btn btn-yes" onclick="saveExtraTask();"> Next Task</a>
+            <a class="btn btn-no" style="float: left;" onclick="displayCards(); displayScore()"> Finish Study</a>
+             <a class="btn btn-yes" onclick="saveExtraTask(); displayScore()"> Next Task</a>
         </div>
     </div>
 </div>
