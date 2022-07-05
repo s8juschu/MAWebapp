@@ -16,6 +16,28 @@
                 The questions on the next pages are again different kinds of cognitive ability tasks.
                 Please answer the questions as well as you can without using external instruments or taking notes.
             </p>
+            <p class="card-text" style="color: #004B8B;">
+                In this round you can earn additional badges. The better you perform, the more badges you can unlock.
+                You can unlock <b>one</b> of the following badges on each page:
+            </p>
+            <div class="card-text">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4 col-md-2">
+                            <img src="{% static "img/goldBadge.png" %}" class="badge_preview" alt="">
+                            <p class="badge_text">Extraordinary Performance</p>
+                        </div>
+                        <div class="col-4 col-md-2">
+                            <img src="{% static "img/silverBadge.png" %}" class="badge_preview" alt="">
+                            <p class="badge_text">Good Performance</p>
+                        </div>
+                        <div class="col-4 col-md-2">
+                            <img src="{% static "img/firstBadge.png" %}" class="badge_preview" alt="">
+                            <p class="badge_text">Satisfactory Performance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); "> Continue</a>
@@ -29,10 +51,6 @@
                 <div>
                     Cognitive Ability Tasks
                 </div>
-{#                <div class="sticky9 fixed-header" style="top: 86px" >#}
-{#                    <p style="text-align: center;">Badges</p>#}
-{#                    <img src="{% static "img/silverBadge.png" %}" alt="" width="80">#}
-{#                </div>#}
             </div>
         </div>
         <div class="progress">
@@ -91,7 +109,8 @@
                     </div>
                     <div class="modal-body">
                         <img src="{% static "img/silverBadge.png" %}" class="badge_icon" alt="">
-                        <p>IQ Novice - Good performance</p>
+                        <p class="badge_text">Good Performance</p>
+                        <p class="badge_text">Congratulations, you unlocked the badge for <b>Good Performance</b>. Keep up the good work to unlock more badges.</p>
                     </div>
                     <div class="modal-footer">
                          <a class="btn btn-next" {#onclick="saveTask('m1')"#} data-dismiss="modal">Collect!</a>
@@ -109,11 +128,15 @@
                 <div>
                     Cognitive Ability Tasks
                 </div>
-                <div class="sticky10 fixed-header" style="top: 86px">
+                <div id="sticky_badge" class="sticky10 fixed-header">
                     <p style="text-align: center;">Badges</p>
                     <img src="{% static "img/silverBadge.png" %}" alt=""  width="80">
-{#                    <img src="{% static "img/goldBadge.png" %}" alt="" width="80">#}
                 </div>
+{#                 <div class="sticky">#}
+{#                    <div class="overlay">#}
+{#                      I'm like fixed inside scrolling container!#}
+{#                    </div>#}
+{#                 </div>#}
             </div>
         </div>
         <div class="progress">
@@ -172,7 +195,8 @@
                     </div>
                     <div class="modal-body">
                         <img src="{% static "img/goldBadge.png" %}" class="badge_icon" alt="">
-                        <p>IQ Master - Improved performance</p>
+                        <p class="badge_text">Extraordinary Performance</p>
+                        <p class="badge_text">Congratulations, you unlocked the badge for <b>Extraordinary Performance</b></p>
                     </div>
                     <div class="modal-footer">
                          <a class="btn btn-next" {# onclick="saveTask('m2')"#} data-dismiss="modal">Collect!</a>
@@ -181,4 +205,5 @@
             </div>
         </div>
     </div>
+<div id="info">Scroll for info</div>
 </div>

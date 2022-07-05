@@ -317,4 +317,62 @@ h1.likert-header {
 .badge_icon{
     max-width: 100%;
     max-height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.badge_preview{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.badge_text{
+    text-align: center;
+}
+
+@media only screen and (max-width: 850px) {
+    #sticky_badge {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 850px) {
+    #sticky_badge {
+       top: 84px;
+    }
+}
+
+/*.sticky {*/
+/*  position: sticky;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  height: calc(100% - 1px);*/
+/*  width: calc(100% - 1px);*/
+/*  float: left;*/
+/*  pointer-events: none;*/
+/*}*/
+
+/*.overlay {*/
+/*  position: absolute;*/
+/*  left: 50%;*/
+/*  top: 50%;*/
+/*  transform: translate3d(-50%, -50%, 0);*/
+/*  white-space: nowrap;*/
+/*  padding: 12px;*/
+/*  border-radius: 8px;*/
+/*  border: none;*/
+/*  background: pink;*/
+/*  outline: none;*/
+/*  transition: background .3s;*/
+/*}*/
+
+#info {
+    /*height: 40px;*/
+    position: fixed;
+    bottom:0%;
+    width:100%;
+    background-color: #393838;
+    /*opacity: 1;*/
+}
+
