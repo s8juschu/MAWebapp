@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-header text-white">
            Questionnaire 2
-            <div class="sticky11 fixed-header" style="top: 86px">
+            <div id="sticky_badge" class="sticky11 fixed-header" style="top: 86px">
                 <p style="text-align: center;">Badges</p>
                 <img src="{% static "img/silverBadge.png" %}" alt="" width="80">
                 <br>
@@ -24,6 +24,12 @@
         </div>
         <div class="modal-footer" id="btn-next">
             <a class="btn btn-next" onclick="displayCards(); "> Continue</a>
+        </div>
+        <div id="fixed_footer_badge" class="text-white">
+            <div style="margin-left: 2%">Badges:
+                <img src="{% static "img/silverBadge.png" %}" alt="" width="40px" >
+                 <img src="{% static "img/goldBadge.png" %}" alt="" width="40px">
+            </div>
         </div>
     </div>
 </div>
