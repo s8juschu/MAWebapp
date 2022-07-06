@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="db_backup_file_6-7-22" uuid="37a4a5b9-c6ef-4a6b-ab5f-4bce803be9b6">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:/private/var/folders/bq/v58bs53j41n_162bjg846cpc0000gn/T/ch.sudo.cyberduck/53a4e6fb-3ce5-4171-92a2-c215e792f059/home/webstudy/MAWebapp/SinglePage/db_backup_file_6-7-22.sq3</jdbc-url>
+    </data-source>
+  </component>
+</project>

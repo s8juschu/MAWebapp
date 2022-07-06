@@ -1742,5 +1742,581 @@
       "text": "afraid",
       "questionnaire": 2
     }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 1,
+    "fields": {
+      "text": "Sycamore",
+      "task": 1,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 2,
+    "fields": {
+      "text": "Buckeye",
+      "task": 1,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 3,
+    "fields": {
+      "text": "Elm",
+      "task": 1,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 4,
+    "fields": {
+      "text": "Daffodil",
+      "task": 1,
+      "correct_answer": true
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 5,
+    "fields": {
+      "text": "Hickory",
+      "task": 1,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 6,
+    "fields": {
+      "text": "Sequoia",
+      "task": 1,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 7,
+    "fields": {
+      "text": "They all match",
+      "task": 1,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 8,
+    "fields": {
+      "text": "I don't know",
+      "task": 1,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 9,
+    "fields": {
+      "text": "Flexible",
+      "task": 2,
+      "correct_answer": true
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 10,
+    "fields": {
+      "text": "Passionate",
+      "task": 2,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 11,
+    "fields": {
+      "text": "Mediocre",
+      "task": 2,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 12,
+    "fields": {
+      "text": "Reserved",
+      "task": 2,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 13,
+    "fields": {
+      "text": "Pigheaded",
+      "task": 2,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 14,
+    "fields": {
+      "text": "Persistent",
+      "task": 2,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 15,
+    "fields": {
+      "text": "None of these",
+      "task": 2,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 16,
+    "fields": {
+      "text": "I don't know",
+      "task": 2,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 17,
+    "fields": {
+      "text": "154",
+      "task": 3,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 18,
+    "fields": {
+      "text": "156",
+      "task": 3,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 19,
+    "fields": {
+      "text": "162",
+      "task": 3,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 20,
+    "fields": {
+      "text": "169",
+      "task": 3,
+      "correct_answer": true
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 21,
+    "fields": {
+      "text": "178",
+      "task": 3,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 22,
+    "fields": {
+      "text": "196",
+      "task": 3,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 23,
+    "fields": {
+      "text": "None of these",
+      "task": 3,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 24,
+    "fields": {
+      "text": "I don't know",
+      "task": 3,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 25,
+    "fields": {
+      "text": "37",
+      "task": 4,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 26,
+    "fields": {
+      "text": "39",
+      "task": 4,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 27,
+    "fields": {
+      "text": "46",
+      "task": 4,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 28,
+    "fields": {
+      "text": "47",
+      "task": 4,
+      "correct_answer": true
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 29,
+    "fields": {
+      "text": "49",
+      "task": 4,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 30,
+    "fields": {
+      "text": "55",
+      "task": 4,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 31,
+    "fields": {
+      "text": "None of these",
+      "task": 4,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 32,
+    "fields": {
+      "text": "I don't know",
+      "task": 4,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 33,
+    "fields": {
+      "text": "A",
+      "task": 5,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 34,
+    "fields": {
+      "text": "B",
+      "task": 5,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 35,
+    "fields": {
+      "text": "C",
+      "task": 5,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 36,
+    "fields": {
+      "text": "D",
+      "task": 5,
+      "correct_answer": true
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 37,
+    "fields": {
+      "text": "E",
+      "task": 5,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 38,
+    "fields": {
+      "text": "F",
+      "task": 5,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 39,
+    "fields": {
+      "text": "None of these",
+      "task": 5,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 40,
+    "fields": {
+      "text": "I don't know",
+      "task": 5,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 41,
+    "fields": {
+      "text": "A",
+      "task": 6,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 42,
+    "fields": {
+      "text": "B",
+      "task": 6,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 43,
+    "fields": {
+      "text": "C",
+      "task": 6,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 44,
+    "fields": {
+      "text": "D",
+      "task": 6,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 45,
+    "fields": {
+      "text": "E",
+      "task": 6,
+      "correct_answer": true
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 46,
+    "fields": {
+      "text": "F",
+      "task": 6,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 47,
+    "fields": {
+      "text": "None of these",
+      "task": 6,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 48,
+    "fields": {
+      "text": "I don't know",
+      "task": 6,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 49,
+    "fields": {
+      "text": "A",
+      "task": 7,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 50,
+    "fields": {
+      "text": "B",
+      "task": 7,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 51,
+    "fields": {
+      "text": "C",
+      "task": 7,
+      "correct_answer": true
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 52,
+    "fields": {
+      "text": "D",
+      "task": 7,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 53,
+    "fields": {
+      "text": "E",
+      "task": 7,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 54,
+    "fields": {
+      "text": "F",
+      "task": 7,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 55,
+    "fields": {
+      "text": "G",
+      "task": 7,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 56,
+    "fields": {
+      "text": "H",
+      "task": 7,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 57,
+    "fields": {
+      "text": "A",
+      "task": 8,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 58,
+    "fields": {
+      "text": "B",
+      "task": 8,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 59,
+    "fields": {
+      "text": "C",
+      "task": 8,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 60,
+    "fields": {
+      "text": "D",
+      "task": 8,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 61,
+    "fields": {
+      "text": "E",
+      "task": 8,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 62,
+    "fields": {
+      "text": "F",
+      "task": 8,
+      "correct_answer": false
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 63,
+    "fields": {
+      "text": "G",
+      "task": 8,
+      "correct_answer": true
+    }
+  },
+  {
+    "model": "website.extraanswerchoice",
+    "pk": 64,
+    "fields": {
+      "text": "H",
+      "task": 8,
+      "correct_answer": false
+    }
   }
 ]
