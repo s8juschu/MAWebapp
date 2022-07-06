@@ -230,8 +230,9 @@ function setData(v) {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () { // listen for state changes
         if (v === "finish" && (this.readyState == 4 && this.status == 200)) {
-            setTimeout(function(){ window.location.href = 'https://app.prolific.co/submissions/complete?cc=4FED7A67'; }, 8000);
-            window.location.href = 'https://app.prolific.co/submissions/complete?cc=4FED7A67';
+            // setTimeout(function(){ window.location.href = 'https://app.prolific.co/submissions/complete?cc=4FED7A67'; }, 8000);
+            // window.location.href = 'https://app.prolific.co/submissions/complete?cc=4FED7A67';
+            location.reload();
             // setData('finish');
         }
     };

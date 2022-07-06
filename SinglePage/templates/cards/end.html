@@ -24,23 +24,23 @@
         that the purpose of
         this study was to investigate whether your cognitive abilities matched your experience while completing the
         tasks.
-        However, this was only partially true. We also wanted to investigate whether framing had an impact on perceived
-        competence.
+        However, this was only partially true. We also wanted to investigate whether framing and the presence of badges
+        had an impact on perceived competence.
         The framing effect describes that our decisions are influenced by the way information is presented.
-        Therefore, each participant was randomly assigned to one of three groups: Either they were told
-        after the first 8 tasks and the first questionnaire that their performance has exceeded our expectations or was
-        not what we expected, or they were given a neutral sentence asking them to continue the study.
+        Therefore, each participant was randomly assigned to one of two groups: Either they were told
+        after the first 8 tasks that their performance was not what we expected, or they were given a neutral sentence
+        asking them to continue the study.
     <p>
     <p class="card-text">
         {% if framing == 0 %}
             You were in the control condition. This means that you were presented with the neutral statement:
             "Thank you for your answers so far. Please proceed with the survey.".
         {% endif %}
-        {% if framing == 1 %}
-            You were in the positive framing condition. This means that you were presented with the positive statement:
-            "Very good, that’s an excellent beginning. In this round, your performance has exceeded our expectations.
-            You’ll surely do well in the next round!"
-        {% endif %}
+{#        {% if framing == 1 %}#}
+{#            You were in the positive framing condition. This means that you were presented with the positive statement:#}
+{#            "Very good, that’s an excellent beginning. In this round, your performance has exceeded our expectations.#}
+{#            You’ll surely do well in the next round!"#}
+{#        {% endif %}#}
         {% if framing == 2 %}
             You were in the negative framing condition. This means that you were presented with the negative statement:
             "Well, that’s a start. In this round, your performance was not what we expected.
@@ -48,7 +48,7 @@
         {% endif %}
     </p>
     <p class="card-text">
-        In reality, the framing condition you were presented with did not reflect your performance and was purely
+        In reality, the framing condition and badges you were presented with did not reflect your performance and were purely
         random. In fact, you answered <b><span id="actual_score_pre"></span> out of 8 tasks </b> correctly in the first round. In
         the second round,  you answered <b><span id="actual_score_main"></span> out of 8 tasks </b> correctly.
         <span id="actual_score_extra"></span> <span id="actual_score_count"></span>
@@ -127,7 +127,7 @@
                 <div class="modal-body">
                     You have <b>not accepted</b> the consent form for debriefing.
                     If you continue, your responses and <b>participation in the study will be revoked</b>. If you would like to
-                    go back to the prolific page and revoke your participation, please press the "Delete Answers" button.
+                    go back to finish the survey and revoke your participation, please press the "Delete Answers" button.
                     Otherwise press the "Back" button.
                 </div>
                 <div class="modal-footer">

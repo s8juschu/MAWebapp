@@ -123,7 +123,7 @@ def dict_key(d, k):
 # 1: pos framing
 # 2: neg framing
 def get_condition():
-    rnd = random.randint(0, 2)
+    rnd = random.choice([0, 2])
     return rnd
 
 
