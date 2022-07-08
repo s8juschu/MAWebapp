@@ -3,6 +3,9 @@
  // executes when HTML-Document is loaded and DOM is ready
 */
 $(document).ready(function() {
+    // initialize Tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
     // display actual score on last page
     displayScore();
 
