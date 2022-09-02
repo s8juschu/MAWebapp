@@ -682,7 +682,7 @@ def exportCSV(request):
         with open('exports/submission_score.csv', 'w', encoding='UTF8') as f:
             writer = csv.writer(f)
             header = ['pk', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
-                      'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main']
+                      'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main', 'taskscore__score_extra']
 
             # write the header
             writer.writerow(header)
@@ -690,7 +690,7 @@ def exportCSV(request):
             # write the data
             submissions = Submission.objects.filter(terms_agree=True, finished=True, request_delete=False).values_list(
                 'pk', 'session', 'framing', 'age', 'gender', 'list_p1', 'list_p2', 'list_m1', 'list_m2',
-                'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main')
+                'suspect_deception', 'text_deception', 'taskscore__score_pre', 'taskscore__score_main', 'taskscore__score_extra')
 
             for submission in submissions:
                 writer.writerow(submission)

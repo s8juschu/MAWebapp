@@ -7,6 +7,8 @@ questionnaires = pd.read_csv('exports/questionnaires.csv')
 times = pd.read_csv('exports/time.csv')
 
 # ---------------- SUBMISSIONS
+df_submissions = submissions[["session", "framing", "taskscore__score_pre", "taskscore__score_main", "taskscore__score_extra"]]
+
 # get list of all submission_ids
 session_col = submissions['session'].tolist()
 ctrl_cond = submissions.loc[submissions['framing'] == 0, ['session']]['session'].tolist()
@@ -28,7 +30,7 @@ text_deception = submissions['text_deception'].tolist()
 print(text_deception)
 
 score = submissions.set_index("session", inplace=True)
-score = submissions.loc[:, ('taskscore__score_pre', 'taskscore__score_main')]
+score = submissions.loc[:, ('taskscore__score_pre', 'taskscore__score_main', 'taskscore__score_extra')]
 score['Total'] = score.sum(axis=1)
 score.loc['mean', :] = score.mean()
 
@@ -52,17 +54,21 @@ times['page_nr_idx'] = 'page_nr' + times.page_nr.astype(str)
 times = times.pivot(index='session', columns='page_nr_idx', values='start_time')
 times = times.reindex(sorted(times.columns, key=lambda x: int(x[7:])), axis=1)
 
-for i in range(1, 14):
+for i in range(1, 16):
     # times.loc[(times['page_nr_idx'] == i), 'page_nr_idx'] = (8 - times['answer'])
     times['page_nr'+str(i)] = (times['page_nr'+str(i+1)] - times['page_nr'+str(i)])/60
 
-times['total'] = times['page_nr1']+times['page_nr2']+times['page_nr3']+times['page_nr4']+times['page_nr5']+times['page_nr6']+times['page_nr7']+\
-                 times['page_nr8']+times['page_nr9']+times['page_nr10']+times['page_nr11']+times['page_nr12']+times['page_nr13']
-# times['total'] = (times['page_nr'+str(14)] - times['page_nr1'])/60
+# times['total'] = times['page_nr1']+times['page_nr2']+times['page_nr3']+times['page_nr4']+times['page_nr5']+times['page_nr6']+times['page_nr7']+\
+#                  times['page_nr8']+times['page_nr9']+times['page_nr10']+times['page_nr11']+times['page_nr12']+times['page_nr13']+times['page_nr14']+times['page_nr15']
+# times['total'] = (times['page_nr'+str(16)] - times['page_nr1'])/60
 
-del times['page_nr14']
+del times['page_nr16']
+
+df_all = pd.merge(df_submissions, times, on="session")
+print(df_all)
 
 times.loc['mean', :] = times.mean()
+
 
 times.reset_index().to_csv('exports/export_time.csv', index=False, header=True)
 
@@ -94,6 +100,9 @@ pre_tension = pre.loc[(pre['item'].isin(tension_nr))].groupby('session').agg({'a
     columns={'answer': 'Average_tension'})
 
 result_imi_pre = pd.concat([pre_interest, pre_competence, pre_choice, pre_tension], axis=1)
+
+df_all = pd.merge(df_all, result_imi_pre, on="session")
+
 result_imi_pre.loc['mean', :] = result_imi_pre.mean()
 
 result_imi_pre.reset_index().to_csv('exports/export_imi_pre.csv', index=False, header=True)
@@ -111,6 +120,9 @@ main_tension = main.loc[(main['item'].isin(tension_nr))].groupby('session').agg(
     columns={'answer': 'Average_tension'})
 
 result_imi_main = pd.concat([main_interest, main_competence, main_choice, main_tension], axis=1)
+
+df_all = pd.merge(df_all, result_imi_main, on="session")
+
 result_imi_main.loc['mean', :] = result_imi_main.mean()
 
 result_imi_main.reset_index().to_csv('exports/export_imi_main.csv', index=False, header=True)
@@ -129,6 +141,9 @@ pre_panas_neg = pre_panas.loc[(pre_panas['item'].isin(neg_items))].groupby('sess
     columns={'answer': 'Average_negative'})
 
 result_panas_pre = pd.concat([pre_panas_pos, pre_panas_neg], axis=1)
+
+df_all = pd.merge(df_all, result_panas_pre, on="session")
+
 result_panas_pre.loc['mean', :] = result_panas_pre.mean()
 
 result_panas_pre.reset_index().to_csv('exports/export_panas_pre.csv', index=False, header=True)
@@ -142,6 +157,11 @@ main_panas_neg = main_panas.loc[(main_panas['item'].isin(neg_items))].groupby('s
     columns={'answer': 'Average_negative'})
 
 result_panas_main = pd.concat([main_panas_pos, main_panas_neg], axis=1)
+
+df_all = pd.merge(df_all, result_panas_main, on="session")
+df_all.reset_index().to_csv('exports/export_all.csv', index=False, header=True)
+print(df_all)
+
 result_panas_main.loc['mean', :] = result_panas_main.mean()
 
 result_panas_main.reset_index().to_csv('exports/export_panas_main.csv', index=False, header=True)
